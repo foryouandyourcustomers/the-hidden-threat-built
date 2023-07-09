@@ -1,0 +1,12 @@
+{
+  "name": "the-hidden-threat",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node prod-server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "module"
+}
