@@ -220,10 +220,10 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1vd9yxe"
+  version_hash: "1pk34dw"
 };
 function get_hooks() {
-  return import('./chunks/hooks.server-bda86d01.js');
+  return import('./chunks/hooks.server-b77abb3d.js');
 }
 
 function negotiate(accept, types) {
@@ -3024,6 +3024,59 @@ function normalize_fetch_input(info, init2, url) {
   }
   return new Request(typeof info === "string" ? new URL(info, url) : info, init2);
 }
+function validator(expected) {
+  const set = new Set(expected);
+  function validate(module, file) {
+    if (!module)
+      return;
+    for (const key2 in module) {
+      if (key2[0] === "_" || set.has(key2))
+        continue;
+      const hint = hint_for_supported_files(key2, file?.slice(file.lastIndexOf("."))) ?? `valid exports are ${expected.join(", ")}, or anything with a '_' prefix`;
+      throw new Error(`Invalid export '${key2}'${file ? ` in ${file}` : ""} (${hint})`);
+    }
+  }
+  return validate;
+}
+function hint_for_supported_files(key2, ext = ".js") {
+  let supported_files = [];
+  if (valid_common_exports.includes(key2)) {
+    supported_files.push(`+page${ext}`);
+  }
+  if (valid_page_server_exports.includes(key2)) {
+    supported_files.push(`+page.server${ext}`);
+  }
+  if (valid_server_exports.includes(key2)) {
+    supported_files.push(`+server${ext}`);
+  }
+  if (supported_files.length > 0) {
+    return `'${key2}' is a valid export in ${supported_files.join(` or `)}`;
+  }
+}
+const valid_common_exports = ["load", "prerender", "csr", "ssr", "trailingSlash", "config"];
+const valid_page_server_exports = [
+  "load",
+  "prerender",
+  "csr",
+  "ssr",
+  "actions",
+  "trailingSlash",
+  "config"
+];
+const valid_server_exports = [
+  "GET",
+  "POST",
+  "PATCH",
+  "PUT",
+  "DELETE",
+  "OPTIONS",
+  "prerender",
+  "trailingSlash",
+  "config"
+];
+validator(valid_common_exports);
+validator(valid_page_server_exports);
+validator(valid_server_exports);
 const default_transform = ({ html }) => html;
 const default_filter = () => false;
 const default_preload = ({ type }) => type === "js" || type === "css";

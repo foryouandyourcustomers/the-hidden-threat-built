@@ -4418,6 +4418,10 @@ const upgradeHttpConnection = (req, sock, head) => {
     }
 };
 
+// This file will be bundled with rollup, and be put in the build/ directory.
+// Then inside this directory, the app can be run with `npm run start`
+
+
 const __filename = require$$7.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
