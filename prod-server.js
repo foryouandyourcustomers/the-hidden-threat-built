@@ -3767,6 +3767,8 @@ function socketOnError$1() {
   }
 }
 
+var WebSocket$2 = /*@__PURE__*/getDefaultExportFromCjs(websocket);
+
 const { tokenChars } = validationExports;
 
 /**
@@ -4363,11 +4365,23 @@ var WebSocketServer$1 = /*@__PURE__*/getDefaultExportFromCjs(websocketServer);
 
 const GLOBAL_WEB_SOCKET_SERVER_KEY = Symbol.for('sveltekit.web-socket-server');
 /**
+ * A modified version of the WebSocket that contains additional information about
+ * the game and user.
+ *
+ * The `WebSocketServer` uses this class when instantiating a new web socket
+ * connection.
+ */
+class ExtendedWebSocket extends WebSocket$2 {
+    socketId = '';
+    gameId = '';
+    userId = '';
+}
+/**
  * This gets called exactly once when the server starts (production and dev) and
  * stores the web socket server in the global object.
  */
 const createGlobalWebSocketServer = () => {
-    const webSocketServer = new WebSocketServer$1({ noServer: true });
+    const webSocketServer = new WebSocketServer$1({ noServer: true, WebSocket: ExtendedWebSocket });
     globalThis[GLOBAL_WEB_SOCKET_SERVER_KEY] = webSocketServer;
     return webSocketServer;
 };
