@@ -4011,9 +4011,10 @@ const machine = createMachine({
     gameId: input.gameId,
     userId: input.userId,
     hostUserId: input.hostUserId,
-    users: [],
-    characters: [],
-    actions: []
+    users: input.users,
+    actions: input.actions,
+    defense: input.defense,
+    attack: input.attack
   }),
   types: {
     // typegen: {} as import('./machine.typegen').Typegen0,
@@ -4358,9 +4359,10 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $socketConnection, $$unsubscribe_socketConnection;
   let $state, $$unsubscribe_state;
   let { data } = $$props;
-  const gameId = data.gameId;
-  const userId = data.userId;
-  const hostUserId = data.hostUserId;
+  const machineInput = data.machineInput;
+  const gameId = machineInput.gameId;
+  const userId = machineInput.userId;
+  const hostUserId = machineInput.hostUserId;
   const mousePositions = {};
   const socketConnection = createWebSocketConnection({
     gameId,
@@ -4382,7 +4384,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         showEmoji: ({ userId: userId2, emoji }) => emojisComponent?.showEmoji({ userId: userId2, emoji })
       }
     }),
-    { input: { gameId, userId, hostUserId } }
+    // TODO: replace input data with actual
+    { input: machineInput }
   );
   setGameContext({ gameId, userId, hostUserId, machine: machine2 });
   const state = machine2.state;
@@ -4429,4 +4432,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-c8ffdf03.js.map
+//# sourceMappingURL=_page.svelte-db8bb892.js.map

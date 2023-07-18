@@ -16,8 +16,15 @@ const load = async ({ params, parent, locals }) => {
     throw redirect(303, `/game/${params.gameId}/join`);
   }
   return {
-    gameId: game.id,
-    hostUserId: snapshot.context.hostUserId
+    machineInput: {
+      gameId: game.id,
+      userId,
+      hostUserId: snapshot.context.hostUserId,
+      actions: snapshot.context.actions,
+      attack: snapshot.context.attack,
+      defense: snapshot.context.defense,
+      users: snapshot.context.users
+    }
   };
 };
 
@@ -28,12 +35,12 @@ var _page_server_ts = /*#__PURE__*/Object.freeze({
 
 const index = 11;
 let component_cache;
-const component = async () => component_cache ??= (await import('./_page.svelte-c8ffdf03.js')).default;
+const component = async () => component_cache ??= (await import('./_page.svelte-db8bb892.js')).default;
 const universal_id = "src/routes/game/[gameId=uid]/+page.ts";
 const server_id = "src/routes/game/[gameId=uid]/+page.server.ts";
-const imports = ["_app/immutable/nodes/11.2697ac5e.js","_app/immutable/chunks/scheduler.03dcb200.js","_app/immutable/chunks/index.1583bf7b.js","_app/immutable/chunks/index.c110b09d.js"];
+const imports = ["_app/immutable/nodes/11.e365f4dc.js","_app/immutable/chunks/scheduler.03dcb200.js","_app/immutable/chunks/index.1583bf7b.js","_app/immutable/chunks/index.c110b09d.js"];
 const stylesheets = ["_app/immutable/assets/11.b814d52c.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets, _page_ts as universal, universal_id };
-//# sourceMappingURL=11-c6af396b.js.map
+//# sourceMappingURL=11-c44f9429.js.map
