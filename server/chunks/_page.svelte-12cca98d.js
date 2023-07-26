@@ -4270,7 +4270,7 @@ const CursorOverlays = create_ssr_component(($$result, $$props, $$bindings, slot
   })} </div>`;
 });
 const css$4 = {
-  code: ".emojis.svelte-ar5859.svelte-ar5859{grid-gap:var(--size-1);display:grid;gap:var(--size-1);grid-template-columns:repeat(auto-fit,minmax(2rem,1fr));padding:var(--size-2) var(--size-3)}.emoji.svelte-ar5859.svelte-ar5859{align-content:center;aspect-ratio:1;background:#fafafa;border:none;border-radius:var(--radius-sm);display:grid;font-size:var(--scale-2);justify-content:center;padding:0;place-content:center}.emoji.svelte-ar5859.svelte-ar5859:hover{background:#f0f0f0}.displayed-emoji.svelte-ar5859.svelte-ar5859{--_width:15vw;--_height:15vw;align-items:center;background:#fafafa;border:var(--size-px) solid #ccc;border-radius:var(--radius-full);box-shadow:0 0 30px #dd7;display:flex;flex-direction:column;font-size:8vw;height:15vw;height:var(--_height);justify-content:center;left:calc(var(--_x)*(100% - 15vw));left:calc(var(--_x)*(100% - var(--_width)));line-height:1.1;position:fixed;top:calc(var(--_y)*(100% - 15vw));top:calc(var(--_y)*(100% - var(--_height)));width:15vw;width:var(--_width)}.displayed-emoji.svelte-ar5859 .name.svelte-ar5859{background:#fff;bottom:-1em;font-size:.3em;position:absolute}",
+  code: ".emojis.svelte-csuuvb.svelte-csuuvb{grid-gap:var(--size-1);display:grid;gap:var(--size-1);grid-template-columns:repeat(auto-fit,minmax(2rem,1fr));padding:var(--size-2) var(--size-3)}.emoji.svelte-csuuvb.svelte-csuuvb{align-content:center;aspect-ratio:1;background:#fafafa;border:none;border-radius:var(--radius-sm);display:grid;font-size:var(--scale-2);justify-content:center;padding:0;place-content:center}.emoji.svelte-csuuvb.svelte-csuuvb:hover{background:#f0f0f0}.displayed-emoji.svelte-csuuvb.svelte-csuuvb{--_width:4rem;--_height:4rem;align-items:center;background:#fafafa;border:var(--size-px) solid #ccc;border-radius:var(--radius-full);box-shadow:0 0 30px #dd7;display:flex;flex-direction:column;font-size:3rem;height:4rem;height:var(--_height);justify-content:center;left:calc(var(--_x)*(100% - 4rem));left:calc(var(--_x)*(100% - var(--_width)));line-height:1.1;position:fixed;top:calc(var(--_y)*(100% - 4rem));top:calc(var(--_y)*(100% - var(--_height)));width:4rem;width:var(--_width)}.displayed-emoji.svelte-csuuvb .name.svelte-csuuvb{background:#000;bottom:-1em;font-size:.3em;position:absolute}",
   map: null
 };
 const Emojis = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -4295,13 +4295,13 @@ const Emojis = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.showEmoji(showEmoji);
   $$result.css.add(css$4);
   $$unsubscribe_users();
-  return `<div class="emojis svelte-ar5859">${each(Object.entries(emojis), ([i2, emoji]) => {
-    return `<div class="displayed-emoji svelte-ar5859"${add_styles({
+  return `<div class="emojis svelte-csuuvb">${each(Object.entries(emojis), ([i2, emoji]) => {
+    return `<div class="displayed-emoji svelte-csuuvb"${add_styles({
       "--_x": emoji.position[0],
       "--_y": emoji.position[1]
-    })}><span class="emjoi">${escape(emoji.emoji)}</span> <span class="name svelte-ar5859">${escape(emoji.userName)}</span> </div>`;
+    })}><span class="emjoi">${escape(emoji.emoji)}</span> <span class="name svelte-csuuvb">${escape(emoji.userName)}</span> </div>`;
   })} ${each(validEmojis, (emoji) => {
-    return `<button class="emoji svelte-ar5859">${escape(emoji)}</button>`;
+    return `<button class="emoji svelte-csuuvb">${escape(emoji)}</button>`;
   })} </div>`;
 });
 const css$3 = {
@@ -4340,7 +4340,7 @@ const AssigningSides = create_ssr_component(($$result, $$props, $$bindings, slot
   })}</div> ${$canContinue ? `<button data-svelte-h="svelte-1ro0dni">Next</button>` : ``}`;
 });
 const css$2 = {
-  code: ".configurator.svelte-ibi80l.svelte-ibi80l{grid-gap:1rem;align-content:center;background:hsla(0,0%,100%,.933);bottom:0;display:grid;gap:1rem;justify-content:center;left:0;place-content:center;position:fixed;right:0;top:0;z-index:100000}.faces.svelte-ibi80l.svelte-ibi80l{display:flex;gap:1rem}.faces.svelte-ibi80l button.svelte-ibi80l{border:1px solid #000}.faces.svelte-ibi80l button.active.svelte-ibi80l{border-color:orange}",
+  code: ".configurator.svelte-u0xhbm.svelte-u0xhbm{grid-gap:1rem;align-content:center;background:rgba(0,0,0,.933);bottom:0;display:grid;gap:1rem;justify-content:center;left:0;place-content:center;position:fixed;right:0;top:0;z-index:100000}.faces.svelte-u0xhbm.svelte-u0xhbm{display:flex;gap:1rem}.faces.svelte-u0xhbm button.svelte-u0xhbm{border:1px solid #000}.faces.svelte-u0xhbm button.active.svelte-u0xhbm{border-color:orange}",
   map: null
 };
 const PlayerConfigurator = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -4376,10 +4376,10 @@ const PlayerConfigurator = create_ssr_component(($$result, $$props, $$bindings, 
   $$unsubscribe_player();
   $$unsubscribe_canUpdate();
   $$unsubscribe_usersOnThisSide();
-  return `<div class="configurator svelte-ibi80l"><select ${!$canUpdate ? "disabled" : ""}${add_attribute("value", userId, 0)}><option value="" data-svelte-h="svelte-108q7wa">--PLEASE SELECT--</option>${each($usersOnThisSide, (user) => {
+  return `<div class="configurator svelte-u0xhbm"><select ${!$canUpdate ? "disabled" : ""}${add_attribute("value", userId, 0)}><option value="" data-svelte-h="svelte-108q7wa">--PLEASE SELECT--</option>${each($usersOnThisSide, (user) => {
     return `<option${add_attribute("value", user.id, 0)}>${escape(user.name)}</option>`;
-  })}</select> <div class="faces svelte-ibi80l">${each(Object.entries(FACES), ([thisFaceId, thisFace]) => {
-    return `<button ${!$canUpdate ? "disabled" : ""} class="${["face svelte-ibi80l", thisFaceId === face ? "active" : ""].join(" ").trim()}">${escape(thisFace)}</button>`;
+  })}</select> <div class="faces svelte-u0xhbm">${each(Object.entries(FACES), ([thisFaceId, thisFace]) => {
+    return `<button ${!$canUpdate ? "disabled" : ""} class="${["face svelte-u0xhbm", thisFaceId === face ? "active" : ""].join(" ").trim()}">${escape(thisFace)}</button>`;
   })}</div> <button ${!$canUpdate ? "disabled" : ""}>Close</button> </div>`;
 });
 const css$1 = {
@@ -4557,4 +4557,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-1beeb926.js.map
+//# sourceMappingURL=_page.svelte-12cca98d.js.map
