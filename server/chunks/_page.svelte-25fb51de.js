@@ -4213,13 +4213,15 @@ const useSelector = (actor, selector, compare = defaultCompare) => {
   let sub;
   let prevSelected = selector(actor.getSnapshot());
   const selected = readable(prevSelected, (set) => {
-    sub = actor.subscribe((state) => {
+    const onNext = (state) => {
       const nextSelected = selector(state);
       if (!compare(prevSelected, nextSelected)) {
         prevSelected = nextSelected;
         set(nextSelected);
       }
-    });
+    };
+    onNext(actor.getSnapshot());
+    sub = actor.subscribe(onNext);
     return () => {
       sub.unsubscribe();
     };
@@ -4673,4 +4675,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-ee63c157.js.map
+//# sourceMappingURL=_page.svelte-25fb51de.js.map
