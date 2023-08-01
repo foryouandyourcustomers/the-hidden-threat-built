@@ -4247,18 +4247,23 @@ const css$a = {
 const CursorOverlays = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let userMousePositions;
   let $users, $$unsubscribe_users;
+  let $user, $$unsubscribe_user;
   let { mousePositions = {} } = $$props;
-  const context = getGameContext();
+  const { user, machine: machine2 } = getGameContext();
+  $$unsubscribe_user = subscribe(user, (value) => $user = value);
   let gameWidth = 1;
   let gameHeight = 1;
-  const users = useSelector(context.machine.service, (state) => state.context.users);
+  const users = useSelector(machine2.service, (state) => {
+    const showAllUsers = state.matches("Lobby.Assigning sides") || state.matches("Finished");
+    return showAllUsers ? state.context.users : state.context.users.filter((otherUser) => otherUser.side === $user.side);
+  });
   $$unsubscribe_users = subscribe(users, (value) => $users = value);
   const getMousePositions = (users2, mousePositions2) => {
-    return users2.filter((user) => user.isConnected && !!mousePositions2[user.id]).map((user) => {
-      const percentages = mousePositions2[user.id];
+    return users2.filter((user2) => user2.isConnected && !!mousePositions2[user2.id]).map((user2) => {
+      const percentages = mousePositions2[user2.id];
       return {
-        id: user.id,
-        name: user.name,
+        id: user2.id,
+        name: user2.name,
         position: [percentages[0] * gameWidth, percentages[1] * gameHeight]
       };
     });
@@ -4268,6 +4273,7 @@ const CursorOverlays = create_ssr_component(($$result, $$props, $$bindings, slot
   $$result.css.add(css$a);
   userMousePositions = getMousePositions($users, mousePositions);
   $$unsubscribe_users();
+  $$unsubscribe_user();
   return `<div class="cursor-overlays svelte-1n4ax7h">${each(userMousePositions, (position) => {
     return `${validate_component(Cursor, "Cursor").$$render($$result, { position }, {}, {})}`;
   })} </div>`;
@@ -4727,4 +4733,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-a03376bd.js.map
+//# sourceMappingURL=_page.svelte-20f7f37a.js.map
