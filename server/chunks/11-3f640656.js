@@ -36,12 +36,12 @@ var _page_server_ts = /*#__PURE__*/Object.freeze({
 
 const index = 11;
 let component_cache;
-const component = async () => component_cache ??= (await import('./_page.svelte-c7f603a9.js')).default;
+const component = async () => component_cache ??= (await import('./_page.svelte-4cad60cb.js')).default;
 const universal_id = "src/routes/game/[gameId=uid]/+page.ts";
 const server_id = "src/routes/game/[gameId=uid]/+page.server.ts";
-const imports = ["_app/immutable/nodes/11.ed0446df.js","_app/immutable/chunks/scheduler.3df9b730.js","_app/immutable/chunks/index.06da1297.js","_app/immutable/chunks/index.9b15924c.js","_app/immutable/chunks/Button.8c7eabff.js"];
-const stylesheets = ["_app/immutable/assets/11.bdcafc95.css","_app/immutable/assets/Button.6b8b2cfe.css"];
+const imports = ["_app/immutable/nodes/11.3fe2aff8.js","_app/immutable/chunks/scheduler.3df9b730.js","_app/immutable/chunks/index.06da1297.js","_app/immutable/chunks/index.9b15924c.js","_app/immutable/chunks/Button.8c7eabff.js"];
+const stylesheets = ["_app/immutable/assets/11.a3614f90.css","_app/immutable/assets/Button.6b8b2cfe.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets, _page_ts as universal, universal_id };
-//# sourceMappingURL=11-2c7a89cd.js.map
+//# sourceMappingURL=11-3f640656.js.map
