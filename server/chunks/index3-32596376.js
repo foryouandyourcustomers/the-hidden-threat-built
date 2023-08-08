@@ -11,7 +11,7 @@ import require$$7 from 'url';
 import { c as createMachine, a as assign, s as sharedGuards, f as fromPromise, D as DEFAULT_DEFENSE_INVENTORY, b as DEFAULT_ATTACK_INVENTORY, i as isDefenderId, d as interpret, e as isEqual } from './isEqual-4af3109a.js';
 import { s as shortUuid } from './index-8bc3041a.js';
 import { a as addGame, g as getGame } from './global-09c6ed76.js';
-import { g as getSharedGameContext } from './utils-83a2361e.js';
+import { g as getSharedGameContext } from './utils-6b09c87a.js';
 
 var bufferUtil = {exports: {}};
 
@@ -5218,7 +5218,7 @@ const machine = createMachine({
       inventory: { ...DEFAULT_ATTACK_INVENTORY }
     },
     users: [input.host],
-    actions: []
+    events: []
   }),
   types: {
     // typegen: {} as import('./machine.typegen').Typegen0,
@@ -5627,4 +5627,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-ac462ef9.js.map
+//# sourceMappingURL=index3-32596376.js.map
