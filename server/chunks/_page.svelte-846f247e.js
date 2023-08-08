@@ -3942,7 +3942,7 @@ const machine = createMachine({
                       guard: "userControlsPlayer",
                       actions: {
                         params: {},
-                        type: "forwardToServer"
+                        type: "sendGameEvent"
                       },
                       reenter: false
                     }
@@ -3960,7 +3960,7 @@ const machine = createMachine({
                       guard: "userControlsPlayer",
                       actions: {
                         params: {},
-                        type: "forwardToServer"
+                        type: "sendGameEvent"
                       },
                       reenter: false
                     }
@@ -4752,4 +4752,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-a4ca10c7.js.map
+//# sourceMappingURL=_page.svelte-846f247e.js.map

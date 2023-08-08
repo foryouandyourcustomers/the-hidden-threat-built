@@ -5247,8 +5247,8 @@ const machine = createMachine({
                   target: "#gameServer.Game.Assigning roles",
                   guard: "isAdmin",
                   actions: {
-                    params: {},
-                    type: "setAssigningSidesFinished"
+                    type: "setAssigningSidesFinished",
+                    params: {}
                   },
                   reenter: false
                 }
@@ -5259,8 +5259,8 @@ const machine = createMachine({
             "user joined": {
               target: "Assigning sides",
               actions: {
-                params: {},
-                type: "storeNewUser"
+                type: "storeNewUser",
+                params: {}
               },
               reenter: false
             },
@@ -5268,8 +5268,8 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "assignSide"
+                type: "assignSide",
+                params: {}
               },
               reenter: false
             },
@@ -5277,34 +5277,34 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "assignAdmin"
+                type: "assignAdmin",
+                params: {}
               },
               reenter: false
             }
           }
         },
         Playing: {
-          description: "The game is active and started. Now the server only waits for the game actions from the users.",
+          description: "The game is active and started. Now the server only waits for the game events from the users.",
           always: {
             target: "Finished",
             guard: "gameFinished",
             reenter: false
           },
           on: {
-            "user: perform action": {
-              guard: "isValidAction",
+            "deploy game event": {
+              guard: "isValidGameEvent",
               actions: {
-                params: {},
-                type: "addGameAction"
+                type: "addOrUpdateGameEvent",
+                params: {}
               },
               reenter: true
             },
-            "user: rollback action": {
+            "rollback game event": {
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "rollbackGameAction"
+                type: "rollbackGameEvent",
+                params: {}
               },
               reenter: true
             }
@@ -5334,8 +5334,8 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "updatePlayer"
+                type: "updatePlayer",
+                params: {}
               },
               description: "Defines which user controls a player, which role they are and how they look.\n\nThis event can update a defender and an attacker.",
               reenter: false
@@ -5344,8 +5344,8 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "setEditingPlayer"
+                type: "setEditingPlayer",
+                params: {}
               },
               reenter: false
             },
@@ -5353,16 +5353,16 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "setEditingPlayer"
+                type: "setEditingPlayer",
+                params: {}
               },
               reenter: false
             },
             "user: next step": {
               guard: "isAdmin",
               actions: {
-                params: {},
-                type: "setAssigningRolesFinished"
+                type: "setAssigningRolesFinished",
+                params: {}
               },
               reenter: true
             }
@@ -5370,8 +5370,8 @@ const machine = createMachine({
         },
         Finished: {
           entry: {
-            params: {},
-            type: "sendSummary"
+            type: "sendSummary",
+            params: {}
           }
         }
       }
@@ -5381,29 +5381,29 @@ const machine = createMachine({
       on: {
         "user: send emoji": {
           actions: {
-            params: {},
-            type: "sendEmojiToOtherUsers"
+            type: "sendEmojiToOtherUsers",
+            params: {}
           },
           reenter: true
         },
         "user disconnected": {
           actions: {
-            params: {},
-            type: "updateUserConnectionState"
+            type: "updateUserConnectionState",
+            params: {}
           },
           reenter: true
         },
         "user reconnected": {
           actions: {
-            params: {},
-            type: "updateUserConnectionState"
+            type: "updateUserConnectionState",
+            params: {}
           },
           reenter: true
         },
         "user connected": {
           actions: {
-            params: {},
-            type: "updateUserConnectionState"
+            type: "updateUserConnectionState",
+            params: {}
           },
           reenter: true
         }
@@ -5465,9 +5465,9 @@ const serverGameMachine = machine.provide({
         return {};
       }
     }),
-    addGameAction: () => {
+    addOrUpdateGameEvent: () => {
     },
-    rollbackGameAction: () => {
+    rollbackGameEvent: () => {
     },
     updatePlayer: assign(({ context, event: e }) => {
       const event = e;
@@ -5576,7 +5576,7 @@ const serverGameMachine = machine.provide({
   guards: {
     isAdmin: ({ context, event }) => context.users.find((user) => user.id === event.userId)?.isAdmin ?? false,
     // TODO
-    isValidAction: () => {
+    isValidGameEvent: () => {
       return false;
     },
     ...sharedGuards
@@ -5627,4 +5627,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-32596376.js.map
+//# sourceMappingURL=index3-e0d093d4.js.map
