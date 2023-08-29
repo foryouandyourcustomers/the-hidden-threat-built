@@ -3838,7 +3838,7 @@ class GameState {
       defenseInventoryIds.map((id) => [id, 0])
     );
     this.context.events.filter(guardForGameEventType("collect")).forEach((event) => {
-      if (isDefenseItemId(event.itemId)) {
+      if (event.itemId && isDefenseItemId(event.itemId)) {
         inventory[event.itemId] += 1;
       }
     });
@@ -3850,7 +3850,7 @@ class GameState {
       attackInventoryIds.map((id) => [id, 0])
     );
     this.context.events.filter(guardForGameEventType("collect")).forEach((event) => {
-      if (isAttackItemId(event.itemId)) {
+      if (event.itemId && isAttackItemId(event.itemId)) {
         inventory[event.itemId] += 1;
       }
     });
@@ -7052,4 +7052,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-99d3354c.js.map
+//# sourceMappingURL=_page.svelte-570d6f93.js.map
