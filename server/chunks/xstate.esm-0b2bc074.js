@@ -3146,7 +3146,10 @@ var isEqual = /*@__PURE__*/getDefaultExportFromCjs(isEqualExports);
 const isDefenderId = (id) => id !== "attacker";
 const isAttackerId = (id) => id === "attacker";
 const isPlayerIdOfSide = (playerId, side) => side === "attack" ? isAttackerId(playerId) : isDefenderId(playerId);
-const guardForGameEventType = (type) => (event) => event.type === type;
+const isGameEventOf = (event, type) => event?.type === type;
+const isActionEventOf = (event, action) => event?.type === "action" && event.action === action;
+const guardForGameEventType = (type) => (event) => isGameEventOf(event, type);
+const guardForGameEventAction = (action) => (event) => isActionEventOf(event, action);
 class GameState {
   /** Use GameState.fromContext() to create a GameState */
   constructor(context) {
@@ -3204,7 +3207,7 @@ class GameState {
     const inventory = Object.fromEntries(
       defenseInventoryIds.map((id) => [id, 0])
     );
-    this.context.events.filter(guardForGameEventType("collect")).forEach((event) => {
+    this.context.events.filter(guardForGameEventAction("collect")).forEach((event) => {
       if (event.itemId && isDefenseItemId(event.itemId)) {
         inventory[event.itemId] += 1;
       }
@@ -3216,7 +3219,7 @@ class GameState {
     const inventory = Object.fromEntries(
       attackInventoryIds.map((id) => [id, 0])
     );
-    this.context.events.filter(guardForGameEventType("collect")).forEach((event) => {
+    this.context.events.filter(guardForGameEventAction("collect")).forEach((event) => {
       if (event.itemId && isAttackItemId(event.itemId)) {
         inventory[event.itemId] += 1;
       }
@@ -3226,7 +3229,7 @@ class GameState {
   getItemsForCoordinate(coordinate) {
     const items = this.context.items.filter((item) => isEqual(item.position, coordinate));
     return items.map((item) => {
-      const collectedCount = this.context.events.filter(guardForGameEventType("collect")).filter((event) => isEqual(event.position, coordinate)).filter((event) => event.itemId === item.id).length;
+      const collectedCount = this.context.events.filter(guardForGameEventAction("collect")).filter((event) => isEqual(event.position, coordinate)).filter((event) => event.itemId === item.id).length;
       return {
         item,
         collectedCount
@@ -6294,5 +6297,5 @@ function createMachine(config, implementations) {
   return new StateMachine(config, implementations);
 }
 
-export { userControlsPlayer as A, sharedGuards as B, fromPromise as C, getPlayerSide as D, isDefenderId as E, findUserIndex as F, GameState as G, interpret as H, isEqual as I, require_baseGetTag as J, not as K, and as L, getUser as M, getPlayer as N, requireEq as a, requireKeys as b, requireIsObject as c, require_isPrototype as d, require_arrayLikeKeys as e, requireIsArrayLike as f, require_root as g, require_getSymbols as h, require_overArg as i, require_arrayPush as j, requireStubArray as k, require_baseGetAllKeys as l, require_Uint8Array as m, require_Symbol as n, require_getTag as o, requireIsObjectLike as p, require_nodeUtil as q, require_getNative as r, require_baseUnary as s, require_Stack as t, require_getAllKeys as u, requireIsBuffer as v, requireIsArray as w, createMachine as x, assign as y, userControlsPlayerId as z };
-//# sourceMappingURL=xstate.esm-961b7677.js.map
+export { userControlsPlayer as A, sharedGuards as B, fromPromise as C, getPlayerSide as D, isDefenderId as E, findUserIndex as F, GameState as G, interpret as H, isEqual as I, require_baseGetTag as J, not as K, and as L, getUser as M, getPlayer as N, isActionEventOf as O, requireEq as a, requireKeys as b, requireIsObject as c, require_isPrototype as d, require_arrayLikeKeys as e, requireIsArrayLike as f, require_root as g, require_getSymbols as h, require_overArg as i, require_arrayPush as j, requireStubArray as k, require_baseGetAllKeys as l, require_Uint8Array as m, require_Symbol as n, require_getTag as o, requireIsObjectLike as p, require_nodeUtil as q, require_getNative as r, require_baseUnary as s, require_Stack as t, require_getAllKeys as u, requireIsBuffer as v, requireIsArray as w, createMachine as x, assign as y, userControlsPlayerId as z };
+//# sourceMappingURL=xstate.esm-0b2bc074.js.map

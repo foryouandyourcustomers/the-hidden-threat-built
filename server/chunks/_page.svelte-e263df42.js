@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, j as compute_slots, k as createEventDispatcher, b as spread, d as escape_object, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
-import { g as require_root, J as require_baseGetTag, p as requireIsObjectLike, c as requireIsObject, x as createMachine, H as interpret, y as assign, K as not, G as GameState, L as and, B as sharedGuards, I as isEqual, M as getUser, N as getPlayer, D as getPlayerSide, E as isDefenderId } from './xstate.esm-961b7677.js';
+import { g as require_root, J as require_baseGetTag, p as requireIsObjectLike, c as requireIsObject, x as createMachine, H as interpret, y as assign, K as not, G as GameState, L as and, B as sharedGuards, I as isEqual, M as getUser, N as getPlayer, O as isActionEventOf, D as getPlayerSide, E as isDefenderId } from './xstate.esm-0b2bc074.js';
 import { A as Actions$1, P as Paragraph } from './Paragraph-91fb6104.js';
 import { B as Button } from './Button-d4280ae9.js';
 import { H as Heading } from './Heading-9e047160.js';
@@ -6619,7 +6619,7 @@ const CollectItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
   $$unsubscribe_collectableItems = subscribe(collectableItems, (value) => $collectableItems = value);
   const startedCollecting = useSelector(machine2.service, ({ context }) => {
     const gameState = GameState.fromContext(context);
-    return gameState.lastEvent?.type === "collect";
+    return isActionEventOf(gameState.lastEvent, "collect");
   });
   $$unsubscribe_startedCollecting = subscribe(startedCollecting, (value) => $startedCollecting = value);
   $$unsubscribe_startedCollecting();
@@ -6962,7 +6962,7 @@ const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.reportMousePosition(reportMousePosition);
   $$result.css.add(css);
   $$unsubscribe_section();
-  return `<div class="game-wrapper svelte-1w5lkt"> <div class="${"game section-" + escape($section?.toLowerCase(), true) + " svelte-1w5lkt"}"${add_attribute("this", gameContainer, 0)}>${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <div class="content svelte-1w5lkt">${$section === "Lobby" ? `${validate_component(Lobby, "Lobby").$$render($$result, {}, {}, {})}` : `${$section === "Playing" ? `${validate_component(Playing, "Playing").$$render($$result, {}, {}, {})}` : `${$section === "Finished" ? `${validate_component(Finished, "Finished").$$render($$result, {}, {}, {})}` : `Unkown state`}`}`}</div> ${slots.overlays ? slots.overlays({}) : ``}</div> </div>`;
+  return `<div class="game-wrapper svelte-1w5lkt"> <div class="${"game section-" + escape($section?.toLowerCase(), true) + " svelte-1w5lkt"}"${add_attribute("this", gameContainer, 0)}>${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <div class="content svelte-1w5lkt">${$section === "Lobby" ? `${validate_component(Lobby, "Lobby").$$render($$result, {}, {}, {})}` : `${$section === "Playing" ? `${validate_component(Playing, "Playing").$$render($$result, {}, {}, {})}` : `${$section === "Finished" ? `${validate_component(Finished, "Finished").$$render($$result, {}, {}, {})}` : `Unknown state`}`}`}</div> ${slots.overlays ? slots.overlays({}) : ``}</div> </div>`;
 });
 let howl;
 const sprite = {
@@ -7064,4 +7064,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-f3f28e88.js.map
+//# sourceMappingURL=_page.svelte-e263df42.js.map

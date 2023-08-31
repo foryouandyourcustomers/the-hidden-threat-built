@@ -1,5 +1,5 @@
 import { i as isItemIdOfSide, I as INITIAL_BOARD_ITEMS } from './constants-e0597195.js';
-import { r as require_getNative, a as requireEq, b as requireKeys, c as requireIsObject, d as require_isPrototype, e as require_arrayLikeKeys, f as requireIsArrayLike, g as require_root, h as require_getSymbols, i as require_overArg, j as require_arrayPush, k as requireStubArray, l as require_baseGetAllKeys, m as require_Uint8Array, n as require_Symbol, o as require_getTag, p as requireIsObjectLike, q as require_nodeUtil, s as require_baseUnary, t as require_Stack, u as require_getAllKeys, v as requireIsBuffer, w as requireIsArray, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userControlsPlayer, B as sharedGuards, C as fromPromise, D as getPlayerSide, E as isDefenderId, F as findUserIndex, H as interpret, I as isEqual } from './xstate.esm-961b7677.js';
+import { r as require_getNative, a as requireEq, b as requireKeys, c as requireIsObject, d as require_isPrototype, e as require_arrayLikeKeys, f as requireIsArrayLike, g as require_root, h as require_getSymbols, i as require_overArg, j as require_arrayPush, k as requireStubArray, l as require_baseGetAllKeys, m as require_Uint8Array, n as require_Symbol, o as require_getTag, p as requireIsObjectLike, q as require_nodeUtil, s as require_baseUnary, t as require_Stack, u as require_getAllKeys, v as requireIsBuffer, w as requireIsArray, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userControlsPlayer, B as sharedGuards, C as fromPromise, D as getPlayerSide, E as isDefenderId, F as findUserIndex, H as interpret, I as isEqual } from './xstate.esm-0b2bc074.js';
 import require$$0$2 from 'stream';
 import require$$0 from 'zlib';
 import require$$0$1 from 'buffer';
@@ -6826,17 +6826,21 @@ const serverGameMachine = machine.provide({
           if (!gameState.isValidMove(event.gameEvent.to))
             return false;
           break;
-        case "collect":
-          if (event.gameEvent.itemId === void 0 && event.gameEvent.finalized) {
-            console.error("Finalized collect item must have an itemId");
-            return false;
-          }
-          if (event.gameEvent.itemId) {
-            const collectableItemIds = gameState.getItemsForCoordinate(gameState.activePlayerPosition).filter((item) => isItemIdOfSide(item.item.id, gameState.activeSide)).map((item) => item.item.id);
-            if (!collectableItemIds.includes(event.gameEvent.itemId)) {
-              console.error("Tried to collect an item that is not collectable");
-              return false;
-            }
+        case "action":
+          switch (event.gameEvent.action) {
+            case "collect":
+              if (event.gameEvent.itemId === void 0 && event.gameEvent.finalized) {
+                console.error("Finalized collect item must have an itemId");
+                return false;
+              }
+              if (event.gameEvent.itemId) {
+                const collectableItemIds = gameState.getItemsForCoordinate(gameState.activePlayerPosition).filter((item) => isItemIdOfSide(item.item.id, gameState.activeSide)).map((item) => item.item.id);
+                if (!collectableItemIds.includes(event.gameEvent.itemId)) {
+                  console.error("Tried to collect an item that is not collectable");
+                  return false;
+                }
+              }
+              break;
           }
           break;
       }
@@ -6890,4 +6894,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-414ad96f.js.map
+//# sourceMappingURL=index3-8ff3df8f.js.map
