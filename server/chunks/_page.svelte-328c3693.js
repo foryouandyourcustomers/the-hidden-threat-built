@@ -6506,7 +6506,7 @@ const PlayerConfigurator = create_ssr_component(($$result, $$props, $$bindings, 
   })}`;
 });
 const css$9 = {
-  code: "section.svelte-52861b.svelte-52861b{background:var(--color-bg-secondary);border-radius:var(--radius-md);margin-top:1.5rem;padding:1rem 1.25rem}.players.svelte-52861b.svelte-52861b{grid-gap:1rem;align-items:start;display:grid;grid-template-columns:repeat(4,1fr);margin-top:1.25rem}.players.svelte-52861b .player.svelte-52861b{grid-gap:1rem;background:var(--color-bg);border-radius:var(--radius-md);display:grid;gap:1rem;justify-items:center;padding:1.25rem}",
+  code: "section.svelte-qevcdl.svelte-qevcdl{background:var(--color-bg-secondary);border-radius:var(--radius-md);margin-top:1.5rem;padding:1rem 1.25rem}.players.svelte-qevcdl.svelte-qevcdl{grid-gap:1rem;align-items:start;display:grid;grid-template-columns:repeat(4,1fr);margin-top:1.25rem}.players.svelte-qevcdl .player.svelte-qevcdl{grid-gap:1rem;background:var(--color-bg);border-radius:var(--radius-md);display:grid;gap:1rem;justify-items:center;padding:1.25rem}.players.svelte-qevcdl .player .face.svelte-qevcdl{height:6rem;width:6rem}",
   map: null
 };
 const AssigningRoles = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -6545,7 +6545,7 @@ const AssigningRoles = create_ssr_component(($$result, $$props, $$bindings, slot
     default: () => {
       return `Rollenverteilung`;
     }
-  })} <section class="svelte-52861b">${validate_component(Heading, "Heading").$$render($$result, { centered: true }, {}, {
+  })} <section class="svelte-qevcdl">${validate_component(Heading, "Heading").$$render($$result, { centered: true }, {}, {
     default: () => {
       return `${escape($user.side === "attack" ? "Angriff" : "Verteidigung")}`;
     }
@@ -6555,12 +6555,21 @@ const AssigningRoles = create_ssr_component(($$result, $$props, $$bindings, slot
     Spieler:in bestimmt und bestätigt werden. Die restlichen Teilnehmenden können das Spielgeschehen
     beobachten und das Team beraten.`;
     }
-  })} <div class="players svelte-52861b">${each($players, (player, i) => {
-    return `<div class="player svelte-52861b">${player.isConfigured ? `${validate_component(Heading, "Heading").$$render($$result, { centered: true, size: "sm" }, {}, {
-      default: () => {
-        return `${escape(player.character)}`;
+  })} <div class="players svelte-qevcdl">${each($players, (player, i) => {
+    return `<div class="player svelte-qevcdl">${player.isConfigured ? `${validate_component(Heading, "Heading").$$render(
+      $$result,
+      {
+        centered: true,
+        spacing: "none",
+        size: "sm"
+      },
+      {},
+      {
+        default: () => {
+          return `${escape(player.character)}`;
+        }
       }
-    })} ${escape($users.find((user2) => user2.id === player.userId)?.name)} ${validate_component(Face, "Face").$$render($$result, { faceId: player.faceId }, {}, {})}` : ``} ${validate_component(Button, "Button").$$render($$result, { size: "small", disabled: !$canEdit }, {}, {
+    )} ${escape($users.find((user2) => user2.id === player.userId)?.name)} <div class="face svelte-qevcdl">${validate_component(Face, "Face").$$render($$result, { faceId: player.faceId }, {}, {})} </div>` : ``} ${validate_component(Button, "Button").$$render($$result, { size: "small", disabled: !$canEdit }, {}, {
       default: () => {
         return `Rolle ${escape(player.isConfigured ? "wechseln" : `${i + 1} bestimmen`)} `;
       }
@@ -7064,4 +7073,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-e263df42.js.map
+//# sourceMappingURL=_page.svelte-328c3693.js.map
