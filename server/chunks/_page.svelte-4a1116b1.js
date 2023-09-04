@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, j as compute_slots, k as createEventDispatcher, b as spread, d as escape_object, l as escape_attribute_value } from './ssr-35980408.js';
+import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, b as spread, d as escape_object, j as compute_slots, k as createEventDispatcher, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
 import { g as require_root, J as require_baseGetTag, p as requireIsObjectLike, c as requireIsObject, x as createMachine, H as interpret, y as assign, K as not, G as GameState, L as and, B as sharedGuards, I as isEqual, M as getUser, N as getPlayer, O as isActionEventOf, D as getPlayerSide, E as isDefenderId } from './xstate.esm-aa86fab2.js';
 import { A as Actions$1, P as Paragraph } from './Paragraph-91fb6104.js';
@@ -4275,7 +4275,7 @@ const createWebSocketConnection = ({
   };
   return { subscribe: webSocketConnection.subscribe, open, close: () => ws?.close(), send };
 };
-const css$n = {
+const css$o = {
   code: ".cursor.svelte-7ubvy1.svelte-7ubvy1{height:1px;left:0;position:absolute;top:0;width:1px}.cursor.svelte-7ubvy1 svg.svelte-7ubvy1{display:block;height:1.5rem!important;left:0;max-width:none;position:absolute;top:0;translate:-15% -20%;width:1.5rem!important}.cursor.svelte-7ubvy1 .name.svelte-7ubvy1{background:rgba(0,0,0,.667);border-radius:var(--radius-sm);display:inline-block;font-size:var(--scale-000);left:1.5rem;max-width:7rem;overflow:hidden;padding:.25rem .5rem;position:absolute;text-overflow:ellipsis;top:.5rem;white-space:nowrap}",
   map: null
 };
@@ -4284,10 +4284,10 @@ const Cursor = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let el;
   if ($$props.position === void 0 && $$bindings.position && position !== void 0)
     $$bindings.position(position);
-  $$result.css.add(css$n);
+  $$result.css.add(css$o);
   return `<div class="cursor svelte-7ubvy1"${add_attribute("this", el, 0)}><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="white" stroke-linecap="round" stroke-linejoin="round" class="svelte-7ubvy1"><path d="M7.904 17.563a1.2 1.2 0 0 0 2.228 .308l2.09 -3.093l4.907 4.907a1.067 1.067 0 0 0 1.509 0l1.047 -1.047a1.067 1.067 0 0 0 0 -1.509l-4.907 -4.907l3.113 -2.09a1.2 1.2 0 0 0 -.309 -2.228l-13.582 -3.904l3.904 13.563z"></path></svg> <span class="name svelte-7ubvy1">${escape(position.name)}</span> </div>`;
 });
-const css$m = {
+const css$n = {
   code: ".cursor-overlays.svelte-1n4ax7h{bottom:0;left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:var(--layer-top)}",
   map: null
 };
@@ -4318,7 +4318,7 @@ const CursorOverlays = create_ssr_component(($$result, $$props, $$bindings, slot
   };
   if ($$props.mousePositions === void 0 && $$bindings.mousePositions && mousePositions !== void 0)
     $$bindings.mousePositions(mousePositions);
-  $$result.css.add(css$m);
+  $$result.css.add(css$n);
   userMousePositions = getMousePositions($users, mousePositions);
   $$unsubscribe_users();
   $$unsubscribe_user();
@@ -4326,7 +4326,7 @@ const CursorOverlays = create_ssr_component(($$result, $$props, $$bindings, slot
     return `${validate_component(Cursor, "Cursor").$$render($$result, { position }, {}, {})}`;
   })} </div>`;
 });
-const css$l = {
+const css$m = {
   code: ".displayed-emoji.svelte-1tnpk3.svelte-1tnpk3{--_width:4rem;--_height:4rem;align-items:center;background:#fafafa;border-radius:var(--radius-full);box-shadow:0 0 30px hsla(0,0%,100%,.333);display:flex;flex-direction:column;font-size:3rem;height:4rem;height:var(--_height);justify-content:center;left:calc(var(--_x)*(100% - 4rem));left:calc(var(--_x)*(100% - var(--_width)));line-height:1.1;position:fixed;top:calc(var(--_y)*(100% - 4rem));top:calc(var(--_y)*(100% - var(--_height)));width:4rem;width:var(--_width)}.displayed-emoji.svelte-1tnpk3 .name.svelte-1tnpk3{background:#000;border-radius:var(--radius-sm);bottom:-1.75em;font-size:.3em;padding:0 .5rem;position:absolute}",
   map: null
 };
@@ -4349,7 +4349,7 @@ const EmojiOverlays = create_ssr_component(($$result, $$props, $$bindings, slots
   };
   if ($$props.showEmoji === void 0 && $$bindings.showEmoji && showEmoji !== void 0)
     $$bindings.showEmoji(showEmoji);
-  $$result.css.add(css$l);
+  $$result.css.add(css$m);
   $$unsubscribe_users();
   return `${each(Object.entries(emojis), ([i2, emoji]) => {
     return `<div class="displayed-emoji svelte-1tnpk3"${add_styles({
@@ -4361,17 +4361,36 @@ const EmojiOverlays = create_ssr_component(($$result, $$props, $$bindings, slots
 const Finished = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `Finished`;
 });
-const css$k = {
+const css$l = {
   code: ".emojis.svelte-usst85{display:flex;gap:.25rem}.emoji.svelte-usst85{align-content:center;aspect-ratio:1;background:var(--color-bg-secondary);border:none;border-radius:var(--radius-sm);cursor:pointer;display:grid;flex-shrink:0;font-size:var(--scale-3);justify-content:center;opacity:.3;padding:0;place-content:center;width:2.5rem}.emoji.svelte-usst85:hover{opacity:1}",
   map: null
 };
 const EmojiPicker = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   getGameContext();
   const validEmojis = ["👋", "👍", "👏", "😃", "🧠", "🤔"];
-  $$result.css.add(css$k);
+  $$result.css.add(css$l);
   return `<div class="emojis svelte-usst85">${each(validEmojis, (emoji) => {
     return `<button class="emoji svelte-usst85">${escape(emoji)}</button>`;
   })} </div>`;
+});
+const X_circle = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9l-6 6m0-6l6 6"/></g>`}<!-- HTML_TAG_END --></svg>`;
+});
+const css$k = {
+  code: ".expandable.svelte-4t104h.svelte-4t104h{color:#000;position:relative}.expandable.svelte-4t104h .icon.svelte-4t104h{align-content:center;background:#fff;border-radius:var(--radius-full);display:grid;height:1.5rem;justify-content:center;place-content:center;width:1.5rem}.expandable.svelte-4t104h .icon.svelte-4t104h svg{display:block;height:1rem;width:1rem}.expandable.expanded.svelte-4t104h .content.svelte-4t104h{display:block}.expandable.svelte-4t104h .content.svelte-4t104h{--_padding:0.25rem;background:#fff;border-radius:var(--radius-full);display:none;height:2rem;height:calc(1.5rem + var(--_padding)*2);padding:.25rem;padding:var(--_padding);position:absolute;right:-.25rem;right:calc(0px - var(--_padding));top:-.25rem;top:calc(0px - var(--_padding))}",
+  map: null
+};
+const ExpandableButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  $$result.css.add(css$k);
+  return `<div class="${["expandable svelte-4t104h", ""].join(" ").trim()}"><button class="unstyled icon svelte-4t104h">${slots.icon ? slots.icon({}) : ``}</button> <div class="content svelte-4t104h">${slots.content ? slots.content({}) : ``} <button class="unstyled icon svelte-4t104h">${validate_component(X_circle, "CloseIcon").$$render($$result, {}, {}, {})}</button></div> </div>`;
 });
 const RollbackButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $lastGameEvent, $$unsubscribe_lastGameEvent;
@@ -4384,13 +4403,58 @@ const RollbackButton = create_ssr_component(($$result, $$props, $$bindings, slot
   $$unsubscribe_lastGameEvent();
   return `${$lastGameEvent ? `<button data-svelte-h="svelte-1c912wl">Spielzug zurücknehmen</button>` : ``}`;
 });
+const Settings = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g>`}<!-- HTML_TAG_END --></svg>`;
+});
+const Volume_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zm4.54 3.46a5 5 0 0 1 0 7.07m3.53-10.6a10 10 0 0 1 0 14.14"/>`}<!-- HTML_TAG_END --></svg>`;
+});
+const Shield_question = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 17h.01M12 22s8-4 8-10V5l-8-3l-8 3v7c0 6 8 10 8 10"/><path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"/></g>`}<!-- HTML_TAG_END --></svg>`;
+});
 const css$j = {
-  code: ".header.svelte-xwju70{align-items:center;background:linear-gradient(180deg,rgba(43,52,72,0),rgba(43,52,72,.663));display:flex;height:3rem;justify-content:space-between;overflow:hidden;padding-left:3rem;padding-right:3rem}.title.svelte-xwju70{font:var(--display-h2);font-size:var(--scale-4);text-transform:uppercase}",
+  code: ".header.svelte-7tzkuk{align-items:center;background:linear-gradient(180deg,rgba(43,52,72,0),rgba(43,52,72,.663));display:flex;height:3rem;justify-content:space-between;overflow:hidden;padding-left:3rem;padding-right:1rem}.title.svelte-7tzkuk{font:var(--display-h2);font-size:var(--scale-4);text-transform:uppercase}.actions.svelte-7tzkuk{display:flex;gap:1rem}",
   map: null
 };
 const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$j);
-  return `<div class="header svelte-xwju70"><div class="title svelte-xwju70" data-svelte-h="svelte-xbe4by">The hidden threat</div> ${validate_component(RollbackButton, "RollbackButton").$$render($$result, {}, {}, {})} ${validate_component(EmojiPicker, "EmojiPicker").$$render($$result, {}, {}, {})} </div>`;
+  return `<div class="header svelte-7tzkuk"><div class="title svelte-7tzkuk" data-svelte-h="svelte-xbe4by">The hidden threat</div> ${validate_component(RollbackButton, "RollbackButton").$$render($$result, {}, {}, {})} ${validate_component(EmojiPicker, "EmojiPicker").$$render($$result, {}, {}, {})} <div class="actions svelte-7tzkuk">${validate_component(ExpandableButton, "ExpandableButton").$$render($$result, {}, {}, {
+    icon: () => {
+      return `${validate_component(Shield_question, "HelpIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
+    }
+  })} ${validate_component(ExpandableButton, "ExpandableButton").$$render($$result, {}, {}, {
+    icon: () => {
+      return `${validate_component(Volume_2, "AudioIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
+    }
+  })} ${validate_component(ExpandableButton, "ExpandableButton").$$render($$result, {}, {}, {
+    icon: () => {
+      return `${validate_component(Settings, "SettingsIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
+    }
+  })}</div> </div>`;
 });
 const css$i = {
   code: ".users.svelte-1w8krv2{margin-bottom:3rem;margin-top:3rem}.side.svelte-1w8krv2{background:#000;border-radius:.5em;color:#fff;display:inline-block;font-size:.875rem;padding:.25rem .5rem}",
@@ -7082,4 +7146,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-cc1a2108.js.map
+//# sourceMappingURL=_page.svelte-4a1116b1.js.map
