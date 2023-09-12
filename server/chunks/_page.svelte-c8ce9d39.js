@@ -4272,10 +4272,13 @@ const getClientGameMachine = ({
 const createWebSocketConnection = ({
   gameId,
   userId,
-  onMessage
+  onMessage,
+  debug
 }) => {
   const webSocketConnection = writable({ status: "opening", log: [] });
   const logEvent = (message, consoleData) => {
+    if (!debug)
+      return;
     console.debug("[websocket]", message, consoleData);
     return webSocketConnection.update((connection) => ({
       ...connection,
@@ -7336,6 +7339,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const userId = machineInput.userId;
   const hostUserId = machineInput.hostUserId;
   const mousePositions = {};
+  let debug = !!window.location.hash.match("#debug");
   const socketConnection = createWebSocketConnection({
     gameId,
     userId,
@@ -7345,7 +7349,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       } else {
         machine2.send(message);
       }
-    }
+    },
+    debug
   });
   $$unsubscribe_socketConnection = subscribe(socketConnection, (value) => $socketConnection = value);
   const machine2 = useMachine(
@@ -7396,10 +7401,10 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           {}
         )}`;
       }
-    })}</div> <pre>${escape($socketConnection.log.join("\n"))}
+    })}</div> ${debug ? `<pre>${escape($socketConnection.log.join("\n"))}
 
 ${escape(JSON.stringify($state, null, 2))}
-</pre>`;
+</pre>` : ``}`;
   } while (!$$settled);
   $$unsubscribe_socketConnection();
   $$unsubscribe_state();
@@ -7407,4 +7412,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-45147d71.js.map
+//# sourceMappingURL=_page.svelte-c8ce9d39.js.map

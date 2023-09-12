@@ -36,12 +36,12 @@ var _page_server_ts = /*#__PURE__*/Object.freeze({
 
 const index = 13;
 let component_cache;
-const component = async () => component_cache ??= (await import('./_page.svelte-45147d71.js')).default;
+const component = async () => component_cache ??= (await import('./_page.svelte-c8ce9d39.js')).default;
 const universal_id = "src/routes/game/[gameId=uid]/+page.ts";
 const server_id = "src/routes/game/[gameId=uid]/+page.server.ts";
-const imports = ["_app/immutable/nodes/13.71481fb6.js","_app/immutable/chunks/scheduler.60fb5a58.js","_app/immutable/chunks/index.02ea6f2d.js","_app/immutable/chunks/index.c3580b25.js","_app/immutable/chunks/items.5012adb2.js","_app/immutable/chunks/spread.84d39b6c.js","_app/immutable/chunks/Polygon.eaedc647.js","_app/immutable/chunks/Button.192f9f1e.js","_app/immutable/chunks/Heading.2807337b.js","_app/immutable/chunks/Face.e26096ad.js"];
+const imports = ["_app/immutable/nodes/13.767d2af3.js","_app/immutable/chunks/scheduler.60fb5a58.js","_app/immutable/chunks/index.02ea6f2d.js","_app/immutable/chunks/index.c3580b25.js","_app/immutable/chunks/items.5012adb2.js","_app/immutable/chunks/spread.84d39b6c.js","_app/immutable/chunks/Polygon.eaedc647.js","_app/immutable/chunks/Button.192f9f1e.js","_app/immutable/chunks/Heading.2807337b.js","_app/immutable/chunks/Face.e26096ad.js"];
 const stylesheets = ["_app/immutable/assets/13.14f44b87.css","_app/immutable/assets/Polygon.c7b8c323.css","_app/immutable/assets/Button.e85abd37.css","_app/immutable/assets/Heading.c5956ce9.css","_app/immutable/assets/Face.7ebb55cf.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets, _page_ts as universal, universal_id };
-//# sourceMappingURL=13-74c2d6ef.js.map
+//# sourceMappingURL=13-96286591.js.map
