@@ -6432,10 +6432,16 @@ const machine = createMachine({
                 "user: next step": {
                   target: "#gameServer.Game.Assigning roles",
                   guard: "isAdmin",
-                  actions: {
-                    type: "setAssigningSidesFinished",
-                    params: {}
-                  },
+                  actions: [
+                    {
+                      type: "setAssigningSidesFinished",
+                      params: {}
+                    },
+                    {
+                      type: "setAdminsForPlayers",
+                      params: {}
+                    }
+                  ],
                   reenter: false
                 }
               }
@@ -6614,6 +6620,22 @@ const serverGameMachine = machine.provide({
     sendSummary: () => {
     },
     setAssigningSidesFinished: assign(() => ({ finishedAssigningSides: true })),
+    setAdminsForPlayers: assign(({ context }) => {
+      const attackAdmin = context.users.find((user) => user.isAdmin && user.side === "attack");
+      const defenseAdmin = context.users.find((user) => user.isAdmin && user.side === "defense");
+      if (!attackAdmin || !defenseAdmin)
+        return {};
+      return {
+        attack: produce(context.attack, (attack) => {
+          attack.attacker.userId = attackAdmin.id;
+        }),
+        defense: produce(context.defense, (defense) => {
+          defense.defenders.forEach((defender) => {
+            defender.userId = defenseAdmin.id;
+          });
+        })
+      };
+    }),
     setAssigningRolesFinished: assign(({ context, event: e }) => {
       const { userId } = e;
       const side = context.users.find((user) => user.id === userId)?.side;
@@ -6893,4 +6915,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-50c684b7.js.map
+//# sourceMappingURL=index3-b87b6124.js.map
