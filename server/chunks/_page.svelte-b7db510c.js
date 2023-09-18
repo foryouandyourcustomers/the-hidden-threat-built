@@ -7006,7 +7006,7 @@ const Player = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   ].join(" ").trim()}"><div class="face svelte-9z74xo">${validate_component(Face, "Face").$$render($$result, { faceId: faceId ?? 0 }, {}, {})}</div> <div class="name svelte-9z74xo">${escape(name)}</div> ${isConnected !== void 0 ? `<div class="${["online-status svelte-9z74xo", isConnected ? "connected" : ""].join(" ").trim()}"></div>` : ``} </div>`;
 });
 const css$9 = {
-  code: ".player.svelte-1y4x7zc{left:50%;position:absolute;top:50%;translate:-50% -50%}.player.svelte-1y4x7zc svg{height:100%;width:100%}",
+  code: ".player.svelte-qb83tv{left:50%;position:absolute;top:50%;translate:-50% -50%}.player.defense.svelte-qb83tv{z-index:var(--layer-1)}.player.attack.svelte-qb83tv{z-index:var(--layer-2)}.player.svelte-qb83tv svg{height:100%;width:100%}",
   map: null
 };
 const Players$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -7037,7 +7037,7 @@ const Players$1 = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   $$result.css.add(css$9);
   $$unsubscribe_players();
   return `${each($players, (player) => {
-    return `<div class="player svelte-1y4x7zc">${validate_component(Player, "Player").$$render(
+    return `<div class="${"player " + escape(player.side, true) + " svelte-qb83tv"}">${validate_component(Player, "Player").$$render(
       $$result,
       {
         name: player.user.name,
@@ -7074,7 +7074,7 @@ const Stage_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${stage ? `<div class="stage svelte-1cs5tf8">${validate_component(Stage, "Stage").$$render($$result, { stageId: stage.id }, {}, {})}</div>` : ``}`;
 });
 const css$6 = {
-  code: ".square.svelte-152p90b.svelte-152p90b{--_inactive-opacity:0;display:block;grid-column:var(--_column);grid-row:var(--_row);isolation:isolate;position:relative}.square.svelte-152p90b.svelte-152p90b,.square.svelte-152p90b>.svelte-152p90b{min-height:0;min-width:0}.move-button.svelte-152p90b.svelte-152p90b{background:transparent;bottom:0;cursor:pointer;display:block;left:0;position:absolute;right:0;top:0;transition:background .3s ease-out}.move-button.svelte-152p90b span.svelte-152p90b{display:none}.move-button.svelte-152p90b.svelte-152p90b:hover{background:hsla(0,0%,100%,.133);transition-duration:0ms}",
+  code: ".square.svelte-rd1t2g.svelte-rd1t2g{--_inactive-opacity:0;display:block;grid-column:var(--_column);grid-row:var(--_row);isolation:isolate;position:relative}.square.svelte-rd1t2g.svelte-rd1t2g,.square.svelte-rd1t2g>.svelte-rd1t2g{min-height:0;min-width:0}.move-button.svelte-rd1t2g.svelte-rd1t2g{background:transparent;bottom:0;cursor:pointer;display:block;left:0;position:absolute;right:0;top:0;transition:background .3s ease-out;z-index:var(--layer-top)}.move-button.svelte-rd1t2g span.svelte-rd1t2g{display:none}.move-button.svelte-rd1t2g.svelte-rd1t2g:hover{background:hsla(0,0%,100%,.133);transition-duration:0ms}",
   map: null
 };
 const Square = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -7133,10 +7133,10 @@ const Square = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_isPossibleMove();
   $$unsubscribe_canPlace();
   $$unsubscribe_isPossiblePlacement();
-  return `<div class="square svelte-152p90b"${add_styles({
+  return `<div class="square svelte-rd1t2g"${add_styles({
     "--_row": coordinate[1] + 1,
     "--_column": coordinate[0] + 1
-  })}>${validate_component(Stage_1, "Stage").$$render($$result, { coordinate }, {}, {})} ${validate_component(Items, "Items").$$render($$result, { coordinate }, {}, {})} ${validate_component(Players$1, "Players").$$render($$result, { coordinate }, {}, {})} ${$canMove && $isPossibleMove ? `<button class="move-button unstyled svelte-152p90b" data-svelte-h="svelte-1xw0taw"><span class="svelte-152p90b">Move</span></button>` : ``} ${$canPlace && $isPossiblePlacement ? `<button class="move-button unstyled svelte-152p90b" data-svelte-h="svelte-4t2lbw"><span class="svelte-152p90b">Place</span></button>` : ``} </div>`;
+  })}>${validate_component(Stage_1, "Stage").$$render($$result, { coordinate }, {}, {})} ${validate_component(Items, "Items").$$render($$result, { coordinate }, {}, {})} ${validate_component(Players$1, "Players").$$render($$result, { coordinate }, {}, {})} ${$canMove && $isPossibleMove ? `<button class="move-button unstyled svelte-rd1t2g" data-svelte-h="svelte-1xw0taw"><span class="svelte-rd1t2g">Move</span></button>` : ``} ${$canPlace && $isPossiblePlacement ? `<button class="move-button unstyled svelte-rd1t2g" data-svelte-h="svelte-4t2lbw"><span class="svelte-rd1t2g">Place</span></button>` : ``} </div>`;
 });
 const css$5 = {
   code: ".board.svelte-1hrfbni{grid-gap:0;display:grid;gap:0;grid-template-columns:repeat(var(--column-count),1fr);grid-template-rows:repeat(var(--row-count),1fr);height:var(--board-height);position:relative;width:var(--board-width)}",
@@ -7395,4 +7395,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-9332de7f.js.map
+//# sourceMappingURL=_page.svelte-b7db510c.js.map
