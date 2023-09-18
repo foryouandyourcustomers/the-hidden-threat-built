@@ -7019,7 +7019,7 @@ const Players$1 = create_ssr_component(($$result, $$props, $$bindings, slots) =>
       const gameState = GameState.fromContext(context);
       const currentUser = getCurrentUser(context);
       const { playerPositions } = gameState;
-      return objectEntries(playerPositions).filter(([_, position]) => isEqual(position, coordinate)).map(([playerId]) => getPlayer(playerId, context)).filter((player) => getPlayerSide(player.id) === currentUser.side).filter((player) => gameState.isPlaced(player.id)).map((player) => {
+      return objectEntries(playerPositions).filter(([_, position]) => isEqual(position, coordinate)).map(([playerId]) => getPlayer(playerId, context)).filter((player) => currentUser.side === "attack" || getPlayerSide(player.id) === currentUser.side).filter((player) => gameState.isPlaced(player.id)).map((player) => {
         const user = getUser(player.userId, context);
         return {
           ...player,
@@ -7395,4 +7395,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-4a71a929.js.map
+//# sourceMappingURL=_page.svelte-9332de7f.js.map
