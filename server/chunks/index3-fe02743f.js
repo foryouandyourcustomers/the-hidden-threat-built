@@ -6434,12 +6434,10 @@ const machine = createMachine({
                   guard: "isAdmin",
                   actions: [
                     {
-                      type: "setAssigningSidesFinished",
-                      params: {}
+                      type: "setAssigningSidesFinished"
                     },
                     {
-                      type: "setAdminsForPlayers",
-                      params: {}
+                      type: "setAdminsForPlayers"
                     }
                   ],
                   reenter: false
@@ -6451,8 +6449,7 @@ const machine = createMachine({
             "user joined": {
               target: "Assigning sides",
               actions: {
-                type: "storeNewUser",
-                params: {}
+                type: "storeNewUser"
               },
               reenter: false
             },
@@ -6460,8 +6457,7 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                type: "assignSide",
-                params: {}
+                type: "assignSide"
               },
               reenter: false
             },
@@ -6469,8 +6465,7 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                type: "assignAdmin",
-                params: {}
+                type: "assignAdmin"
               },
               reenter: false
             }
@@ -6487,16 +6482,14 @@ const machine = createMachine({
             "user: apply game event": {
               guard: "isValidGameEvent",
               actions: {
-                type: "addOrUpdateGameEvent",
-                params: {}
+                type: "addOrUpdateGameEvent"
               },
               reenter: true
             },
             "user: rollback game event": {
               guard: "isAdmin",
               actions: {
-                type: "rollbackGameEvent",
-                params: {}
+                type: "rollbackGameEvent"
               },
               reenter: true
             },
@@ -6504,10 +6497,16 @@ const machine = createMachine({
               target: "Playing",
               guard: "isAllowedToCancel",
               actions: {
-                type: "cancelGameEvent",
-                params: {}
+                type: "cancelGameEvent"
               },
               reenter: false
+            },
+            "user: switch sides": {
+              guard: "isAdmin",
+              actions: {
+                type: "switchSides"
+              },
+              reenter: true
             }
           }
         },
@@ -6535,8 +6534,7 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                type: "updatePlayer",
-                params: {}
+                type: "updatePlayer"
               },
               description: "Defines which user controls a player, which role they are and how they look.\n\nThis event can update a defender and an attacker.",
               reenter: false
@@ -6545,8 +6543,7 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                type: "setEditingPlayer",
-                params: {}
+                type: "setEditingPlayer"
               },
               reenter: false
             },
@@ -6554,16 +6551,14 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                type: "setEditingPlayer",
-                params: {}
+                type: "setEditingPlayer"
               },
               reenter: false
             },
             "user: next step": {
               guard: "isAdmin",
               actions: {
-                type: "setAssigningRolesFinished",
-                params: {}
+                type: "setAssigningRolesFinished"
               },
               reenter: true
             }
@@ -6571,8 +6566,7 @@ const machine = createMachine({
         },
         Finished: {
           entry: {
-            type: "sendSummary",
-            params: {}
+            type: "sendSummary"
           }
         }
       }
@@ -6582,29 +6576,25 @@ const machine = createMachine({
       on: {
         "user: send emoji": {
           actions: {
-            type: "sendEmojiToOtherUsers",
-            params: {}
+            type: "sendEmojiToOtherUsers"
           },
           reenter: true
         },
         "user disconnected": {
           actions: {
-            type: "updateUserConnectionState",
-            params: {}
+            type: "updateUserConnectionState"
           },
           reenter: true
         },
         "user reconnected": {
           actions: {
-            type: "updateUserConnectionState",
-            params: {}
+            type: "updateUserConnectionState"
           },
           reenter: true
         },
         "user connected": {
           actions: {
-            type: "updateUserConnectionState",
-            params: {}
+            type: "updateUserConnectionState"
           },
           reenter: true
         }
@@ -6712,6 +6702,18 @@ const serverGameMachine = machine.provide({
         events: produce(context.events, (events) => {
           if (events[events.length - 1].type === event.gameEventType) {
             events.pop();
+          }
+        })
+      };
+    }),
+    switchSides: assign(({ context, event: e }) => {
+      const event = e;
+      const userId = event.userId;
+      return {
+        users: produce(context.users, (users) => {
+          const user = users.find((user2) => user2.id === userId);
+          if (user) {
+            user.side = user?.side === "attack" ? "defense" : "attack";
           }
         })
       };
@@ -6915,4 +6917,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-f9d79dac.js.map
+//# sourceMappingURL=index3-fe02743f.js.map

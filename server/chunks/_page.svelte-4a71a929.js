@@ -3814,8 +3814,7 @@ const machine = createMachine({
                   target: "Ready",
                   guard: "isAdmin",
                   actions: {
-                    type: "forwardToServer",
-                    params: {}
+                    type: "forwardToServer"
                   },
                   reenter: false
                 }
@@ -3832,8 +3831,7 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
               },
               reenter: false
             },
@@ -3841,8 +3839,7 @@ const machine = createMachine({
               target: "Assigning sides",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
               },
               reenter: false
             }
@@ -3878,8 +3875,7 @@ const machine = createMachine({
                   target: "Ready",
                   guard: "isAdmin",
                   actions: {
-                    type: "forwardToServer",
-                    params: {}
+                    type: "forwardToServer"
                   },
                   reenter: false
                 }
@@ -3897,8 +3893,7 @@ const machine = createMachine({
                   target: "Editing player",
                   guard: "isAdmin",
                   actions: {
-                    type: "forwardToServer",
-                    params: {}
+                    type: "forwardToServer"
                   },
                   reenter: false
                 }
@@ -3915,8 +3910,7 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
               },
               reenter: false
             },
@@ -3924,8 +3918,7 @@ const machine = createMachine({
               target: "Assigning roles",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
               },
               reenter: false
             }
@@ -3978,8 +3971,7 @@ const machine = createMachine({
                     "apply game event": {
                       guard: "userControlsPlayer isPlacementEvent",
                       actions: {
-                        type: "forwardToServer",
-                        params: {}
+                        type: "forwardToServer"
                       },
                       reenter: true
                     }
@@ -3997,8 +3989,7 @@ const machine = createMachine({
                       target: "Moving",
                       guard: "userControlsPlayer isMoveEvent",
                       actions: {
-                        type: "forwardToServer",
-                        params: {}
+                        type: "forwardToServer"
                       },
                       reenter: false
                     }
@@ -4016,8 +4007,7 @@ const machine = createMachine({
                       target: "Action",
                       guard: "userControlsPlayer isActionEvent",
                       actions: {
-                        type: "forwardToServer",
-                        params: {}
+                        type: "forwardToServer"
                       },
                       reenter: false
                     },
@@ -4025,8 +4015,7 @@ const machine = createMachine({
                       target: "Action",
                       guard: "userControlsPlayer lastEventIsAction lastEventNotFinalized",
                       actions: {
-                        type: "forwardToServer",
-                        params: {}
+                        type: "forwardToServer"
                       },
                       reenter: false
                     }
@@ -4045,8 +4034,15 @@ const machine = createMachine({
               target: "Gameloop",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
+              },
+              reenter: false
+            },
+            "switch sides": {
+              target: "Gameloop",
+              guard: "isAdmin",
+              actions: {
+                type: "forwardToServer"
               },
               reenter: false
             }
@@ -4124,8 +4120,7 @@ const machine = createMachine({
               target: "Sides",
               guard: "isAdmin",
               actions: {
-                type: "forwardToServer",
-                params: {}
+                type: "forwardToServer"
               },
               reenter: false
             }
@@ -4449,12 +4444,12 @@ const EmojiPicker = create_ssr_component(($$result, $$props, $$bindings, slots) 
   })} </div>`;
 });
 const css$t = {
-  code: ".expandable.svelte-1682nhy.svelte-1682nhy{color:#000;isolation:isolate;position:relative;z-index:var(--layer-top)}.expandable.svelte-1682nhy .open-button.svelte-1682nhy{background:#fff;border-radius:var(--radius-full);padding:.25rem}.expandable.svelte-1682nhy .icon.svelte-1682nhy{align-content:center;display:grid;height:1.5rem;justify-content:center;place-content:center;width:1.5rem}.expandable.svelte-1682nhy .icon.svelte-1682nhy svg{display:block;height:100%;width:100%}.expandable.svelte-1682nhy .content.svelte-1682nhy{align-items:center;background:#fff;border-radius:var(--radius-sm);display:flex;gap:1rem;min-width:16rem;padding-bottom:.5rem;padding-top:.5rem;position:absolute;right:0;top:2rem}",
+  code: ".expandable.svelte-1qrb5wo.svelte-1qrb5wo{color:#000;isolation:isolate;position:relative;z-index:var(--layer-top)}.expandable.svelte-1qrb5wo .open-button.svelte-1qrb5wo{background:#fff;border-radius:var(--radius-full);padding:.25rem}.expandable.svelte-1qrb5wo .icon.svelte-1qrb5wo{align-content:center;display:grid;height:1.5rem;justify-content:center;place-content:center;width:1.5rem}.expandable.svelte-1qrb5wo .icon.svelte-1qrb5wo svg{display:block;height:100%;width:100%}.expandable.svelte-1qrb5wo .content.svelte-1qrb5wo{align-items:center;background:#fff;border-radius:var(--radius-sm);display:flex;flex-direction:column;gap:1rem;min-width:16rem;padding-bottom:.5rem;padding-top:.5rem;position:absolute;right:0;top:2rem}",
   map: null
 };
 const Expandable = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$t);
-  return `<div class="${["expandable svelte-1682nhy", ""].join(" ").trim()}"><button class="unstyled icon open-button svelte-1682nhy">${slots.icon ? slots.icon({}) : ``}</button> ${``} </div>`;
+  return `<div class="${["expandable svelte-1qrb5wo", ""].join(" ").trim()}"><button class="unstyled icon open-button svelte-1qrb5wo">${slots.icon ? slots.icon({}) : ``}</button> ${``} </div>`;
 });
 const Undo_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<svg${spread(
@@ -4494,10 +4489,49 @@ const RollbackButton = create_ssr_component(($$result, $$props, $$bindings, slot
   $$unsubscribe_lastGameEvent();
   return `${$isAdmin ? `${validate_component(ExpandableButton, "ExpandableButton").$$render($$result, { disabled: !$lastGameEvent }, {}, {
     icon: () => {
-      return `${validate_component(Undo_2, "BackIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
+      return `${validate_component(Undo_2, "Icon").$$render($$result, { slot: "icon" }, {}, {})}`;
     },
     default: () => {
       return `Aktion zurücksetzen`;
+    }
+  })}` : ``}`;
+});
+const Arrow_right_left = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 3l4 4l-4 4m4-4H4m4 14l-4-4l4-4m-4 4h16"/>`}<!-- HTML_TAG_END --></svg>`;
+});
+const Arrow_left_right = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3L4 7l4 4M4 7h16m-4 14l4-4l-4-4m4 4H4"/>`}<!-- HTML_TAG_END --></svg>`;
+});
+const SwitchSidesButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let isAdmin;
+  let side;
+  let $user, $$unsubscribe_user;
+  const { machine: machine2 } = getGameContext();
+  const user = useSelector(machine2.service, ({ context }) => getCurrentUser(context));
+  $$unsubscribe_user = subscribe(user, (value) => $user = value);
+  isAdmin = $user.isAdmin;
+  side = $user.side;
+  $$unsubscribe_user();
+  return `${isAdmin ? `${validate_component(ExpandableButton, "ExpandableButton").$$render($$result, { disabled: !isAdmin }, {}, {
+    default: () => {
+      return `Zu ${escape(side === "attack" ? "Verteidigung" : "Angriff")} wechseln
+    ${side === "attack" ? `${validate_component(Arrow_right_left, "IconRightLeft").$$render($$result, { slot: "icon" }, {}, {})}` : `${validate_component(Arrow_left_right, "IconLeftRight").$$render($$result, { slot: "icon" }, {}, {})}`}`;
     }
   })}` : ``}`;
 });
@@ -4520,7 +4554,7 @@ const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `${validate_component(Settings, "SettingsIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
     },
     default: () => {
-      return `${validate_component(RollbackButton, "RollbackButton").$$render($$result, {}, {}, {})}`;
+      return `${validate_component(SwitchSidesButton, "SwitchSidesButton").$$render($$result, {}, {}, {})} ${validate_component(RollbackButton, "RollbackButton").$$render($$result, {}, {}, {})}`;
     }
   })}</div> </div>`;
 });
@@ -7361,4 +7395,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-c8927a07.js.map
+//# sourceMappingURL=_page.svelte-4a71a929.js.map
