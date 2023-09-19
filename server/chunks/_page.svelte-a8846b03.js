@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, b as spread, d as escape_object, j as compute_slots, k as createEventDispatcher, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
-import { g as require_root, J as require_baseGetTag, p as requireIsObjectLike, c as requireIsObject, x as createMachine, H as interpret, y as assign, K as not, G as GameState, L as and, B as sharedGuards, I as isEqual, M as getUser, N as getCharacter, O as getPlayer, P as isActionEventOf, Q as BOARD_SUPPLY_CHAINS, R as CHARACTERS, E as isDefenderId, S as BOARD_ITEMS, T as objectEntries, D as getPlayerSide } from './xstate.esm-cb813247.js';
+import { g as require_root, J as require_baseGetTag, p as requireIsObjectLike, c as requireIsObject, x as createMachine, H as interpret, y as assign, K as not, G as GameState, L as and, B as sharedGuards, I as isEqual, M as getUser, N as getCharacter, O as getPlayer, P as isActionEventOf, Q as BOARD_SUPPLY_CHAINS, R as CHARACTERS, E as isDefenderId, S as BOARD_ITEMS, T as objectEntries, D as getPlayerSide } from './xstate.esm-221eda05.js';
 import { A as Actions$1, P as Paragraph, a as Polygon } from './Polygon-c521e3a7.js';
 import { B as Button } from './Button-d4280ae9.js';
 import { H as Heading } from './Heading-3f0b5004.js';
@@ -6740,7 +6740,7 @@ const AssigningRoles = create_ssr_component(($$result, $$props, $$bindings, slot
       {},
       {
         default: () => {
-          return `${escape(player.character)}`;
+          return `${escape(getCharacter(player.character).name)}`;
         }
       }
     )} ${escape($users.find((user2) => user2.id === player.userId)?.name)} <div class="face svelte-qevcdl">${validate_component(Face, "Face").$$render($$result, { faceId: player.faceId }, {}, {})} </div>` : ``} ${validate_component(Button, "Button").$$render($$result, { size: "small", disabled: !$canEdit }, {}, {
@@ -7395,4 +7395,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-b7db510c.js.map
+//# sourceMappingURL=_page.svelte-a8846b03.js.map

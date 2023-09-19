@@ -1,9 +1,9 @@
 import { s as superValidate, c as createGameSchema } from './forms-78616ad6.js';
-import { c as createGame } from './index3-fe02743f.js';
+import { c as createGame } from './index3-dcf4e1ed.js';
 import { e as error, f as fail, r as redirect } from './index-a4865dbd.js';
 import './stringify-f45e10e0.js';
 import './items-ba2c7988.js';
-import './xstate.esm-cb813247.js';
+import './xstate.esm-221eda05.js';
 import './_commonjsHelpers-24198af3.js';
 import 'stream';
 import 'zlib';
@@ -57,9 +57,9 @@ const index = 15;
 let component_cache;
 const component = async () => component_cache ??= (await import('./_page.svelte-cd0c9079.js')).default;
 const server_id = "src/routes/game/new/+page.server.ts";
-const imports = ["_app/immutable/nodes/15.b9461272.js","_app/immutable/chunks/scheduler.60fb5a58.js","_app/immutable/chunks/index.02ea6f2d.js","_app/immutable/chunks/TextInput.bfe32dc6.js","_app/immutable/chunks/stores.e0eb36e5.js","_app/immutable/chunks/singletons.9c011ba4.js","_app/immutable/chunks/index.c3580b25.js","_app/immutable/chunks/spread.84d39b6c.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/Button.192f9f1e.js"];
+const imports = ["_app/immutable/nodes/15.8b8a1adf.js","_app/immutable/chunks/scheduler.60fb5a58.js","_app/immutable/chunks/index.02ea6f2d.js","_app/immutable/chunks/TextInput.760e4b0d.js","_app/immutable/chunks/stores.86e1b018.js","_app/immutable/chunks/singletons.a4b5a986.js","_app/immutable/chunks/index.c3580b25.js","_app/immutable/chunks/spread.84d39b6c.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/Button.192f9f1e.js"];
 const stylesheets = ["_app/immutable/assets/14.40c323f5.css","_app/immutable/assets/TextInput.42390ca3.css","_app/immutable/assets/Button.e85abd37.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=15-679b3255.js.map
+//# sourceMappingURL=15-69f2a535.js.map
