@@ -7358,7 +7358,9 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_state = subscribe(state, (value) => $state = value);
   const reportMousePosition = throttle(
     (position) => {
-      socketConnection.send({ type: "mouse position", position });
+      if ($socketConnection.status === "opened") {
+        socketConnection.send({ type: "mouse position", position });
+      }
     },
     50,
     { leading: true, trailing: true }
@@ -7395,4 +7397,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-a8846b03.js.map
+//# sourceMappingURL=_page.svelte-9858230e.js.map
