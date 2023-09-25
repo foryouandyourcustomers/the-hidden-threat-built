@@ -220,10 +220,10 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "10rz3km"
+  version_hash: "1huigly"
 };
 function get_hooks() {
-  return import('./chunks/hooks.server-ded70238.js');
+  return import('./chunks/hooks.server-92d4df6d.js');
 }
 
 const SVELTE_KIT_ASSETS = "/_svelte_kit_assets";
