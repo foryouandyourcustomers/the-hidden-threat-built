@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, b as spread, d as escape_object, j as compute_slots, k as createEventDispatcher, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
-import { h as require_root, M as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, K as interpret, y as assign, N as not, G as GameState, A as userIsAdmin, O as and, C as sharedGuards, L as isEqual, P as getUser, Q as getCharacter, R as getPlayer, S as isActionEventOf, U as BOARD_SUPPLY_CHAINS, V as STAGES, W as CHARACTERS, I as isDefenderId, X as BOARD_ITEMS, Y as objectEntries, F as getPlayerSide } from './xstate.esm-62520474.js';
+import { h as require_root, M as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, L as interpret, y as assign, N as not, G as GameState, A as userIsAdmin, O as and, D as sharedGuards, C as isEqual, P as getUser, Q as getCharacter, R as getPlayer, S as isActionEventOf, U as BOARD_SUPPLY_CHAINS, V as STAGES, W as CHARACTERS, J as isDefenderId, X as BOARD_ITEMS, Y as objectEntries, H as getPlayerSide } from './xstate.esm-6f3157f4.js';
 import { A as Actions$1, P as Paragraph, a as Polygon } from './Polygon-c521e3a7.js';
 import { B as Button } from './Button-d4280ae9.js';
 import { H as Heading } from './Heading-940bbdc5.js';
@@ -4493,8 +4493,7 @@ const RollbackButton = create_ssr_component(($$result, $$props, $$bindings, slot
   const isAdmin = useSelector(machine2.service, ({ context }) => getCurrentUser(context).isAdmin);
   $$unsubscribe_isAdmin = subscribe(isAdmin, (value) => $isAdmin = value);
   const lastGameEvent = useSelector(machine2.service, ({ context }) => {
-    const gameState = GameState.fromContext(context);
-    return gameState.lastEvent;
+    return context.events[context.events.length - 1];
   });
   $$unsubscribe_lastGameEvent = subscribe(lastGameEvent, (value) => $lastGameEvent = value);
   $$unsubscribe_isAdmin();
@@ -6914,7 +6913,7 @@ const DefendStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
   const { machine: machine2 } = getGameContext();
   const canDefend = useSelector(machine2.service, ({ context }) => {
     const gameState = GameState.fromContext(context);
-    return gameState.defendableStage;
+    return gameState.canDefendStage;
   });
   $$unsubscribe_canDefend = subscribe(canDefend, (value) => $canDefend = value);
   const startedDefending = useSelector(machine2.service, ({ context }) => {
@@ -7697,4 +7696,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-bd67d168.js.map
+//# sourceMappingURL=_page.svelte-07409ecf.js.map

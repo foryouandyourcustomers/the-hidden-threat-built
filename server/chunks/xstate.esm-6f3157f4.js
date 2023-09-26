@@ -3767,7 +3767,7 @@ class GameState {
     return this.context.targetedAttacks.slice(0, attackCount).map((attackIndex) => TARGETED_ATTACKS[attackIndex]);
   }
   get activeGlobalAttackIndex() {
-    return this.currentRound % 3;
+    return Math.floor(this.currentRound / 3);
   }
   get activeGlobalAttack() {
     return this.globalAttackScenario.attacks[this.activeGlobalAttackIndex];
@@ -3798,19 +3798,22 @@ class GameState {
   /** All stages that are reachable and can be attacked. */
   get attackableStages() {
     return this.reachableStages.filter(
-      (stage) => this.executableAttacks.find(
+      (stage) => !this.isAttacked(stage.coordinate) && !this.isDefended(stage.coordinate) && this.executableAttacks.find(
         (attack) => attack.target.stageId === stage.id && attack.target.supplyChainId === stage.supplyChainId
       )
     );
   }
   /** Returns the stage of the player position if all required conditions are met. */
-  get defendableStage() {
+  get canDefendStage() {
     const currentStage = BOARD_SUPPLY_CHAINS.flat().find(
       (boardStage) => isEqual(boardStage.coordinate, this.activePlayerPosition)
     );
     if (!currentStage)
-      return void 0;
-    return this.executableDefenseStages.find((stage) => stage.id === currentStage.id);
+      return false;
+    if (this.isAttacked(currentStage.coordinate) || this.isDefended(currentStage.coordinate)) {
+      return false;
+    }
+    return !!this.executableDefenseStages.find((stage) => stage.id === currentStage.id);
   }
 }
 const sharedGuards = {
@@ -6832,5 +6835,5 @@ function createMachine(config, implementations) {
   return new StateMachine(config, implementations);
 }
 
-export { userIsAdmin as A, userControlsPlayer as B, sharedGuards as C, fromPromise as D, GLOBAL_ATTACK_SCENARIOS as E, getPlayerSide as F, GameState as G, isPlayerGameEvent as H, isDefenderId as I, findUserIndex as J, interpret as K, isEqual as L, require_baseGetTag as M, not as N, and as O, getUser as P, getCharacter as Q, getPlayer as R, isActionEventOf as S, TARGETED_ATTACKS as T, BOARD_SUPPLY_CHAINS as U, STAGES as V, CHARACTERS as W, BOARD_ITEMS as X, objectEntries as Y, requireIsArray as a, require_getNative as b, requireEq as c, requireIsObject as d, require_isPrototype as e, require_arrayLikeKeys as f, requireIsArrayLike as g, require_root as h, require_getSymbols as i, require_overArg as j, require_arrayPush as k, requireStubArray as l, require_baseGetAllKeys as m, require_Uint8Array as n, require_Symbol as o, require_getTag as p, requireIsObjectLike as q, requireKeys as r, require_nodeUtil as s, require_baseUnary as t, require_Stack as u, require_getAllKeys as v, requireIsBuffer as w, createMachine as x, assign as y, userControlsPlayerId as z };
-//# sourceMappingURL=xstate.esm-62520474.js.map
+export { userIsAdmin as A, userControlsPlayer as B, isEqual as C, sharedGuards as D, fromPromise as E, GLOBAL_ATTACK_SCENARIOS as F, GameState as G, getPlayerSide as H, isPlayerGameEvent as I, isDefenderId as J, findUserIndex as K, interpret as L, require_baseGetTag as M, not as N, and as O, getUser as P, getCharacter as Q, getPlayer as R, isActionEventOf as S, TARGETED_ATTACKS as T, BOARD_SUPPLY_CHAINS as U, STAGES as V, CHARACTERS as W, BOARD_ITEMS as X, objectEntries as Y, requireIsArray as a, require_getNative as b, requireEq as c, requireIsObject as d, require_isPrototype as e, require_arrayLikeKeys as f, requireIsArrayLike as g, require_root as h, require_getSymbols as i, require_overArg as j, require_arrayPush as k, requireStubArray as l, require_baseGetAllKeys as m, require_Uint8Array as n, require_Symbol as o, require_getTag as p, requireIsObjectLike as q, requireKeys as r, require_nodeUtil as s, require_baseUnary as t, require_Stack as u, require_getAllKeys as v, requireIsBuffer as w, createMachine as x, assign as y, userControlsPlayerId as z };
+//# sourceMappingURL=xstate.esm-6f3157f4.js.map

@@ -1,5 +1,5 @@
 import { i as isItemIdOfSide } from './items-ba2c7988.js';
-import { r as requireKeys, a as requireIsArray, b as require_getNative, c as requireEq, d as requireIsObject, e as require_isPrototype, f as require_arrayLikeKeys, g as requireIsArrayLike, h as require_root, i as require_getSymbols, j as require_overArg, k as require_arrayPush, l as requireStubArray, m as require_baseGetAllKeys, n as require_Uint8Array, o as require_Symbol, p as require_getTag, q as requireIsObjectLike, s as require_nodeUtil, t as require_baseUnary, u as require_Stack, v as require_getAllKeys, w as requireIsBuffer, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userIsAdmin, B as userControlsPlayer, C as sharedGuards, D as fromPromise, E as GLOBAL_ATTACK_SCENARIOS, T as TARGETED_ATTACKS, F as getPlayerSide, H as isPlayerGameEvent, I as isDefenderId, J as findUserIndex, K as interpret, L as isEqual } from './xstate.esm-62520474.js';
+import { r as requireKeys, a as requireIsArray, b as require_getNative, c as requireEq, d as requireIsObject, e as require_isPrototype, f as require_arrayLikeKeys, g as requireIsArrayLike, h as require_root, i as require_getSymbols, j as require_overArg, k as require_arrayPush, l as requireStubArray, m as require_baseGetAllKeys, n as require_Uint8Array, o as require_Symbol, p as require_getTag, q as requireIsObjectLike, s as require_nodeUtil, t as require_baseUnary, u as require_Stack, v as require_getAllKeys, w as requireIsBuffer, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userIsAdmin, B as userControlsPlayer, C as isEqual, D as sharedGuards, E as fromPromise, F as GLOBAL_ATTACK_SCENARIOS, T as TARGETED_ATTACKS, H as getPlayerSide, I as isPlayerGameEvent, J as isDefenderId, K as findUserIndex, L as interpret } from './xstate.esm-6f3157f4.js';
 import require$$0$2 from 'stream';
 import require$$0 from 'zlib';
 import require$$0$1 from 'buffer';
@@ -7120,6 +7120,26 @@ const serverGameMachine = machine.provide({
                 }
               }
               break;
+            case "attack": {
+              const position = event.gameEvent.position;
+              if (position === void 0 && event.gameEvent.finalized) {
+                return false;
+              } else if (position === void 0) {
+                if (gameState.attackableStages.length === 0)
+                  return false;
+              } else if (!gameState.attackableStages.find((stage) => isEqual(stage.coordinate, position))) {
+                return false;
+              }
+              break;
+            }
+            case "defend": {
+              const position = event.gameEvent.position;
+              if (!isEqual(position, gameState.activePlayerPosition))
+                return false;
+              if (!gameState.canDefendStage)
+                return false;
+              break;
+            }
           }
           break;
       }
@@ -7173,4 +7193,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-5150323e.js.map
+//# sourceMappingURL=index3-42915854.js.map
