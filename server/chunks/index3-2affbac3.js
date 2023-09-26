@@ -1,5 +1,5 @@
 import { i as isItemIdOfSide } from './items-ba2c7988.js';
-import { r as requireKeys, a as requireIsArray, b as require_getNative, c as requireEq, d as requireIsObject, e as require_isPrototype, f as require_arrayLikeKeys, g as requireIsArrayLike, h as require_root, i as require_getSymbols, j as require_overArg, k as require_arrayPush, l as requireStubArray, m as require_baseGetAllKeys, n as require_Uint8Array, o as require_Symbol, p as require_getTag, q as requireIsObjectLike, s as require_nodeUtil, t as require_baseUnary, u as require_Stack, v as require_getAllKeys, w as requireIsBuffer, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userControlsPlayer, B as sharedGuards, C as fromPromise, D as GLOBAL_ATTACK_SCENARIOS, T as TARGETED_ATTACKS, E as getPlayerSide, F as isDefenderId, H as findUserIndex, I as interpret, J as isEqual } from './xstate.esm-a6591c3e.js';
+import { r as requireKeys, a as requireIsArray, b as require_getNative, c as requireEq, d as requireIsObject, e as require_isPrototype, f as require_arrayLikeKeys, g as requireIsArrayLike, h as require_root, i as require_getSymbols, j as require_overArg, k as require_arrayPush, l as requireStubArray, m as require_baseGetAllKeys, n as require_Uint8Array, o as require_Symbol, p as require_getTag, q as requireIsObjectLike, s as require_nodeUtil, t as require_baseUnary, u as require_Stack, v as require_getAllKeys, w as requireIsBuffer, x as createMachine, y as assign, G as GameState, z as userControlsPlayerId, A as userIsAdmin, B as userControlsPlayer, C as sharedGuards, D as fromPromise, E as GLOBAL_ATTACK_SCENARIOS, T as TARGETED_ATTACKS, F as getPlayerSide, H as isPlayerGameEvent, I as isDefenderId, J as findUserIndex, K as interpret, L as isEqual } from './xstate.esm-48202f1c.js';
 import require$$0$2 from 'stream';
 import require$$0 from 'zlib';
 import require$$0$1 from 'buffer';
@@ -6930,9 +6930,9 @@ const serverGameMachine = machine.provide({
       };
       return {
         events: produce(context.events, (events) => {
-          const lastEvent = events[events.length - 1];
-          if (lastEvent && !lastEvent.finalized) {
-            events[events.length - 1] = gameEvent;
+          const lastPlayerEvent = events.filter(isPlayerGameEvent).pop();
+          if (lastPlayerEvent && !lastPlayerEvent.finalized) {
+            events[events.indexOf(lastPlayerEvent)] = gameEvent;
           } else {
             events.push(gameEvent);
           }
@@ -6942,9 +6942,9 @@ const serverGameMachine = machine.provide({
     cancelGameEvent: assign(({ context }) => {
       return {
         events: produce(context.events, (events) => {
-          const lastEvent = events[events.length - 1];
-          if (lastEvent && !lastEvent.finalized) {
-            events.pop();
+          const lastPlayerEvent = events.filter(isPlayerGameEvent).pop();
+          if (lastPlayerEvent && !lastPlayerEvent.finalized) {
+            events.splice(context.events.indexOf(lastPlayerEvent), 1);
           }
         })
       };
@@ -7088,6 +7088,9 @@ const serverGameMachine = machine.provide({
     isValidGameEvent: ({ context, event: e }) => {
       const event = e;
       const gameState = GameState.fromContext(context);
+      if (event.gameEvent.type === "system") {
+        return userIsAdmin(event.userId, context);
+      }
       const activePlayer = gameState.activePlayer;
       if (!userControlsPlayer(event.userId, activePlayer, context))
         return false;
@@ -7170,4 +7173,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-5a03cfad.js.map
+//# sourceMappingURL=index3-2affbac3.js.map

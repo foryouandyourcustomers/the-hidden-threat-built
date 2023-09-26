@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, f as add_attribute, i as getContext, b as spread, d as escape_object, j as compute_slots, k as createEventDispatcher, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
-import { h as require_root, K as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, I as interpret, y as assign, L as not, G as GameState, M as and, B as sharedGuards, J as isEqual, N as getUser, O as getCharacter, P as getPlayer, Q as isActionEventOf, R as BOARD_SUPPLY_CHAINS, S as CHARACTERS, F as isDefenderId, U as BOARD_ITEMS, V as objectEntries, E as getPlayerSide } from './xstate.esm-a6591c3e.js';
+import { h as require_root, M as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, K as interpret, y as assign, N as not, G as GameState, A as userIsAdmin, O as and, C as sharedGuards, L as isEqual, P as getUser, Q as getCharacter, R as getPlayer, S as isActionEventOf, U as BOARD_SUPPLY_CHAINS, V as STAGES, W as CHARACTERS, I as isDefenderId, X as BOARD_ITEMS, Y as objectEntries, F as getPlayerSide } from './xstate.esm-48202f1c.js';
 import { A as Actions$1, P as Paragraph, a as Polygon } from './Polygon-c521e3a7.js';
 import { B as Button } from './Button-d4280ae9.js';
 import { H as Heading } from './Heading-940bbdc5.js';
@@ -3782,44 +3782,6 @@ const setGameContext = (context) => {
   setContext(KEY, context);
 };
 const getGameContext = () => getContext(KEY);
-const STAGES = [
-  {
-    id: "supply",
-    name: "Beschaffung",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  },
-  {
-    id: "production",
-    name: "Produktion",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  },
-  {
-    id: "datacenter",
-    name: "Rechenzentrum",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  },
-  {
-    id: "storage",
-    name: "Lagerung",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  },
-  {
-    id: "logistics",
-    name: "Logistik",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  },
-  {
-    id: "sales",
-    name: "Handel",
-    description: "",
-    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
-  }
-];
 const getStage = (stageId) => STAGES.find((stage) => stage.id === stageId);
 const machine = createMachine({
   id: "gameClient",
@@ -4084,6 +4046,14 @@ const machine = createMachine({
                 type: "forwardToServer"
               },
               reenter: false
+            },
+            "apply game event": {
+              target: "Gameloop",
+              guard: "isValidGameEvent",
+              actions: {
+                type: "forwardToServer"
+              },
+              reenter: false
             }
           }
         },
@@ -4284,6 +4254,9 @@ const getClientGameMachine = ({
     lastEventNotFinalized: ({ context }) => {
       const gameState = GameState.fromContext(context);
       return !!gameState.lastEvent && !gameState.lastEvent.finalized;
+    },
+    isValidGameEvent: ({ context }) => {
+      return userIsAdmin(context.userId, context);
     },
     "userControlsPlayer isMoveEvent": and(["userControlsPlayer", "isMoveEvent"]),
     "userControlsPlayer isActionEvent": and(["userControlsPlayer", "isActionEvent"]),
@@ -6939,8 +6912,9 @@ const DefendStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
   let $canDefend, $$unsubscribe_canDefend;
   let $startedDefending, $$unsubscribe_startedDefending;
   const { machine: machine2 } = getGameContext();
-  const canDefend = useSelector(machine2.service, () => {
-    return false;
+  const canDefend = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    return gameState.defendableStage;
   });
   $$unsubscribe_canDefend = subscribe(canDefend, (value) => $canDefend = value);
   const startedDefending = useSelector(machine2.service, ({ context }) => {
@@ -6960,7 +6934,7 @@ const DefendStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
         default: () => {
           return `Möchtest du folgende Gegenstände einsetzen um die Stufe zu verteidigen?`;
         }
-      })}`;
+      })} <button data-svelte-h="svelte-112ykbk">Ja</button>`;
     }
   })}` : ``}`;
 });
@@ -7698,7 +7672,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           {}
         )}`;
       }
-    })}</div> ${debug ? `<pre>${escape($socketConnection.log.join("\n"))}
+    })}</div> ${debug ? `<button data-svelte-h="svelte-ribgho">fill inventory</button> <pre>${escape($socketConnection.log.join("\n"))}
 
 ${escape(JSON.stringify($state, null, 2))}
 </pre>` : ``}`;
@@ -7709,4 +7683,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-bce06af4.js.map
+//# sourceMappingURL=_page.svelte-2b8e4578.js.map

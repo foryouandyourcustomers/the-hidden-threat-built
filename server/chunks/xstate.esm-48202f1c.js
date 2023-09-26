@@ -3146,10 +3146,14 @@ var isEqual = /*@__PURE__*/getDefaultExportFromCjs(isEqualExports);
 const isDefenderId = (id) => id !== "attacker";
 const isAttackerId = (id) => id === "attacker";
 const isPlayerIdOfSide = (playerId, side) => side === "attack" ? isAttackerId(playerId) : isDefenderId(playerId);
+const gameEventRequiresReaction = (event) => isActionEventOf(event, "reveal") || isActionEventOf(event, "global-reveal");
 const isGameEventOf = (event, type) => event?.type === type;
 const isActionEventOf = (event, action) => event?.type === "action" && event.action === action;
+const isAdminActionEventOf = (event, action) => event?.type === "system" && event.action === action;
 const guardForGameEventType = (type) => (event) => isGameEventOf(event, type);
+const isPlayerGameEvent = (event) => event.type === "action" || event.type === "placement" || event.type === "move" || event.type === "reaction";
 const guardForGameEventAction = (action) => (event) => isActionEventOf(event, action);
+const guardForGameEventAdminAction = (action) => (event) => isAdminActionEventOf(event, action);
 const objectEntries = (obj) => {
   return Object.entries(obj);
 };
@@ -3362,6 +3366,44 @@ const GLOBAL_ATTACK_SCENARIOS = [
     ]
   }
 ];
+const STAGES = [
+  {
+    id: "supply",
+    name: "Beschaffung",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  },
+  {
+    id: "production",
+    name: "Produktion",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  },
+  {
+    id: "datacenter",
+    name: "Rechenzentrum",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  },
+  {
+    id: "storage",
+    name: "Lagerung",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  },
+  {
+    id: "logistics",
+    name: "Logistik",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  },
+  {
+    id: "sales",
+    name: "Handel",
+    description: "",
+    defenseItems: ["alarm-system", "extinguisher", "gps-tracker"]
+  }
+];
 const TARGETED_ATTACKS = [
   {
     target: { supplyChainId: 0, stageId: "supply", requiredItems: ["usb-stick", "tools"] },
@@ -3534,6 +3576,9 @@ const userControlsPlayerId = (userId, playerId, context) => userControlsPlayer(u
 const userControlsPlayer = (userId, player, context) => {
   if (player.userId === userId)
     return true;
+  return userIsAdmin(userId, context);
+};
+const userIsAdmin = (userId, context) => {
   const user = getUser(userId, context);
   return user.isAdmin;
 };
@@ -3549,16 +3594,23 @@ class GameState {
       context.defense.defenders[2],
       context.defense.defenders[3]
     ];
-    this.eventsPerRound = this.playersInOrder.length * 2;
-    this.finalizedEvents = this.context.events.filter((event) => event.finalized);
+    this.playerEvents = this.context.events.filter(isPlayerGameEvent);
+    this.finalizedEvents = this.playerEvents.filter((event) => event.finalized);
     const finalizedPlacementEvents = this.finalizedEvents.filter(guardForGameEventType("placement"));
+    const finalizedActionEvents = this.finalizedEvents.filter(guardForGameEventType("action"));
+    const finalizedReactionEvents = this.finalizedEvents.filter(guardForGameEventType("reaction"));
+    const finalizedActionEventsRequiringReaction = finalizedActionEvents.filter(gameEventRequiresReaction);
     const finalizedMoveOrActionEvents = this.finalizedEvents.filter(
       (event) => isGameEventOf(event, "move") || isGameEventOf(event, "action")
     );
-    this.lastEvent = context.events[context.events.length - 1];
+    this.lastEvent = this.playerEvents[this.playerEvents.length - 1];
     this.lastFinalizedEvent = this.finalizedEvents[this.finalizedEvents.length - 1];
-    this.nextEventType = finalizedPlacementEvents.length < 5 ? "placement" : this.lastFinalizedEvent && this.lastFinalizedEvent.type === "move" ? "action" : "move";
-    if (this.nextEventType === "placement") {
+    const finalizedAndReactedActionEventCount = finalizedActionEvents.length - (finalizedActionEventsRequiringReaction.length - finalizedReactionEvents.length);
+    this.currentRound = Math.floor(finalizedAndReactedActionEventCount / this.playersInOrder.length);
+    this.nextEventType = finalizedPlacementEvents.length < 5 ? "placement" : this.lastFinalizedEvent && this.lastFinalizedEvent.type === "move" ? "action" : finalizedActionEventsRequiringReaction.length > finalizedReactionEvents.length ? "reaction" : "move";
+    if (this.nextEventType === "reaction") {
+      this.activePlayer = context.attack.attacker;
+    } else if (this.nextEventType === "placement") {
       if (finalizedPlacementEvents.length < 4) {
         this.activePlayer = context.defense.defenders[finalizedPlacementEvents.length];
       } else {
@@ -3568,11 +3620,10 @@ class GameState {
       this.activePlayer = this.playersInOrder[Math.floor(finalizedMoveOrActionEvents.length / 2) % this.playersInOrder.length];
     }
     this.activeSide = getPlayerSide(this.activePlayer.id);
-    this.currentRound = Math.floor(finalizedMoveOrActionEvents.length / this.eventsPerRound);
     this.activePlayerPosition = this.playerPositions[this.activePlayer.id];
   }
   playersInOrder;
-  eventsPerRound;
+  playerEvents;
   finalizedEvents;
   currentRound;
   activePlayer;
@@ -3598,14 +3649,18 @@ class GameState {
       defender2: [0, 0],
       defender3: [0, 0]
     };
-    this.context.events.filter(guardForGameEventType("placement")).forEach((event) => playerPositions[event.playerId] = event.coordinate);
-    this.context.events.filter(guardForGameEventType("move")).forEach((event) => playerPositions[event.playerId] = event.to);
+    this.context.events.filter(guardForGameEventType("placement")).filter((event) => event.finalized).forEach((event) => playerPositions[event.playerId] = event.coordinate);
+    this.context.events.filter(guardForGameEventType("move")).filter((event) => event.finalized).forEach((event) => playerPositions[event.playerId] = event.to);
     return playerPositions;
   }
   get defenseInventory() {
     const defenseInventoryIds = Object.values(ITEMS).map((item) => item.id).filter(isDefenseItemId);
+    let initialAmount = 0;
+    if (this.context.events.find(guardForGameEventAdminAction("fill-inventory"))) {
+      initialAmount = 50;
+    }
     const inventory = Object.fromEntries(
-      defenseInventoryIds.map((id) => [id, 0])
+      defenseInventoryIds.map((id) => [id, initialAmount])
     );
     this.context.events.filter(guardForGameEventAction("collect")).forEach((event) => {
       if (event.itemId && isDefenseItemId(event.itemId)) {
@@ -3616,8 +3671,12 @@ class GameState {
   }
   get attackInventory() {
     const attackInventoryIds = Object.values(ITEMS).map((item) => item.id).filter(isAttackItemId);
+    let initialAmount = 0;
+    if (this.context.events.find(guardForGameEventAdminAction("fill-inventory"))) {
+      initialAmount = 50;
+    }
     const inventory = Object.fromEntries(
-      attackInventoryIds.map((id) => [id, 0])
+      attackInventoryIds.map((id) => [id, initialAmount])
     );
     this.context.events.filter(guardForGameEventAction("collect")).forEach((event) => {
       if (event.itemId && isAttackItemId(event.itemId)) {
@@ -3706,9 +3765,14 @@ class GameState {
     return GLOBAL_ATTACK_SCENARIOS[this.context.globalAttackScenario];
   }
   /** All targeted attacks for which the user has all required items. */
-  get attackableAttacks() {
+  get executableAttacks() {
     return this.activeTargetedAttacks.filter(
       (attack) => attack.target.requiredItems.every((item) => this.attackInventory[item] > 0)
+    );
+  }
+  get executableDefenseStages() {
+    return STAGES.filter(
+      (stage) => stage.defenseItems.every((item) => this.defenseInventory[item] > 0)
     );
   }
   static isReachable(a, b) {
@@ -3720,13 +3784,22 @@ class GameState {
       (stage) => GameState.isReachable(stage.coordinate, this.activePlayerPosition)
     );
   }
-  /** All stages for which the attacker has the required items and that are reachable. */
+  /** All stages that are reachable and can be attacked. */
   get attackableStages() {
     return this.reachableStages.filter(
-      (stage) => this.attackableAttacks.find(
+      (stage) => this.executableAttacks.find(
         (attack) => attack.target.stageId === stage.id && attack.target.supplyChainId === stage.supplyChainId
       )
     );
+  }
+  /** Returns the stage of the player position if all required conditions are met. */
+  get defendableStage() {
+    const currentStage = BOARD_SUPPLY_CHAINS.flat().find(
+      (boardStage) => isEqual(boardStage.coordinate, this.activePlayerPosition)
+    );
+    if (!currentStage)
+      return void 0;
+    return this.executableDefenseStages.find((stage) => stage.id === currentStage.id);
   }
 }
 const sharedGuards = {
@@ -6748,5 +6821,5 @@ function createMachine(config, implementations) {
   return new StateMachine(config, implementations);
 }
 
-export { userControlsPlayer as A, sharedGuards as B, fromPromise as C, GLOBAL_ATTACK_SCENARIOS as D, getPlayerSide as E, isDefenderId as F, GameState as G, findUserIndex as H, interpret as I, isEqual as J, require_baseGetTag as K, not as L, and as M, getUser as N, getCharacter as O, getPlayer as P, isActionEventOf as Q, BOARD_SUPPLY_CHAINS as R, CHARACTERS as S, TARGETED_ATTACKS as T, BOARD_ITEMS as U, objectEntries as V, requireIsArray as a, require_getNative as b, requireEq as c, requireIsObject as d, require_isPrototype as e, require_arrayLikeKeys as f, requireIsArrayLike as g, require_root as h, require_getSymbols as i, require_overArg as j, require_arrayPush as k, requireStubArray as l, require_baseGetAllKeys as m, require_Uint8Array as n, require_Symbol as o, require_getTag as p, requireIsObjectLike as q, requireKeys as r, require_nodeUtil as s, require_baseUnary as t, require_Stack as u, require_getAllKeys as v, requireIsBuffer as w, createMachine as x, assign as y, userControlsPlayerId as z };
-//# sourceMappingURL=xstate.esm-a6591c3e.js.map
+export { userIsAdmin as A, userControlsPlayer as B, sharedGuards as C, fromPromise as D, GLOBAL_ATTACK_SCENARIOS as E, getPlayerSide as F, GameState as G, isPlayerGameEvent as H, isDefenderId as I, findUserIndex as J, interpret as K, isEqual as L, require_baseGetTag as M, not as N, and as O, getUser as P, getCharacter as Q, getPlayer as R, isActionEventOf as S, TARGETED_ATTACKS as T, BOARD_SUPPLY_CHAINS as U, STAGES as V, CHARACTERS as W, BOARD_ITEMS as X, objectEntries as Y, requireIsArray as a, require_getNative as b, requireEq as c, requireIsObject as d, require_isPrototype as e, require_arrayLikeKeys as f, requireIsArrayLike as g, require_root as h, require_getSymbols as i, require_overArg as j, require_arrayPush as k, requireStubArray as l, require_baseGetAllKeys as m, require_Uint8Array as n, require_Symbol as o, require_getTag as p, requireIsObjectLike as q, requireKeys as r, require_nodeUtil as s, require_baseUnary as t, require_Stack as u, require_getAllKeys as v, requireIsBuffer as w, createMachine as x, assign as y, userControlsPlayerId as z };
+//# sourceMappingURL=xstate.esm-48202f1c.js.map
