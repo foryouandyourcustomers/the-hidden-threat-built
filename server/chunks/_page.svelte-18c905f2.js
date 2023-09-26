@@ -6814,7 +6814,7 @@ const X = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>`}<!-- HTML_TAG_END --></svg>`;
 });
 const css$l = {
-  code: ".dialog-wrapper.svelte-bk767a{align-content:center;display:grid;justify-content:center;padding-left:18rem;place-content:center;position:fixed}.backdrop.svelte-bk767a,.dialog-wrapper.svelte-bk767a{bottom:0;left:0;right:0;top:0}.backdrop.svelte-bk767a{background-color:var(--color-bg);opacity:.5;position:absolute}.dialog.svelte-bk767a{background-color:#fff;border:none;border-radius:var(--radius-md);box-shadow:0 0 30px 0 var(--color-shadow-secondary);min-width:30rem;padding:.75rem 1.5rem 1.5rem;position:relative}.close-button.svelte-bk767a svg{display:block;height:1rem;width:1rem}",
+  code: ".dialog-wrapper.svelte-9wq6lr{align-content:center;display:grid;justify-content:center;padding-left:18rem;place-content:center;position:fixed;z-index:var(--layer-top)}.backdrop.svelte-9wq6lr,.dialog-wrapper.svelte-9wq6lr{bottom:0;left:0;right:0;top:0}.backdrop.svelte-9wq6lr{background-color:var(--color-bg);opacity:.5;position:absolute}.dialog.svelte-9wq6lr{background-color:#fff;border:none;border-radius:var(--radius-md);box-shadow:0 0 30px 0 var(--color-shadow-secondary);min-width:30rem;padding:.75rem 1.5rem 1.5rem;position:relative}.close-button.svelte-9wq6lr svg{display:block;height:1rem;width:1rem}",
   map: null
 };
 const GameDialog = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -6823,9 +6823,9 @@ const GameDialog = create_ssr_component(($$result, $$props, $$bindings, slots) =
   if ($$props.title === void 0 && $$bindings.title && title !== void 0)
     $$bindings.title(title);
   $$result.css.add(css$l);
-  return `<div class="dialog-wrapper svelte-bk767a">  <div class="backdrop svelte-bk767a"></div> <div class="dialog svelte-bk767a">${validate_component(Heading, "Heading").$$render($$result, { size: "sm" }, {}, {
+  return `<div class="dialog-wrapper svelte-9wq6lr">  <div class="backdrop svelte-9wq6lr"></div> <div class="dialog svelte-9wq6lr">${validate_component(Heading, "Heading").$$render($$result, { size: "sm" }, {}, {
     info: () => {
-      return `<button class="unstyled close-button svelte-bk767a" slot="info">${validate_component(X, "CloseIcon").$$render($$result, {}, {}, {})}</button>`;
+      return `<button class="unstyled close-button svelte-9wq6lr" slot="info">${validate_component(X, "CloseIcon").$$render($$result, {}, {}, {})}</button>`;
     },
     default: () => {
       return `${title ? `${escape(title)}` : ``}`;
@@ -7683,4 +7683,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-2b8e4578.js.map
+//# sourceMappingURL=_page.svelte-18c905f2.js.map
