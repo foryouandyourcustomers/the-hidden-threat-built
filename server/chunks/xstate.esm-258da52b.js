@@ -3819,8 +3819,7 @@ class GameState {
         defendedStages.push(getStageAt(event.position));
         defendedStagesInSection.push(getStageAt(event.position).id);
       }
-      const nextRound = Math.floor((i + 1) / this.playersInOrder.length);
-      if (nextRound % 3 === 0 && nextRound !== 0) {
+      if ((i + 1) % (this.playersInOrder.length * 3) === 0) {
         const section = Math.floor(round / 3);
         const globalAttack = this.globalAttackScenario.attacks[section];
         globalAttack.targets.forEach((attackedStage) => {
@@ -6942,4 +6941,4 @@ function createMachine(config, implementations) {
 }
 
 export { CHARACTERS as $, userIsAdmin as A, userControlsPlayer as B, isEqual as C, sharedGuards as D, fromPromise as E, GLOBAL_ATTACK_SCENARIOS as F, GameState as G, getPlayerSide as H, isPlayerGameEvent as I, isDefenderId as J, findUserIndex as K, interpret as L, require_baseGetTag as M, not as N, and as O, COLUMN_COUNT as P, getUser as Q, ROW_COUNT as R, getCharacter as S, TARGETED_ATTACKS as T, getPlayer as U, isActionEventOf as V, BOARD_SUPPLY_CHAINS as W, NEW_GLOBAL_ATTACK_ROUNDS as X, ATTACKER_REVEAL_ROUNDS as Y, TOTAL_ROUNDS as Z, STAGES as _, requireIsArray as a, BOARD_ITEMS as a0, objectEntries as a1, require_getNative as b, requireEq as c, requireIsObject as d, require_isPrototype as e, require_arrayLikeKeys as f, requireIsArrayLike as g, require_root as h, require_getSymbols as i, require_overArg as j, require_arrayPush as k, requireStubArray as l, require_baseGetAllKeys as m, require_Uint8Array as n, require_Symbol as o, require_getTag as p, requireIsObjectLike as q, requireKeys as r, require_nodeUtil as s, require_baseUnary as t, require_Stack as u, require_getAllKeys as v, requireIsBuffer as w, createMachine as x, assign as y, userControlsPlayerId as z };
-//# sourceMappingURL=xstate.esm-68d9a88c.js.map
+//# sourceMappingURL=xstate.esm-258da52b.js.map
