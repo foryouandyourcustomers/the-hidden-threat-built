@@ -24954,20 +24954,28 @@ const AwaitingReaction = create_ssr_component(($$result, $$props, $$bindings, sl
   })}` : ``}`;
 });
 const Reaction = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $hasJoker, $$unsubscribe_hasJoker;
   let $canPerformReaction, $$unsubscribe_canPerformReaction;
   const { machine: machine2 } = getGameContext();
   const canPerformReaction = useSelector(machine2.service, (state) => state.matches("Playing.Gameloop.Playing.Reacting"));
   $$unsubscribe_canPerformReaction = subscribe(canPerformReaction, (value) => $canPerformReaction = value);
+  const hasJoker = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    return gameState.jokers > 0;
+  });
+  $$unsubscribe_hasJoker = subscribe(hasJoker, (value) => $hasJoker = value);
+  $$unsubscribe_hasJoker();
   $$unsubscribe_canPerformReaction();
   return `${$canPerformReaction ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Joker einsetzen" }, {}, {
     default: () => {
       return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
-          return `Möchtest Du Deinen Joker einsetzen, um der Frage auszuweichen?`;
+          return `${$hasJoker ? `Möchtest Du Deinen Joker einsetzen, um der Frage auszuweichen?` : `Du hast
+        leider keinen Joker mehr zur Verfügung um der Frage auszuweichen.`}`;
         }
-      })} <form><div class="options"><label><input type="radio" name="answer"${add_attribute("value", true, 0)}${""}>
-          Ja</label> <label><input type="radio" name="answer"${add_attribute("value", false, 0)}${""}>
-          Nein</label></div> ${validate_component(Button, "Button").$$render($$result, { inverse: true, type: "submit" }, {}, {
+      })} <form>${$hasJoker ? `<div class="options"><label><input type="radio" name="answer"${add_attribute("value", true, 0)}${""}>
+            Ja</label> <label><input type="radio" name="answer"${add_attribute("value", false, 0)}${""}>
+            Nein</label></div>` : ``} ${validate_component(Button, "Button").$$render($$result, { inverse: true, type: "submit" }, {}, {
         default: () => {
           return `Bestätigen`;
         }
@@ -25115,4 +25123,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-23aee443.js.map
+//# sourceMappingURL=_page.svelte-5a7c64cc.js.map
