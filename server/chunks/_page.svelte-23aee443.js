@@ -21784,12 +21784,12 @@ const Jokers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${$side === "attack" ? `<div class="jokers">Jokers: ${escape($jokers)}</div>` : ``}`;
 });
 const css$A = {
-  code: ".header.svelte-10gyhrd{align-items:center;background:linear-gradient(180deg,rgba(43,52,72,0),rgba(43,52,72,.663));display:flex;height:3rem;justify-content:space-between;padding-left:3rem;padding-right:1rem}.title.svelte-10gyhrd{font:var(--display-h2);font-size:var(--scale-4);text-transform:uppercase}.actions.svelte-10gyhrd{display:flex;gap:1rem}",
+  code: ".header.svelte-1lw36n3{align-items:center;background:linear-gradient(180deg,rgba(43,52,72,0),rgba(43,52,72,.663));display:flex;height:var(--size-header-height);justify-content:space-between;padding-left:3rem;padding-right:1rem;position:relative}.title.svelte-1lw36n3{font:var(--display-h2);font-size:var(--scale-4);text-transform:uppercase}.actions.svelte-1lw36n3{display:flex;gap:1rem}",
   map: null
 };
 const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$A);
-  return `<div class="header svelte-10gyhrd"><div class="title svelte-10gyhrd" data-svelte-h="svelte-xbe4by">The hidden threat</div> ${validate_component(EmojiPicker, "EmojiPicker").$$render($$result, {}, {}, {})} ${validate_component(Jokers, "Jokers").$$render($$result, {}, {}, {})} <div class="actions svelte-10gyhrd">${validate_component(Expandable, "Expandable").$$render($$result, {}, {}, {
+  return `<div class="header svelte-1lw36n3"><div class="title svelte-1lw36n3" data-svelte-h="svelte-xbe4by">The hidden threat</div> ${validate_component(EmojiPicker, "EmojiPicker").$$render($$result, {}, {}, {})} ${validate_component(Jokers, "Jokers").$$render($$result, {}, {}, {})} <div class="actions svelte-1lw36n3">${validate_component(Expandable, "Expandable").$$render($$result, {}, {}, {
     icon: () => {
       return `${validate_component(Shield_question, "HelpIcon").$$render($$result, { slot: "icon" }, {}, {})}`;
     }
@@ -24984,7 +24984,7 @@ const Playing = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<div class="playing svelte-1cqxqrn"><div class="player-status svelte-1cqxqrn">${validate_component(Players, "Players").$$render($$result, {}, {}, {})} ${validate_component(InfoPanel, "InfoPanel").$$render($$result, {}, {}, {})}</div> <div class="board svelte-1cqxqrn">${validate_component(Board, "Board").$$render($$result, {}, {}, {})} ${validate_component(Actions, "Actions").$$render($$result, {}, {}, {})} ${validate_component(Reaction, "Reaction").$$render($$result, {}, {}, {})} ${validate_component(AwaitingReaction, "AwaitingReaction").$$render($$result, {}, {}, {})}</div> <div class="game-status">${validate_component(Status, "Status").$$render($$result, {}, {}, {})}</div> </div>`;
 });
 const css = {
-  code: ".game-wrapper.svelte-1j0d4w3{align-content:center;background:#000;display:grid;height:100%;justify-content:center;place-content:center;width:100%}.game.svelte-1j0d4w3{grid-gap:1rem;background-color:var(--color-bg);border-radius:var(--radius-sm);display:grid;gap:1rem;grid-template-rows:auto 1fr;height:50rem;overflow:hidden;position:relative;width:90rem}.game.section-playing.svelte-1j0d4w3{background-image:url(/images/board-backdrop.svg);background-repeat:no-repeat;background-size:cover}@media(max-width:1439.98px) or (max-height:809.98px){.game.svelte-1j0d4w3{scale:.8;transform-origin:center}}@media(max-width:1199.98px) or (max-height:674.98px){.game.svelte-1j0d4w3{scale:.6}}",
+  code: ".game-wrapper.svelte-dtgxj4{align-content:center;background:#000;display:grid;height:100%;justify-content:center;place-content:center;width:100%}.game.svelte-dtgxj4{grid-gap:1rem;background-color:var(--color-bg);border-radius:var(--radius-sm);display:grid;gap:1rem;grid-template-rows:auto 1fr;height:var(--size-game-height);overflow:hidden;position:relative;width:var(--size-game-width)}.game.section-playing.svelte-dtgxj4{background-image:url(/images/board-backdrop.svg);background-repeat:no-repeat;background-size:cover}@media(max-width:1439.98px) or (max-height:809.98px){.game.svelte-dtgxj4{scale:.8;transform-origin:center}}@media(max-width:1199.98px) or (max-height:674.98px){.game.svelte-dtgxj4{scale:.6}}.content.svelte-dtgxj4{isolation:isolate}",
   map: null
 };
 const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -25008,7 +25008,7 @@ const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.reportMousePosition(reportMousePosition);
   $$result.css.add(css);
   $$unsubscribe_section();
-  return `<div class="game-wrapper svelte-1j0d4w3"> <div class="${"game section-" + escape($section?.toLowerCase(), true) + " svelte-1j0d4w3"}"${add_attribute("this", gameContainer, 0)}>${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <div class="content">${$section === "Lobby" ? `${validate_component(Lobby, "Lobby").$$render($$result, {}, {}, {})}` : `${$section === "Playing" ? `${validate_component(Playing, "Playing").$$render($$result, {}, {}, {})}` : `${$section === "Finished" ? `${validate_component(Finished, "Finished").$$render($$result, {}, {}, {})}` : `Unknown state`}`}`}</div> ${slots.overlays ? slots.overlays({}) : ``}</div> </div>`;
+  return `<div class="game-wrapper svelte-dtgxj4"> <div class="${"game section-" + escape($section?.toLowerCase(), true) + " svelte-dtgxj4"}"${add_attribute("this", gameContainer, 0)}>${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <div class="content svelte-dtgxj4">${$section === "Lobby" ? `${validate_component(Lobby, "Lobby").$$render($$result, {}, {}, {})}` : `${$section === "Playing" ? `${validate_component(Playing, "Playing").$$render($$result, {}, {}, {})}` : `${$section === "Finished" ? `${validate_component(Finished, "Finished").$$render($$result, {}, {}, {})}` : `Unknown state`}`}`}</div> ${slots.overlays ? slots.overlays({}) : ``}</div> </div>`;
 });
 let howl;
 const sprite = {
@@ -25115,4 +25115,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-388f2218.js.map
+//# sourceMappingURL=_page.svelte-23aee443.js.map
