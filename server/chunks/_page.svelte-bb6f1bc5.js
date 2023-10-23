@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, e as escape, v as validate_component, o as onDestroy, s as setContext, g as each, h as add_styles, i as getContext, f as add_attribute, b as spread, d as escape_object, j as compute_slots, k as createEventDispatcher, l as escape_attribute_value } from './ssr-35980408.js';
 import { r as readable, w as writable } from './index2-60e1937a.js';
-import { h as require_root, Q as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, P as interpret, y as assign, R as not, G as GameState, A as userIsAdmin, S as and, J as sharedGuards, E as isEqual, U as ROW_COUNT, V as COLUMN_COUNT, W as getUser, C as getCharacter, D as isDefenseCharacter, X as getPlayer, Y as isActionEventOf, F as findStageAt, Z as BOARD_SUPPLY_CHAINS, _ as NEW_GLOBAL_ATTACK_ROUNDS, $ as ATTACKER_REVEAL_ROUNDS, a0 as TOTAL_ROUNDS, a1 as STAGES, a2 as CHARACTERS, a3 as ABILITIES, H as isDefenderId, a4 as BOARD_ITEMS, a5 as objectEntries, M as getPlayerSide } from './xstate.esm-7a90b764.js';
+import { h as require_root, Q as require_baseGetTag, q as requireIsObjectLike, d as requireIsObject, x as createMachine, P as interpret, y as assign, R as not, G as GameState, A as userIsAdmin, S as and, J as sharedGuards, E as isEqual, U as ROW_COUNT, V as COLUMN_COUNT, W as getUser, C as getCharacter, D as isDefenseCharacter, X as getPlayer, Y as isActionEventOf, F as findStageAt, Z as BOARD_ITEMS, _ as BOARD_SUPPLY_CHAINS, $ as NEW_GLOBAL_ATTACK_ROUNDS, a0 as ATTACKER_REVEAL_ROUNDS, a1 as TOTAL_ROUNDS, a2 as STAGES, a3 as CHARACTERS, a4 as ABILITIES, H as isDefenderId, a5 as objectEntries, M as getPlayerSide } from './xstate.esm-88e3bc5a.js';
 import { B as Board } from './Board-855031d4.js';
 import { A as Actions$1, B as Button, P as Paragraph } from './Paragraph-345ed65d.js';
 import { H as Heading } from './Heading-8afffc5f.js';
@@ -24515,16 +24515,36 @@ const Actions = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   ].join(" ").trim()}"><li class="title svelte-1fn3hwq" data-svelte-h="svelte-axnyp8">Aktion auswählen</li> <li>${validate_component(CollectItem, "CollectItem").$$render($$result, {}, {}, {})}</li> ${!isDefenseCharacter(activePlayerCharacter) ? `<li>${validate_component(AttackStage, "AttackStage").$$render($$result, {}, {}, {})}</li> <li>${validate_component(ExchangeJoker, "ExchangeJoker").$$render($$result, {}, {}, {})}</li>` : `<li>${validate_component(DefendStage, "DefendStage").$$render($$result, {}, {}, {})}</li> <li>${validate_component(AskQuestion, "AskQuestion").$$render($$result, {}, {}, {})}</li> <li>${activePlayerCharacter.ability === "quarter-reveal" ? `${validate_component(QuarterReveal, "QuarterReveal").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "exchange-digital-footprint" ? `${validate_component(ExchangeDigitalFootprint, "ExchangeDigitalFootprint").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "is-attacking-stage" ? `${validate_component(IsAttackingStage, "IsAttackingStage").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "is-next-to-attacker" ? `${validate_component(IsNextToAttacker, "IsNextToAttacker").$$render($$result, {}, {}, {})}` : ``}`}`}`}</li>`}</ul></div>` : ``}`;
 });
 const ResultHasCollectedItems = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Gesammelte Gegenstände" }, {}, {
+  let $collectedItems, $$unsubscribe_collectedItems;
+  const { machine: machine2 } = getGameContext();
+  const collectedItems = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    const lastFinalizedActionEvent = gameState.finalizedActionEvents.at(-1);
+    if (lastFinalizedActionEvent?.action !== "ask-question" || lastFinalizedActionEvent.question !== "has-collected-items") {
+      return void 0;
+    }
+    return BOARD_ITEMS.filter((item) => isAttackItemId(item.id) && isEqual(item.position, lastFinalizedActionEvent.position)).map((item) => ({
+      id: item.id,
+      count: gameState.attackInventory[item.id]
+    })).filter((item) => item.count);
+  });
+  $$unsubscribe_collectedItems = subscribe(collectedItems, (value) => $collectedItems = value);
+  $$unsubscribe_collectedItems();
+  return `${$collectedItems ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Gesammelte Gegenstände" }, {}, {
     default: () => {
-      return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+      return `${$collectedItems.length > 0 ? `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
           return `Der/die Angreifer:in hat folgende Gegenstände gesammelt:`;
         }
-      })}
-  Noch nicht implementiert`;
+      })} ${each($collectedItems, (item) => {
+        return `${validate_component(Item, "Item").$$render($$result, { itemId: item.id }, {}, {})}`;
+      })}` : `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+        default: () => {
+          return `Der/die Angreifer:in hat keine der Gegenstände gesammelt.`;
+        }
+      })}`}`;
     }
-  })}`;
+  })}` : ``}`;
 });
 const ResultIsAttackingStage = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angriff auf Stufe" }, {}, {
@@ -25521,4 +25541,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-2404edd0.js.map
+//# sourceMappingURL=_page.svelte-bb6f1bc5.js.map
