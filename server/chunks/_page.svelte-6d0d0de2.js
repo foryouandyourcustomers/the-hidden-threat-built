@@ -24547,22 +24547,53 @@ const ResultHasCollectedItems = create_ssr_component(($$result, $$props, $$bindi
   })}` : ``}`;
 });
 const ResultIsAttackingStage = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $isAttackingStage, $$unsubscribe_isAttackingStage;
+  const { machine: machine2 } = getGameContext();
+  const isAttackingStage = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    const lastFinalizedActionEvent = gameState.finalizedActionEvents.at(-1);
+    if (lastFinalizedActionEvent?.action !== "is-attacking-stage") {
+      return false;
+    }
+    return !!gameState.activeTargetedAttacks.find((attack) => {
+      const stage = BOARD_SUPPLY_CHAINS.flat().find((stage2) => stage2.supplyChainId === attack.target.supplyChainId && stage2.id === attack.target.stageId);
+      return isEqual(stage?.coordinate, lastFinalizedActionEvent.position);
+    });
+  });
+  $$unsubscribe_isAttackingStage = subscribe(isAttackingStage, (value) => $isAttackingStage = value);
+  $$unsubscribe_isAttackingStage();
   return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angriff auf Stufe" }, {}, {
     default: () => {
-      return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+      return `${$isAttackingStage ? `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
-          return `Noch nicht implementiert`;
+          return `Der/die Angreifer:in hat einen gezielten Angriff auf diese Stufe.`;
         }
-      })}`;
+      })}` : `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+        default: () => {
+          return `Der/die Angreifer:in hat keinen gezielten Angriff auf diese Stufe.`;
+        }
+      })}`}`;
     }
   })}`;
 });
 const ResultIsNextToAttacker = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $isNextToAttacker, $$unsubscribe_isNextToAttacker;
+  const { machine: machine2 } = getGameContext();
+  const isNextToAttacker = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    const lastFinalizedActionEvent = gameState.finalizedActionEvents.at(-1);
+    if (lastFinalizedActionEvent?.action !== "is-next-to-attacker") {
+      return false;
+    }
+    return Math.abs(lastFinalizedActionEvent.position[0] - gameState.playerPositions.attacker[0]) + Math.abs(lastFinalizedActionEvent.position[1] - gameState.playerPositions.attacker[1]) <= 1;
+  });
+  $$unsubscribe_isNextToAttacker = subscribe(isNextToAttacker, (value) => $isNextToAttacker = value);
+  $$unsubscribe_isNextToAttacker();
   return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:in angrenzend?" }, {}, {
     default: () => {
       return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
-          return `Noch nicht implementiert`;
+          return `Angreifer:in ${escape($isNextToAttacker ? "" : "nicht")} ist auf diesem oder einem angrenzenden Feld.`;
         }
       })}`;
     }
@@ -25541,4 +25572,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-bb6f1bc5.js.map
+//# sourceMappingURL=_page.svelte-6d0d0de2.js.map
