@@ -24542,8 +24542,20 @@ const Actions = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     ($activePlayerPosition[0] > 5 ? "on-left" : "") + " " + ($activePlayerPosition[1] > 4 ? "on-top" : "")
   ].join(" ").trim()}"><li class="title svelte-1fn3hwq" data-svelte-h="svelte-axnyp8">Aktion auswählen</li> <li>${validate_component(CollectItem, "CollectItem").$$render($$result, {}, {}, {})}</li> ${!isDefenseCharacter(activePlayerCharacter) ? `<li>${validate_component(AttackStage, "AttackStage").$$render($$result, {}, {}, {})}</li> <li>${validate_component(ExchangeJoker, "ExchangeJoker").$$render($$result, {}, {}, {})}</li>` : `<li>${validate_component(DefendStage, "DefendStage").$$render($$result, {}, {}, {})}</li> <li>${validate_component(AskQuestion, "AskQuestion").$$render($$result, {}, {}, {})}</li> <li>${activePlayerCharacter.ability === "quarter-reveal" ? `${validate_component(QuarterReveal, "QuarterReveal").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "exchange-digital-footprint" ? `${validate_component(ExchangeDigitalFootprint, "ExchangeDigitalFootprint").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "is-attacking-stage" ? `${validate_component(IsAttackingStage, "IsAttackingStage").$$render($$result, {}, {}, {})}` : `${activePlayerCharacter.ability === "is-next-to-attacker" ? `${validate_component(IsNextToAttacker, "IsNextToAttacker").$$render($$result, {}, {}, {})}` : ``}`}`}`}</li>`}</ul></div>` : ``}`;
 });
+const ResultDidUseJoker = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `${`${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Joker eingesetzt" }, {}, {
+    default: () => {
+      return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+        default: () => {
+          return `Der/Die Angreifer:in hat einen Joker eingesetzt um der Frage auszuweichen.`;
+        }
+      })}`;
+    }
+  })}`}`;
+});
 const ResultHasCollectedItems = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $collectedItems, $$unsubscribe_collectedItems;
+  let visible = true;
   const { machine: machine2 } = getGameContext();
   const collectedItems = useSelector(machine2.service, ({ context }) => {
     const gameState = GameState.fromContext(context);
@@ -24558,7 +24570,7 @@ const ResultHasCollectedItems = create_ssr_component(($$result, $$props, $$bindi
   });
   $$unsubscribe_collectedItems = subscribe(collectedItems, (value) => $collectedItems = value);
   $$unsubscribe_collectedItems();
-  return `${$collectedItems ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Gesammelte Gegenstände" }, {}, {
+  return `${$collectedItems && visible ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Gesammelte Gegenstände" }, {}, {
     default: () => {
       return `${$collectedItems.length > 0 ? `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
@@ -24590,7 +24602,7 @@ const ResultIsAttackingStage = create_ssr_component(($$result, $$props, $$bindin
   });
   $$unsubscribe_isAttackingStage = subscribe(isAttackingStage, (value) => $isAttackingStage = value);
   $$unsubscribe_isAttackingStage();
-  return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angriff auf Stufe" }, {}, {
+  return `${`${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angriff auf Stufe" }, {}, {
     default: () => {
       return `${$isAttackingStage ? `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
@@ -24602,7 +24614,7 @@ const ResultIsAttackingStage = create_ssr_component(($$result, $$props, $$bindin
         }
       })}`}`;
     }
-  })}`;
+  })}`}`;
 });
 const ResultIsNextToAttacker = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $isNextToAttacker, $$unsubscribe_isNextToAttacker;
@@ -24617,7 +24629,7 @@ const ResultIsNextToAttacker = create_ssr_component(($$result, $$props, $$bindin
   });
   $$unsubscribe_isNextToAttacker = subscribe(isNextToAttacker, (value) => $isNextToAttacker = value);
   $$unsubscribe_isNextToAttacker();
-  return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:in angrenzend?" }, {}, {
+  return `${`${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:in angrenzend?" }, {}, {
     default: () => {
       return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
@@ -24625,10 +24637,10 @@ const ResultIsNextToAttacker = create_ssr_component(($$result, $$props, $$bindin
         }
       })}`;
     }
-  })}`;
+  })}`}`;
 });
 const ResultIsOnField = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return ` ${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:in nicht auf dem Feld" }, {}, {
+  return `${` ${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:in nicht auf dem Feld" }, {}, {
     default: () => {
       return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
         default: () => {
@@ -24636,7 +24648,7 @@ const ResultIsOnField = create_ssr_component(($$result, $$props, $$bindings, slo
         }
       })}`;
     }
-  })}`;
+  })}`}`;
 });
 const ResultQuarterReveal = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $attackerFields, $$unsubscribe_attackerFields;
@@ -24697,14 +24709,21 @@ const ResultQuarterReveal = create_ssr_component(($$result, $$props, $$bindings,
     });
   }
   $$unsubscribe_attackerFields();
-  return `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Die Felder werden nun angezeigt" }, {}, {})}`;
+  return `${`${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Angreifer:innen Position" }, {}, {
+    default: () => {
+      return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
+        default: () => {
+          return `Das Viertel des Spielbretts auf dem sich der/die Angreifer:in befindet werden nun angezeigt.`;
+        }
+      })}`;
+    }
+  })}`}`;
 });
 const ReactionResult = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $didUseJoker, $$unsubscribe_didUseJoker;
   let $question, $$unsubscribe_question;
   let $side, $$unsubscribe_side;
+  let $didUseJoker, $$unsubscribe_didUseJoker;
   const { machine: machine2 } = getGameContext();
-  let visible = true;
   const didUseJoker = useSelector(machine2.service, ({ context }) => {
     const gameState = GameState.fromContext(context);
     const lastDefenderAction = gameState.finalizedPlayerEvents.filter((event) => event.playerId !== "attacker").at(-1);
@@ -24723,23 +24742,10 @@ const ReactionResult = create_ssr_component(($$result, $$props, $$bindings, slot
   $$unsubscribe_question = subscribe(question, (value) => $question = value);
   const side = useSelector(machine2.service, ({ context }) => getCurrentUser(context).side);
   $$unsubscribe_side = subscribe(side, (value) => $side = value);
-  {
-    {
-      visible = true;
-    }
-  }
-  $$unsubscribe_didUseJoker();
   $$unsubscribe_question();
   $$unsubscribe_side();
-  return `${$question && $side === "defense" && $didUseJoker !== void 0 && visible ? `${$didUseJoker ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Joker eingesetzt" }, {}, {
-    default: () => {
-      return `${validate_component(Paragraph, "Paragraph").$$render($$result, {}, {}, {
-        default: () => {
-          return `Der/Die Angreifer:in hat einen Joker eingesetzt um der Frage auszuweichen.`;
-        }
-      })}`;
-    }
-  })}` : `${$question === "is-on-field" ? `${validate_component(ResultIsOnField, "ResultIsOnField").$$render($$result, {}, {}, {})}` : `${$question === "has-collected-items" ? `${validate_component(ResultHasCollectedItems, "ResultHasCollectedItems").$$render($$result, {}, {}, {})}` : `${$question === "quarter-reveal" ? `${validate_component(ResultQuarterReveal, "ResultQuarterReveal").$$render($$result, {}, {}, {})}` : `${$question === "is-attacking-stage" ? `${validate_component(ResultIsAttackingStage, "ResultIsAttackingStage").$$render($$result, {}, {}, {})}` : `${$question === "is-next-to-attacker" ? `${validate_component(ResultIsNextToAttacker, "ResultIsNextToAttacker").$$render($$result, {}, {}, {})}` : ``}`}`}`}`}`}` : ``}`;
+  $$unsubscribe_didUseJoker();
+  return `${$question && $side === "defense" && $didUseJoker !== void 0 ? `${$didUseJoker ? `${validate_component(ResultDidUseJoker, "ResultDidUseJoker").$$render($$result, {}, {}, {})}` : `${$question === "is-on-field" ? `${validate_component(ResultIsOnField, "ResultIsOnField").$$render($$result, {}, {}, {})}` : `${$question === "has-collected-items" ? `${validate_component(ResultHasCollectedItems, "ResultHasCollectedItems").$$render($$result, {}, {}, {})}` : `${$question === "quarter-reveal" ? `${validate_component(ResultQuarterReveal, "ResultQuarterReveal").$$render($$result, {}, {}, {})}` : `${$question === "is-attacking-stage" ? `${validate_component(ResultIsAttackingStage, "ResultIsAttackingStage").$$render($$result, {}, {}, {})}` : `${$question === "is-next-to-attacker" ? `${validate_component(ResultIsNextToAttacker, "ResultIsNextToAttacker").$$render($$result, {}, {}, {})}` : ``}`}`}`}`}`}` : ``}`;
 });
 const AttackerPosition = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $attackerPosition, $$unsubscribe_attackerPosition;
@@ -24863,7 +24869,7 @@ const Dimming = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   ].join(" ").trim()}"${add_styles({ "--mask": $mask })}></div>`;
 });
 const css$f = {
-  code: "@keyframes svelte-1cs03m3-pulsate{0%,to{scale:1.4}50%{scale:1.5}}.highlighted-fields.svelte-1cs03m3.svelte-1cs03m3{grid-gap:0;bottom:0;display:grid;gap:0;grid-template-columns:repeat(var(--column-count),1fr);grid-template-rows:repeat(var(--row-count),1fr);left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:var(--layer-5)}.highlighted-fields.info.svelte-1cs03m3.svelte-1cs03m3{--_color:#fcb337}.highlighted-fields.attacker.svelte-1cs03m3.svelte-1cs03m3,.highlighted-fields.reveal.svelte-1cs03m3.svelte-1cs03m3{--_color:var(--color-red-polygon)}.highlighted-fields.svelte-1cs03m3 .field.svelte-1cs03m3{animation:svelte-1cs03m3-pulsate 1s infinite;background:radial-gradient(transparent 50%,var(--_color) 100%);border:var(--px) solid var(--_color);border-radius:var(--radius-xl);grid-column:var(--column);grid-row:var(--row);transform-origin:center}",
+  code: "@keyframes svelte-1ayt81d-pulsate{0%,to{opacity:.2}40%,60%{opacity:.7}}.highlighted-fields.svelte-1ayt81d.svelte-1ayt81d{grid-gap:0;bottom:0;display:grid;gap:0;grid-template-columns:repeat(var(--column-count),1fr);grid-template-rows:repeat(var(--row-count),1fr);left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:var(--layer-5)}.highlighted-fields.info.svelte-1ayt81d.svelte-1ayt81d{--_color:#fcb337}.highlighted-fields.attacker.svelte-1ayt81d.svelte-1ayt81d,.highlighted-fields.reveal.svelte-1ayt81d.svelte-1ayt81d{--_color:var(--color-red-polygon)}.highlighted-fields.svelte-1ayt81d .field.svelte-1ayt81d{animation:svelte-1ayt81d-pulsate 1.8s infinite;background:radial-gradient(transparent 50%,var(--_color) 100%);grid-column:var(--column);grid-row:var(--row);transform-origin:center}@supports (color:color-mix(in lch,red,blue)) and (top:var(--f )){.highlighted-fields.svelte-1ayt81d .field.svelte-1ayt81d{background:radial-gradient(color-mix(in oklab,var(--_color),transparent 40%) 50%,var(--_color) 100%)}}",
   map: null
 };
 const HighlightedFields = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -24872,18 +24878,18 @@ const HighlightedFields = create_ssr_component(($$result, $$props, $$bindings, s
   $$unsubscribe_highlightedFields = subscribe(highlightedFields, (value) => $highlightedFields = value);
   $$result.css.add(css$f);
   $$unsubscribe_highlightedFields();
-  return `${$highlightedFields.info ? `<div class="highlighted-fields info svelte-1cs03m3">${each($highlightedFields.info, (coordinates) => {
-    return `<div class="field svelte-1cs03m3"${add_styles({
+  return `${$highlightedFields.info ? `<div class="highlighted-fields info svelte-1ayt81d">${each($highlightedFields.info, (coordinates) => {
+    return `<div class="field svelte-1ayt81d"${add_styles({
       "--column": coordinates[0] + 1,
       "--row": coordinates[1] + 1
     })}></div>`;
-  })}</div>` : ``} ${$highlightedFields.attacker ? `<div class="highlighted-fields attacker svelte-1cs03m3">${each($highlightedFields.attacker, (coordinates) => {
-    return `<div class="field svelte-1cs03m3"${add_styles({
+  })}</div>` : ``} ${$highlightedFields.attacker ? `<div class="highlighted-fields attacker svelte-1ayt81d">${each($highlightedFields.attacker, (coordinates) => {
+    return `<div class="field svelte-1ayt81d"${add_styles({
       "--column": coordinates[0] + 1,
       "--row": coordinates[1] + 1
     })}></div>`;
-  })}</div>` : ``} ${$highlightedFields.reveal ? `<div class="highlighted-fields reveal svelte-1cs03m3">${each($highlightedFields.reveal, (coordinates) => {
-    return `<div class="field svelte-1cs03m3"${add_styles({
+  })}</div>` : ``} ${$highlightedFields.reveal ? `<div class="highlighted-fields reveal svelte-1ayt81d">${each($highlightedFields.reveal, (coordinates) => {
+    return `<div class="field svelte-1ayt81d"${add_styles({
       "--column": coordinates[0] + 1,
       "--row": coordinates[1] + 1
     })}></div>`;
@@ -25633,4 +25639,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-f23a6fd4.js.map
+//# sourceMappingURL=_page.svelte-a2c63b43.js.map

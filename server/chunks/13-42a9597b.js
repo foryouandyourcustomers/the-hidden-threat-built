@@ -36,12 +36,12 @@ var _page_server_ts = /*#__PURE__*/Object.freeze({
 
 const index = 13;
 let component_cache;
-const component = async () => component_cache ??= (await import('./_page.svelte-f23a6fd4.js')).default;
+const component = async () => component_cache ??= (await import('./_page.svelte-a2c63b43.js')).default;
 const universal_id = "src/routes/game/[gameId=uid]/+page.ts";
 const server_id = "src/routes/game/[gameId=uid]/+page.server.ts";
-const imports = ["_app/immutable/nodes/13.7a314a6f.js","_app/immutable/chunks/scheduler.919cf977.js","_app/immutable/chunks/index.6a811cc0.js","_app/immutable/chunks/index.5157fae5.js","_app/immutable/chunks/Board.bf47c930.js","_app/immutable/chunks/items.675b25aa.js","_app/immutable/chunks/Heading.2caf3544.js","_app/immutable/chunks/Paragraph.505ace51.js","_app/immutable/chunks/Face.e517c585.js","_app/immutable/chunks/Polygon.f5ce0aa8.js"];
-const stylesheets = ["_app/immutable/assets/13.60e5412b.css","_app/immutable/assets/Board.f0e28b25.css","_app/immutable/assets/Heading.02ea3cfd.css","_app/immutable/assets/Paragraph.7e229384.css","_app/immutable/assets/Face.7ebb55cf.css"];
+const imports = ["_app/immutable/nodes/13.dfa99f63.js","_app/immutable/chunks/scheduler.919cf977.js","_app/immutable/chunks/index.6a811cc0.js","_app/immutable/chunks/index.5157fae5.js","_app/immutable/chunks/Board.bf47c930.js","_app/immutable/chunks/items.675b25aa.js","_app/immutable/chunks/Heading.2caf3544.js","_app/immutable/chunks/Paragraph.505ace51.js","_app/immutable/chunks/Face.e517c585.js","_app/immutable/chunks/Polygon.f5ce0aa8.js"];
+const stylesheets = ["_app/immutable/assets/13.65d8beef.css","_app/immutable/assets/Board.f0e28b25.css","_app/immutable/assets/Heading.02ea3cfd.css","_app/immutable/assets/Paragraph.7e229384.css","_app/immutable/assets/Face.7ebb55cf.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets, _page_ts as universal, universal_id };
-//# sourceMappingURL=13-9fa8da6e.js.map
+//# sourceMappingURL=13-42a9597b.js.map
