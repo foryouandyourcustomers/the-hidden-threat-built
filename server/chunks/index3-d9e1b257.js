@@ -7091,6 +7091,10 @@ const serverGameMachine = machine.provide({
           if (!gameState.isValidMove(event.gameEvent.to))
             return false;
           break;
+        case "reaction":
+          if (event.gameEvent.finalized && event.gameEvent.useJoker === void 0)
+            return false;
+          break;
         case "action":
           switch (event.gameEvent.action) {
             case "collect":
@@ -7254,4 +7258,4 @@ const sendMessageToMachine = (gameId, event) => {
 };
 
 export { sendMessageToUsers as a, createGame as c, getGlobalWebSocketServer as g, sendMessageToMachine as s };
-//# sourceMappingURL=index3-cca3d1b3.js.map
+//# sourceMappingURL=index3-d9e1b257.js.map
