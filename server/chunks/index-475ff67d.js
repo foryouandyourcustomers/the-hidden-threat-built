@@ -1,12 +1,12 @@
 import { a as getAugmentedNamespace, g as getDefaultExportFromCjs } from './_commonjsHelpers-24198af3.js';
-import crypto from 'crypto';
+import require$$5 from 'crypto';
 
 const rnds8Pool = new Uint8Array(256); // # of random values to pre-allocate
 
 let poolPtr = rnds8Pool.length;
 function rng() {
   if (poolPtr > rnds8Pool.length - 16) {
-    crypto.randomFillSync(rnds8Pool);
+    require$$5.randomFillSync(rnds8Pool);
     poolPtr = 0;
   }
 
@@ -239,7 +239,7 @@ function md5(bytes) {
     bytes = Buffer.from(bytes, 'utf8');
   }
 
-  return crypto.createHash('md5').update(bytes).digest();
+  return require$$5.createHash('md5').update(bytes).digest();
 }
 
 const v3 = v35('v3', 0x30, md5);
@@ -272,7 +272,7 @@ function sha1(bytes) {
     bytes = Buffer.from(bytes, 'utf8');
   }
 
-  return crypto.createHash('sha1').update(bytes).digest();
+  return require$$5.createHash('sha1').update(bytes).digest();
 }
 
 const v5 = v35('v5', 0x50, sha1);
@@ -570,4 +570,4 @@ var shortUuidExports = requireShortUuid();
 var shortUuid = /*@__PURE__*/getDefaultExportFromCjs(shortUuidExports);
 
 export { shortUuid as s };
-//# sourceMappingURL=index-bfbc1d9c.js.map
+//# sourceMappingURL=index-475ff67d.js.map
