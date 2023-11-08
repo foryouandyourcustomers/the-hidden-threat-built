@@ -23910,7 +23910,7 @@ const PlayerConfiguratorCharacter = create_ssr_component(($$result, $$props, $$b
   characters = CHARACTERS.filter((character) => character.side === side);
   activeCharacter = characters.find((character) => character.id === player.character);
   return `<div class="roles"><div class="tabs svelte-54yse9">${each(characters, (character) => {
-    return ` <button class="${[
+    return `<button class="${[
       "unstyled tab svelte-54yse9",
       player.character === character.id ? "active" : ""
     ].join(" ").trim()}">${escape(character.name)} </button>`;
@@ -25729,4 +25729,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-66c4c984.js.map
+//# sourceMappingURL=_page.svelte-f6f49bef.js.map
