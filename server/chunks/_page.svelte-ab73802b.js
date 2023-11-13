@@ -25932,8 +25932,60 @@ const Playing = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
   return `${validate_component(GlobalActions, "GlobalActions").$$render($$result, {}, {}, {})} ${validate_component(ToastMessages, "ToastMessages").$$render($$result, {}, {}, {})} <div class="playing svelte-323gxj"><div class="player-status svelte-323gxj">${validate_component(Players, "Players").$$render($$result, {}, {}, {})} ${validate_component(InfoPanel, "InfoPanel").$$render($$result, {}, {}, {})}</div> <div class="grid svelte-323gxj">${validate_component(Grid, "Grid").$$render($$result, {}, {}, {})} ${validate_component(Actions, "Actions").$$render($$result, {}, {}, {})} ${validate_component(Reaction, "Reaction").$$render($$result, {}, {}, {})} ${validate_component(AwaitingReaction, "AwaitingReaction").$$render($$result, {}, {}, {})} ${validate_component(ReactionResult, "ReactionResult").$$render($$result, {}, {}, {})}</div> <div class="game-status">${validate_component(Status, "Status").$$render($$result, {}, {}, {})}</div> </div>`;
 });
+let howl;
+const sprite = {
+  capture: [0, 204],
+  move: [704, 316],
+  select: [1519, 153],
+  silence: [2172, 500]
+};
+const getHowl = () => {
+  if (!howl) {
+    const spriteVersion = Object.values(sprite).map((value) => window.btoa(`${value[0]}:${value[1]}`)).join("-");
+    howl ??= new howlerExports.Howl({
+      src: [`/audio/sprite.mp3?v=${spriteVersion}`],
+      sprite
+    });
+  }
+  return howl;
+};
+const didWarmup = writable(false);
+const play = (sound) => {
+  getHowl().play(sound);
+};
+const Sound$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  const { machine: machine2 } = getGameContext();
+  useSelector(
+    machine2.service,
+    ({ context }) => {
+      const gameState = GameState.fromContext(context);
+      if (getCurrentUser(context).side === "attack") {
+        return gameState.playerPositions;
+      } else {
+        const { attacker: _, ...playerPositions } = gameState.playerPositions;
+        return playerPositions;
+      }
+    },
+    isEqual$1
+  );
+  useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    let itemCounts;
+    if (getCurrentUser(context).side === "attack") {
+      itemCounts = Object.values(gameState.attackInventory);
+    } else {
+      itemCounts = Object.values(gameState.defenseInventory);
+    }
+    return itemCounts.reduce((acc, count) => acc + count, 0);
+  });
+  useSelector(machine2.service, ({ context }) => GameState.fromContext(context).attackedStages.length);
+  useSelector(machine2.service, ({ context }) => GameState.fromContext(context).defendedStages.length);
+  return ``;
+});
 const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$unsubscribe_didWarmup;
   let $section, $$unsubscribe_section;
+  $$unsubscribe_didWarmup = subscribe(didWarmup, (value) => value);
   const { machine: machine2 } = getGameContext();
   let { reportMousePosition } = $$props;
   const section = useSelector(machine2.service, (snapshot) => {
@@ -25950,8 +26002,9 @@ const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_section = subscribe(section, (value) => $section = value);
   if ($$props.reportMousePosition === void 0 && $$bindings.reportMousePosition && reportMousePosition !== void 0)
     $$bindings.reportMousePosition(reportMousePosition);
+  $$unsubscribe_didWarmup();
   $$unsubscribe_section();
-  return `${validate_component(Board, "Board").$$render(
+  return ` ${validate_component(Board, "Board").$$render(
     $$result,
     {
       reportMousePosition,
@@ -25979,28 +26032,8 @@ const Game = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     },
     {},
     {}
-  )}`;
+  )} ${validate_component(Sound$1, "Sound").$$render($$result, {}, {}, {})}`;
 });
-let howl;
-const sprite = {
-  capture: [0, 204],
-  move: [704, 316],
-  select: [1519, 153],
-  silence: [2172, 500]
-};
-const getHowl = () => {
-  if (!howl) {
-    const spriteVersion = Object.values(sprite).map((value) => window.btoa(`${value[0]}:${value[1]}`)).join("-");
-    howl ??= new howlerExports.Howl({
-      src: [`/audio/sprite.mp3?v=${spriteVersion}`],
-      sprite
-    });
-  }
-  return howl;
-};
-const play = (sound) => {
-  getHowl().play(sound);
-};
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $socketConnection, $$unsubscribe_socketConnection;
   let $state, $$unsubscribe_state;
@@ -26088,4 +26121,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-bac64495.js.map
+//# sourceMappingURL=_page.svelte-ab73802b.js.map
