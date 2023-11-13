@@ -2,7 +2,7 @@ import { c as create_ssr_component, a as subscribe, e as escape, v as validate_c
 import { r as readable, w as writable } from './index2-fcf0b728.js';
 import { c as createMachine, b as createActor, a as assign, n as not, G as GameState, d as and, s as sharedGuards, R as ROW_COUNT, C as COLUMN_COUNT, N as NEW_GLOBAL_ATTACK_ROUNDS, A as ATTACKER_REVEAL_ROUNDS, T as TOTAL_ROUNDS } from './xstate.esm-82e04545.js';
 import { u as useSelector, s as setGameContext, g as getCurrentUser, a as getGameContext, B as Board } from './Board-ab5f7865.js';
-import { i as require_root, D as require_baseGetTag, s as requireIsObjectLike, d as requireIsObject, y as isEqual$1, g as getSharedGameContext, C as getGameSummary, B as getGameSummaryFilename, z as findStageAt, E as BOARD_ITEMS, F as BOARD_SUPPLY_CHAINS, H as getStage, I as objectEntries } from './index3-7e2fa931.js';
+import { i as require_root, D as require_baseGetTag, s as requireIsObjectLike, d as requireIsObject, A as envBool, y as isEqual$1, g as getSharedGameContext, C as getGameSummary, B as getGameSummaryFilename, z as findStageAt, E as BOARD_ITEMS, F as BOARD_SUPPLY_CHAINS, H as getStage, I as objectEntries } from './index3-7e2fa931.js';
 import { a as userIsAdmin, g as getCharacter, i as isDefenseCharacter, j as gameEventRequiresReaction, k as getPlayer, l as isActionEventOf, m as guardForGameEventType, C as CHARACTERS, A as ABILITIES, c as isDefenderId, e as getPlayerSide, n as getUser } from './user-fc27f200.js';
 import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-24198af3.js';
 import { A as Actions$1, B as Button, P as Paragraph } from './Paragraph-c549ffc0.js';
@@ -20946,6 +20946,7 @@ function requireThrottle () {
 var throttleExports = requireThrottle();
 var throttle = /*@__PURE__*/getDefaultExportFromCjs(throttleExports);
 
+const PUBLIC_DEV_DISABLE_CURSOR_POSITIONS = "false";
 function useMachine(machine2, ...[options = {}]) {
   const { guards, actions, actors, delays, ...interpreterOptions } = options;
   const machineConfig = {
@@ -21008,8 +21009,7 @@ const machine = createMachine({
           },
           always: {
             target: "Assigning roles",
-            guard: "finishedAssigningSides",
-            reenter: false
+            guard: "finishedAssigningSides"
           },
           on: {
             "assign side": {
@@ -21031,21 +21031,18 @@ const machine = createMachine({
                 {
                   target: "Ready",
                   guard: "allRolesAssignedOfSide",
-                  description: "All users have been assigned a role.",
-                  reenter: false
+                  description: "All users have been assigned a role."
                 },
                 {
                   target: "Editing player",
-                  guard: "isEditingPlayerOfSide",
-                  reenter: false
+                  guard: "isEditingPlayerOfSide"
                 }
               ]
             },
             Ready: {
               always: {
                 target: "Editing player",
-                guard: "isEditingPlayerOfSide",
-                reenter: false
+                guard: "isEditingPlayerOfSide"
               },
               on: {
                 "next step": {
@@ -21062,8 +21059,7 @@ const machine = createMachine({
               description: "Shows a modal where the admin can select the user, role and face image",
               always: {
                 target: "Incomplete",
-                guard: "isNotEditingPlayerOfSide",
-                reenter: false
+                guard: "isNotEditingPlayerOfSide"
               },
               on: {
                 "assign role": {
@@ -21079,8 +21075,7 @@ const machine = createMachine({
           },
           always: {
             target: "Waiting for other side",
-            guard: "finishedAssigningRolesOfSide",
-            reenter: false
+            guard: "finishedAssigningRolesOfSide"
           },
           on: {
             "start editing player": {
@@ -21105,8 +21100,7 @@ const machine = createMachine({
       },
       always: {
         target: "Playing",
-        guard: "finishedAssigningRoles",
-        reenter: false
+        guard: "finishedAssigningRoles"
       }
     },
     Playing: {
@@ -21117,8 +21111,7 @@ const machine = createMachine({
             Waiting: {
               always: {
                 target: "Playing",
-                guard: "userOnActiveSide",
-                reenter: false
+                guard: "userOnActiveSide"
               }
             },
             Playing: {
@@ -21128,17 +21121,14 @@ const machine = createMachine({
                   always: [
                     {
                       target: "Placing",
-                      guard: "requiresPlacement",
-                      reenter: false
+                      guard: "requiresPlacement"
                     },
                     {
                       target: "Reacting",
-                      guard: "requiresReaction",
-                      reenter: false
+                      guard: "requiresReaction"
                     },
                     {
-                      target: "Moving",
-                      reenter: false
+                      target: "Moving"
                     }
                   ]
                 },
@@ -21146,16 +21136,16 @@ const machine = createMachine({
                   description: "The user sees all possible starting positions",
                   always: {
                     target: "Moving",
-                    guard: "requiresMove",
-                    reenter: false
+                    guard: "requiresMove"
                   },
                   on: {
                     "apply game event": {
+                      target: "Placing",
                       guard: "userControlsPlayer isPlacementEvent",
                       actions: {
                         type: "forwardToServer"
                       },
-                      reenter: true
+                      reenter: false
                     }
                   }
                 },
@@ -21163,16 +21153,14 @@ const machine = createMachine({
                   description: "The defender asked something, and the attacker needs to respond.",
                   always: {
                     target: "Moving",
-                    guard: "requiresMove",
-                    reenter: false
+                    guard: "requiresMove"
                   }
                 },
                 Moving: {
                   description: "The board displays possible squares to move to",
                   always: {
                     target: "Action",
-                    guard: "requiresAction",
-                    reenter: false
+                    guard: "requiresAction"
                   },
                   on: {
                     "apply game event": {
@@ -21189,8 +21177,7 @@ const machine = createMachine({
                   description: "The user gets presented with a list of possible actions to perform",
                   always: {
                     target: "Moving",
-                    guard: "requiresMove",
-                    reenter: false
+                    guard: "requiresMove"
                   },
                   on: {
                     "apply game event": {
@@ -21214,8 +21201,7 @@ const machine = createMachine({
               },
               always: {
                 target: "Waiting",
-                guard: "userNotOnActiveSide",
-                reenter: false
+                guard: "userNotOnActiveSide"
               }
             }
           },
@@ -21252,83 +21238,26 @@ const machine = createMachine({
             "Showing current global attack": {
               on: {
                 "dismiss global attack": {
-                  target: "Dismissed",
-                  reenter: false
+                  target: "Dismissed"
                 }
               }
             },
             Dismissed: {
               on: {
                 "new global attack": {
-                  target: "Showing current global attack",
-                  reenter: false
+                  target: "Showing current global attack"
                 },
                 "show global attack": {
-                  target: "Showing current global attack",
-                  reenter: false
+                  target: "Showing current global attack"
                 }
               }
-            }
-          }
-        },
-        Sides: {
-          initial: "Initial",
-          states: {
-            Initial: {
-              always: [
-                {
-                  target: "Defense",
-                  guard: "userIsDefender",
-                  reenter: false
-                },
-                {
-                  target: "Attack",
-                  reenter: false
-                }
-              ]
-            },
-            Defense: {
-              states: {
-                "Attacker visibility": {
-                  initial: "Invisible",
-                  states: {
-                    Invisible: {
-                      always: {
-                        target: "Visible",
-                        guard: "attackerShouldBeVisible",
-                        reenter: false
-                      }
-                    },
-                    Visible: {
-                      always: {
-                        target: "Invisible",
-                        guard: "attackerShouldBeInvisible",
-                        reenter: false
-                      }
-                    }
-                  }
-                }
-              },
-              type: "parallel"
-            },
-            Attack: {}
-          },
-          on: {
-            "switch sides": {
-              target: "Sides",
-              guard: "isAdmin",
-              actions: {
-                type: "forwardToServer"
-              },
-              reenter: false
             }
           }
         }
       },
       always: {
         target: "Finished",
-        guard: "gameFinished",
-        reenter: false
+        guard: "gameFinished"
       },
       type: "parallel"
     },
@@ -21348,25 +21277,23 @@ const machine = createMachine({
     "shared game context update": {
       target: "#gameClient",
       actions: {
-        type: "updateSharedGameContext",
-        params: {}
+        type: "updateSharedGameContext"
       },
       reenter: false
     },
     "send emoji": {
       target: "#gameClient",
       actions: {
-        type: "forwardToServer",
-        params: {}
+        type: "forwardToServer"
       },
       reenter: false
     },
     "show emoji": {
+      target: "#gameClient",
       actions: {
-        type: "showEmoji",
-        params: {}
+        type: "showEmoji"
       },
-      reenter: true
+      reenter: false
     }
   }
 });
@@ -26120,6 +26047,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_state = subscribe(state, (value) => $state = value);
   const reportMousePosition = throttle(
     (position) => {
+      if (envBool(PUBLIC_DEV_DISABLE_CURSOR_POSITIONS))
+        return;
       if ($socketConnection.status === "opened") {
         socketConnection.send({ type: "mouse position", position });
       }
@@ -26159,4 +26088,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-8a67f046.js.map
+//# sourceMappingURL=_page.svelte-bac64495.js.map
