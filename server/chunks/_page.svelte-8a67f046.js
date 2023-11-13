@@ -25477,12 +25477,14 @@ const ToastMessages = create_ssr_component(($$result, $$props, $$bindings, slots
       if (gameState.nextEventType === "move") {
         notifications2.push({
           id: `move-${gameState.activePlayer.id}`,
-          message: `${user.name}, du bist dran! Bewege dich auf eines der markierten Felder, indem du auf das gewünschte Feld klickst.`
+          message: `${user.name}, du bist dran!`,
+          description: `Bewege dich auf eines der markierten Felder, indem du auf das gewünschte Feld klickst.`
         });
       } else if (gameState.nextEventType === "placement") {
         notifications2.push({
           id: `placement-${gameState.activePlayer.id}`,
-          message: `${user.name}, du bist dran! ${gameState.activeSide === "attack" ? "Platziere dich auf einem Feld deiner Wahl." : "Platziere dich auf einem der markierten Felder."}`
+          message: `${user.name}, du bist dran!`,
+          description: gameState.activeSide === "attack" ? "Platziere dich auf einem Feld deiner Wahl." : "Platziere dich auf einem der markierten Felder."
         });
       }
     }
@@ -26157,4 +26159,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-fcf65e77.js.map
+//# sourceMappingURL=_page.svelte-8a67f046.js.map

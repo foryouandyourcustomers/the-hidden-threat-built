@@ -65,9 +65,9 @@ const index = 16;
 let component_cache;
 const component = async () => component_cache ??= (await import('./_page.svelte-00c31dd6.js')).default;
 const server_id = "src/routes/game/new/+page.server.ts";
-const imports = ["_app/immutable/nodes/16.9931bc94.js","_app/immutable/chunks/scheduler.c377f626.js","_app/immutable/chunks/index.0a4ea15f.js","_app/immutable/chunks/UsernameScreen.92bf1e8b.js","_app/immutable/chunks/Board.cf6ffbed.js","_app/immutable/chunks/index.d870d639.js","_app/immutable/chunks/Paragraph.227750d9.js","_app/immutable/chunks/Heading.fe6b320e.js","_app/immutable/chunks/singletons.329c404c.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/stores.1a773b27.js"];
+const imports = ["_app/immutable/nodes/16.ebcae4a2.js","_app/immutable/chunks/scheduler.c377f626.js","_app/immutable/chunks/index.0a4ea15f.js","_app/immutable/chunks/UsernameScreen.2b81d52d.js","_app/immutable/chunks/Board.cf6ffbed.js","_app/immutable/chunks/index.d870d639.js","_app/immutable/chunks/Paragraph.227750d9.js","_app/immutable/chunks/Heading.fe6b320e.js","_app/immutable/chunks/singletons.810775d6.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/stores.eea973e6.js"];
 const stylesheets = ["_app/immutable/assets/UsernameScreen.59cbf0e4.css","_app/immutable/assets/Board.f0e28b25.css","_app/immutable/assets/Paragraph.7e229384.css","_app/immutable/assets/Heading.02ea3cfd.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=16-3c202b4a.js.map
+//# sourceMappingURL=16-ef075185.js.map
