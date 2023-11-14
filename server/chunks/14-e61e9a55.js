@@ -37,12 +37,12 @@ var _page_server_ts = /*#__PURE__*/Object.freeze({
 
 const index = 14;
 let component_cache;
-const component = async () => component_cache ??= (await import('./_page.svelte-1882d3f2.js')).default;
+const component = async () => component_cache ??= (await import('./_page.svelte-383895b8.js')).default;
 const universal_id = "src/routes/game/[gameId=uid]/+page.ts";
 const server_id = "src/routes/game/[gameId=uid]/+page.server.ts";
-const imports = ["_app/immutable/nodes/14.60423853.js","_app/immutable/chunks/scheduler.c377f626.js","_app/immutable/chunks/index.0a4ea15f.js","_app/immutable/chunks/index.d870d639.js","_app/immutable/chunks/Board.cf6ffbed.js","_app/immutable/chunks/items.75999dc2.js","_app/immutable/chunks/Heading.fe6b320e.js","_app/immutable/chunks/Paragraph.227750d9.js","_app/immutable/chunks/Face.9fc31efa.js","_app/immutable/chunks/Polygon.1a3cb19e.js"];
-const stylesheets = ["_app/immutable/assets/14.813b391c.css","_app/immutable/assets/Board.f0e28b25.css","_app/immutable/assets/Heading.02ea3cfd.css","_app/immutable/assets/Paragraph.7e229384.css","_app/immutable/assets/Face.7ebb55cf.css"];
+const imports = ["_app/immutable/nodes/14.5b21e63a.js","_app/immutable/chunks/scheduler.c377f626.js","_app/immutable/chunks/index.0a4ea15f.js","_app/immutable/chunks/index.d870d639.js","_app/immutable/chunks/Board.cf6ffbed.js","_app/immutable/chunks/items.75999dc2.js","_app/immutable/chunks/Heading.fe6b320e.js","_app/immutable/chunks/Paragraph.227750d9.js","_app/immutable/chunks/Face.9fc31efa.js","_app/immutable/chunks/Polygon.1a3cb19e.js"];
+const stylesheets = ["_app/immutable/assets/14.499ca57d.css","_app/immutable/assets/Board.f0e28b25.css","_app/immutable/assets/Heading.02ea3cfd.css","_app/immutable/assets/Paragraph.7e229384.css","_app/immutable/assets/Face.7ebb55cf.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets, _page_ts as universal, universal_id };
-//# sourceMappingURL=14-b6917ca4.js.map
+//# sourceMappingURL=14-e61e9a55.js.map
