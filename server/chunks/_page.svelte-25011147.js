@@ -24532,21 +24532,20 @@ const css$x = {
   map: null
 };
 const RadioButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["group", "checked", "value", "disabled"]);
+  let checked;
+  let $$restProps = compute_rest_props($$props, ["group", "value", "disabled"]);
   let $$slots = compute_slots(slots);
   let { group = void 0 } = $$props;
-  let { checked = false } = $$props;
-  let { value = void 0 } = $$props;
+  let { value } = $$props;
   let { disabled = false } = $$props;
   if ($$props.group === void 0 && $$bindings.group && group !== void 0)
     $$bindings.group(group);
-  if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0)
-    $$bindings.checked(checked);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
   if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0)
     $$bindings.disabled(disabled);
   $$result.css.add(css$x);
+  checked = value == group;
   return `<label class="${[
     "radio-container svelte-1ckhy6x",
     ($$slots.title ? "with-title" : "") + " " + (disabled ? "disabled" : "")
@@ -25035,8 +25034,10 @@ const AttackStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
   let $buttonDisabledReason, $$unsubscribe_buttonDisabledReason;
   const { machine: machine2 } = getGameContext();
   const { inProgressEvent, applyAction, cancel, canApplyAction, selectedOption: selectedPosition, formAction, buttonDisabled, buttonDisabledReason } = createActionHandler("attack", {
-    extractSelectedOption: (event) => event.position,
-    createEvent: (_, position) => ({ position })
+    extractSelectedOption: (event) => event.position?.toString(),
+    createEvent: (_, pos) => ({
+      position: pos ? pos.split(",").map(Number) : void 0
+    })
   });
   $$unsubscribe_inProgressEvent = subscribe(inProgressEvent, (value) => $inProgressEvent = value);
   $$unsubscribe_canApplyAction = subscribe(canApplyAction, (value) => $canApplyAction = value);
@@ -25077,7 +25078,7 @@ const AttackStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
                 $$result,
                 {
                   disabled: !$canApplyAction,
-                  value: boardStage.coordinate,
+                  value: boardStage.coordinate.toString(),
                   group: $selectedPosition
                 },
                 {
@@ -26849,4 +26850,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-61329281.js.map
+//# sourceMappingURL=_page.svelte-25011147.js.map
