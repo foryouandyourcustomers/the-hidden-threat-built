@@ -25034,10 +25034,8 @@ const AttackStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
   let $buttonDisabledReason, $$unsubscribe_buttonDisabledReason;
   const { machine: machine2 } = getGameContext();
   const { inProgressEvent, applyAction, cancel, canApplyAction, selectedOption: selectedPosition, formAction, buttonDisabled, buttonDisabledReason } = createActionHandler("attack", {
-    extractSelectedOption: (event) => event.position?.toString(),
-    createEvent: (_, pos) => ({
-      position: pos ? pos.split(",").map(Number) : void 0
-    })
+    extractSelectedOption: (event) => event.position,
+    createEvent: (_, position) => ({ position })
   });
   $$unsubscribe_inProgressEvent = subscribe(inProgressEvent, (value) => $inProgressEvent = value);
   $$unsubscribe_canApplyAction = subscribe(canApplyAction, (value) => $canApplyAction = value);
@@ -25078,7 +25076,7 @@ const AttackStage = create_ssr_component(($$result, $$props, $$bindings, slots) 
                 $$result,
                 {
                   disabled: !$canApplyAction,
-                  value: boardStage.coordinate.toString(),
+                  value: boardStage.coordinate,
                   group: $selectedPosition
                 },
                 {
@@ -26850,4 +26848,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-25011147.js.map
+//# sourceMappingURL=_page.svelte-fe3f01c9.js.map
