@@ -1332,7 +1332,7 @@ const TextInput = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   )}${add_attribute("value", $value, 0)}></label> ${$errors ? `<span class="invalid svelte-hpvgb9">${escape($errors)}</span>` : ``}`;
 });
 const css = {
-  code: "form.svelte-1cansdw{width:44rem}.field.svelte-1cansdw{background:var(--color-blue-transp-760);border-radius:var(--radius-md);margin-bottom:2rem;padding:1rem 2rem}",
+  code: "form.svelte-vvzfxb{width:44rem}.field.svelte-vvzfxb{background:var(--color-blue-transp-760);border-radius:var(--radius-md);margin-bottom:2rem;padding:1rem 2rem}.more-info.svelte-vvzfxb{margin-top:3rem}",
   map: null
 };
 const UsernameScreen = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -1355,7 +1355,7 @@ const UsernameScreen = create_ssr_component(($$result, $$props, $$bindings, slot
           return `Willkommen zum Online-Spiel The Hidden Threat*. Gleich geht es los. Nach der Vergabe des
     Usernamen werden Sie in die Lobby geleitet.`;
         }
-      })} <form method="post" class="svelte-1cansdw"><div class="field svelte-1cansdw">${validate_component(Heading, "Heading").$$render($$result, { centered: true }, {}, {
+      })} <form method="post" class="svelte-vvzfxb"><div class="field svelte-vvzfxb">${validate_component(Heading, "Heading").$$render($$result, { centered: true }, {}, {
         default: () => {
           return `Dein Username`;
         }
@@ -1385,10 +1385,10 @@ const UsernameScreen = create_ssr_component(($$result, $$props, $$bindings, slot
             }
           })}`;
         }
-      })}</form>`;
+      })}</form> <p class="more-info text-sm svelte-vvzfxb" data-svelte-h="svelte-1iim19c">* Weitere Informationen zum Spiel sind auf unserer <a href="/">Website</a> zufinden.</p>`;
     }
   })}`;
 });
 
 export { UsernameScreen as U };
-//# sourceMappingURL=UsernameScreen-4957ad31.js.map
+//# sourceMappingURL=UsernameScreen-1207ff07.js.map

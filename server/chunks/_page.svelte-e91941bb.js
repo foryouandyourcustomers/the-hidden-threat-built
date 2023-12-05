@@ -1,5 +1,5 @@
 import { c as create_ssr_component, v as validate_component } from './ssr-ea380d77.js';
-import { U as UsernameScreen } from './UsernameScreen-4957ad31.js';
+import { U as UsernameScreen } from './UsernameScreen-1207ff07.js';
 import './Board-d43dd77e.js';
 import './index2-863c54a1.js';
 import './game-context-19a9f73b.js';
@@ -21,4 +21,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-948a1be1.js.map
+//# sourceMappingURL=_page.svelte-e91941bb.js.map
