@@ -24679,8 +24679,14 @@ const CollectItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
   let $buttonDisabled, $$unsubscribe_buttonDisabled;
   let $buttonDisabledReason, $$unsubscribe_buttonDisabledReason;
   const { machine: machine2 } = getGameContext();
+  const collectableItems = useSelector(machine2.service, ({ context }) => {
+    const gameState = GameState.fromContext(context);
+    const playerPosition = gameState.activePlayerPosition;
+    return gameState.getItemsForCoordinate(playerPosition).filter((item) => isItemIdOfSide(item.item.id, gameState.activeSide));
+  });
+  $$unsubscribe_collectableItems = subscribe(collectableItems, (value) => $collectableItems = value);
   const { inProgressEvent, applyAction, cancel, canApplyAction, selectedOption, formAction, buttonDisabled, buttonDisabledReason } = createActionHandler("collect", {
-    extractSelectedOption: (event) => event.itemId,
+    extractSelectedOption: (event) => $collectableItems.length === 1 ? $collectableItems[0].item.id : event?.itemId,
     createEvent: (gameState, itemId) => ({
       itemId,
       position: gameState.activePlayerPosition
@@ -24691,12 +24697,6 @@ const CollectItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
   $$unsubscribe_selectedOption = subscribe(selectedOption, (value) => $selectedOption = value);
   $$unsubscribe_buttonDisabled = subscribe(buttonDisabled, (value) => $buttonDisabled = value);
   $$unsubscribe_buttonDisabledReason = subscribe(buttonDisabledReason, (value) => $buttonDisabledReason = value);
-  const collectableItems = useSelector(machine2.service, ({ context }) => {
-    const gameState = GameState.fromContext(context);
-    const playerPosition = gameState.activePlayerPosition;
-    return gameState.getItemsForCoordinate(playerPosition).filter((item) => isItemIdOfSide(item.item.id, gameState.activeSide));
-  });
-  $$unsubscribe_collectableItems = subscribe(collectableItems, (value) => $collectableItems = value);
   $$result.css.add(css$u);
   let $$settled;
   let $$rendered;
@@ -24708,7 +24708,7 @@ const CollectItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
       }
     })} ${$inProgressEvent ? `${validate_component(GameDialog, "GameDialog").$$render($$result, { title: "Gegenstand einsammeln" }, {}, {
       default: () => {
-        return `<p class="intro text-xs svelte-15troph" data-svelte-h="svelte-1q9aqq4">Bitte wähle einen Gegenstand aus</p> <form>${validate_component(RadioOptions, "RadioOptions").$$render($$result, { vertical: true }, {}, {
+        return `${$collectableItems.length > 1 ? `<p class="intro text-xs svelte-15troph" data-svelte-h="svelte-1f5seog">Bitte wähle einen Gegenstand aus</p>` : ``} <form>${validate_component(RadioOptions, "RadioOptions").$$render($$result, { vertical: true }, {}, {
           default: () => {
             return `${each($collectableItems, (collectableItem) => {
               return `${validate_component(RadioButton, "RadioButton").$$render(
@@ -24747,7 +24747,7 @@ const CollectItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
               {},
               {
                 default: () => {
-                  return `Auswahl bestätigen`;
+                  return `${escape($collectableItems.length > 1 ? "Auswahl bestätigen" : "Bestätigen")}`;
                 }
               }
             )}`;
@@ -26826,4 +26826,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-c94311a4.js.map
+//# sourceMappingURL=_page.svelte-3180686e.js.map
