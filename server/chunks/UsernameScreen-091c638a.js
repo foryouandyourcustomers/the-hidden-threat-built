@@ -1264,8 +1264,19 @@ function superForm(form, options = {}) {
     reset: (options2) => Form_reset(options2?.keepMessage ? get_store_value(Message) : void 0, options2?.data, options2?.id)
   };
 }
+const Check = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 6L9 17l-5-5"/>`}<!-- HTML_TAG_END --></svg>`;
+});
 const css$2 = {
-  code: "label.svelte-1ch2xak{display:block;margin-bottom:.5rem;margin-top:.5rem}.invalid.svelte-1ch2xak{color:#cd5c5c}",
+  code: "label.svelte-erm79x.svelte-erm79x.svelte-erm79x{align-items:flex-start;cursor:pointer;display:flex;gap:.75rem;margin-bottom:.5rem;margin-top:.5rem}.checkbox.svelte-erm79x .symbol.svelte-erm79x.svelte-erm79x{align-content:center;border:1px solid #fff;border-radius:var(--radius-xs);display:grid;height:1.25rem;justify-content:center;margin-top:.22rem;place-content:center;position:relative;width:1.25rem}.checkbox.svelte-erm79x .symbol.svelte-erm79x svg{display:block;opacity:0;transition:all .1s ease-in-out;width:1rem}.checkbox.svelte-erm79x input.svelte-erm79x.svelte-erm79x{left:-9999px;opacity:0;position:absolute}.checkbox.svelte-erm79x input.svelte-erm79x:focus-visible+.symbol.svelte-erm79x{outline:2px solid #fff}.checkbox.svelte-erm79x input.svelte-erm79x:checked+.symbol.svelte-erm79x svg{opacity:1}.invalid.svelte-erm79x.svelte-erm79x.svelte-erm79x{color:#cd5c5c}",
   map: null
 };
 const Checkbox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -1285,15 +1296,15 @@ const Checkbox = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   $$subscribe_boolValue(boolValue = value);
   $$unsubscribe_boolValue();
   $$unsubscribe_errors();
-  return `<label class="svelte-1ch2xak"><input${spread(
+  return `<label class="svelte-erm79x"><div class="checkbox svelte-erm79x"><input${spread(
     [
       { type: "checkbox" },
       { name: escape_attribute_value(field) },
       { value: "true" },
       escape_object($$restProps)
     ],
-    { classes: "svelte-1ch2xak" }
-  )}${add_attribute("checked", $boolValue, 1)}> <span class="display-name">${slots.default ? slots.default({}) : ``}</span></label> ${$errors ? `<span class="invalid svelte-1ch2xak">${escape($errors)}</span>` : ``}`;
+    { classes: "svelte-erm79x" }
+  )}${add_attribute("checked", $boolValue, 1)}> <div class="symbol svelte-erm79x">${validate_component(Check, "CheckMark").$$render($$result, {}, {}, {})}</div></div> <span class="display-name">${slots.default ? slots.default({}) : ``}</span></label> ${$errors ? `<span class="invalid svelte-erm79x">${escape($errors)}</span>` : ``}`;
 });
 const css$1 = {
   code: "label.svelte-hpvgb9{margin-bottom:.5rem;margin-top:.5rem}input.svelte-hpvgb9,label.svelte-hpvgb9{display:block}input.svelte-hpvgb9{background:var(--color-blue-spielbrett);border:1px solid var(--color-grey-300);border-radius:var(--radius-md);height:3.5rem;min-width:18rem;padding-left:1.5rem;padding-right:1.5rem;width:100%}input.svelte-hpvgb9:focus-visible{outline:3px solid hsla(0,0%,100%,.533)}.invalid.svelte-hpvgb9{color:#cd5c5c}",
@@ -1391,4 +1402,4 @@ const UsernameScreen = create_ssr_component(($$result, $$props, $$bindings, slot
 });
 
 export { UsernameScreen as U };
-//# sourceMappingURL=UsernameScreen-1207ff07.js.map
+//# sourceMappingURL=UsernameScreen-091c638a.js.map
