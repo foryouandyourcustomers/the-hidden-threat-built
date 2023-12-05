@@ -22243,9 +22243,35 @@ const AssigningSidesColumn = create_ssr_component(($$result, $$props, $$bindings
         return `${side === "defense" ? `Verteidigung` : `Angriff`}`;
       }
     }
-  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-16j2wjc">Spieler:innen</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
+  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
+    $$result,
+    {
+      centered: true,
+      size: "sm",
+      spacing: "none"
+    },
+    {},
+    {
+      default: () => {
+        return `Spieler:innen`;
+      }
+    }
+  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
-  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-1rr78wx">Spielleitung</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
+  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
+    $$result,
+    {
+      centered: true,
+      size: "sm",
+      spacing: "none"
+    },
+    {},
+    {
+      default: () => {
+        return `Spielleitung`;
+      }
+    }
+  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
   })}</div></div> </div>`;
 });
@@ -26826,4 +26852,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-2cb774c2.js.map
+//# sourceMappingURL=_page.svelte-010d4b67.js.map
