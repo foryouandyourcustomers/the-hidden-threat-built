@@ -22036,17 +22036,30 @@ const SwitchSidesButton = create_ssr_component(($$result, $$props, $$bindings, s
     }
   })}` : ``}`;
 });
-const Settings = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<svg${spread(
-    [
-      { viewBox: "0 0 24 24" },
-      { width: "1.2em" },
-      { height: "1.2em" },
-      escape_object($$props)
-    ],
-    {}
-  )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g>`}<!-- HTML_TAG_END --></svg>`;
-});
+let howl;
+const sprite = {
+  capture: [0, 204],
+  move: [704, 316],
+  select: [1519, 153],
+  silence: [2172, 500]
+};
+const getHowl = () => {
+  if (!howl) {
+    const spriteVersion = Object.values(sprite).map((value) => window.btoa(`${value[0]}:${value[1]}`)).join("-");
+    howl ??= new howlerExports.Howl({
+      src: [`/audio/sprite.mp3?v=${spriteVersion}`],
+      sprite
+    });
+  }
+  return howl;
+};
+const enabled = writable(true);
+const didWarmup = writable(false);
+const play = (sound) => {
+  if (!get_store_value(enabled))
+    return;
+  getHowl().play(sound);
+};
 const File_text = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<svg${spread(
     [
@@ -22057,6 +22070,17 @@ const File_text = create_ssr_component(($$result, $$props, $$bindings, slots) =>
     ],
     {}
   )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6m-4 5H8m8 4H8m2-8H8"/></g>`}<!-- HTML_TAG_END --></svg>`;
+});
+const Settings = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g>`}<!-- HTML_TAG_END --></svg>`;
 });
 const Volume_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<svg${spread(
@@ -22079,6 +22103,17 @@ const Volume_x = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     ],
     {}
   )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zm11 4l-6 6m0-6l6 6"/>`}<!-- HTML_TAG_END --></svg>`;
+});
+const X = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<svg${spread(
+    [
+      { viewBox: "0 0 24 24" },
+      { width: "1.2em" },
+      { height: "1.2em" },
+      escape_object($$props)
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>`}<!-- HTML_TAG_END --></svg>`;
 });
 const css$M = {
   code: ".open-button.svelte-821f7k{align-content:center;background:#fff;border-radius:var(--radius-full);color:#000;display:grid;height:1.5rem;justify-content:center;padding:.25rem;place-content:center;width:1.5rem}.open-button.svelte-821f7k svg{display:block;height:100%;width:100%}",
@@ -22147,32 +22182,8 @@ const RollbackButton = create_ssr_component(($$result, $$props, $$bindings, slot
     }
   })}` : ``}`;
 });
-let howl;
-const sprite = {
-  capture: [0, 204],
-  move: [704, 316],
-  select: [1519, 153],
-  silence: [2172, 500]
-};
-const getHowl = () => {
-  if (!howl) {
-    const spriteVersion = Object.values(sprite).map((value) => window.btoa(`${value[0]}:${value[1]}`)).join("-");
-    howl ??= new howlerExports.Howl({
-      src: [`/audio/sprite.mp3?v=${spriteVersion}`],
-      sprite
-    });
-  }
-  return howl;
-};
-const enabled = writable(true);
-const didWarmup = writable(false);
-const play = (sound) => {
-  if (!get_store_value(enabled))
-    return;
-  getHowl().play(sound);
-};
 const css$K = {
-  code: ".actions.svelte-1e7z9um{display:flex;gap:1rem;grid-area:options}",
+  code: ".actions.svelte-1tusrpu{display:flex;gap:1rem;grid-area:options}.faces.svelte-1tusrpu{display:flex;gap:.5rem;grid-area:jokers}.faces.svelte-1tusrpu svg{height:2rem;width:2rem}.close.svelte-1tusrpu{grid-area:options;position:relative}.close.svelte-1tusrpu svg{height:2rem;width:2rem}",
   map: null
 };
 const InGame = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -22185,7 +22196,7 @@ const InGame = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$K);
   $$unsubscribe_playing();
   $$unsubscribe_enabled();
-  return `${$playing ? `${validate_component(Score, "Score").$$render($$result, {}, {}, {})} ${validate_component(Jokers, "Jokers").$$render($$result, {}, {}, {})}` : ``} <div class="actions svelte-1e7z9um">${validate_component(OpenButton, "OpenButton").$$render($$result, { href: "/manual", target: "_blank" }, {}, {
+  return `${$playing ? `${validate_component(Score, "Score").$$render($$result, {}, {}, {})} ${validate_component(Jokers, "Jokers").$$render($$result, {}, {}, {})} <div class="actions svelte-1tusrpu">${validate_component(OpenButton, "OpenButton").$$render($$result, { href: "/manual", target: "_blank" }, {}, {
     default: () => {
       return `${validate_component(File_text, "HelpIcon").$$render($$result, {}, {}, {})}`;
     }
@@ -22200,7 +22211,7 @@ const InGame = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     default: () => {
       return `${validate_component(SwitchSidesButton, "SwitchSidesButton").$$render($$result, {}, {}, {})} ${validate_component(RollbackButton, "RollbackButton").$$render($$result, {}, {}, {})}`;
     }
-  })} </div>`;
+  })}</div>` : `<div class="faces svelte-1tusrpu">${validate_component(Face, "Face").$$render($$result, { faceId: 3 }, {}, {})} ${validate_component(Face, "Face").$$render($$result, { faceId: 2 }, {}, {})} ${validate_component(Face, "Face").$$render($$result, { faceId: 6 }, {}, {})} ${validate_component(Face, "Face").$$render($$result, { faceId: 5 }, {}, {})}</div> <a href="/" class="close unstyled svelte-1tusrpu">${validate_component(X, "CloseIcon").$$render($$result, {}, {}, {})}</a>`}`;
 });
 const css$J = {
   code: ".assigned.svelte-167n10j.svelte-167n10j{background-color:var(--color-blue-transp-760);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:.5rem;padding:.5rem 1.25rem 1.25rem}.users.svelte-167n10j.svelte-167n10j{background:var(--color-bg);border-radius:var(--radius-sm);padding:.5rem .8rem .8rem;text-align:center}.users.svelte-167n10j .user-list.svelte-167n10j{grid-gap:.5rem;display:grid;gap:.5rem;grid-template-columns:repeat(1,1fr);grid-template-columns:repeat(var(--column-count,1),1fr);margin-top:.5rem}.users.players.svelte-167n10j.svelte-167n10j{flex:1}.users.admins.svelte-167n10j.svelte-167n10j{min-height:5.5rem}.users.target.svelte-167n10j.svelte-167n10j{outline:2px solid var(--color-orange-dark)}.user.svelte-167n10j.svelte-167n10j{word-wrap:nowrap;background:var(--color-blue-transp-760);border-radius:var(--radius-xs);height:2rem;line-height:2rem;overflow:hidden;padding:0 .5rem;text-align:center;text-overflow:ellipsis}.user[draggable=true].svelte-167n10j.svelte-167n10j{cursor:grab}",
@@ -22243,35 +22254,9 @@ const AssigningSidesColumn = create_ssr_component(($$result, $$props, $$bindings
         return `${side === "defense" ? `Verteidigung` : `Angriff`}`;
       }
     }
-  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
-    $$result,
-    {
-      centered: true,
-      size: "sm",
-      spacing: "none"
-    },
-    {},
-    {
-      default: () => {
-        return `Spieler:innen`;
-      }
-    }
-  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
+  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-16j2wjc">Spieler:innen</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
-  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
-    $$result,
-    {
-      centered: true,
-      size: "sm",
-      spacing: "none"
-    },
-    {},
-    {
-      default: () => {
-        return `Spielleitung`;
-      }
-    }
-  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
+  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-1rr78wx">Spielleitung</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
   })}</div></div> </div>`;
 });
@@ -24503,17 +24488,6 @@ const Lobby = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `Sobald die andere Seite fertig ist, geht es weiter.`;
     }
   })}</div>` : `Unknown lobby state`}`}`}`;
-});
-const X = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<svg${spread(
-    [
-      { viewBox: "0 0 24 24" },
-      { width: "1.2em" },
-      { height: "1.2em" },
-      escape_object($$props)
-    ],
-    {}
-  )}><!-- HTML_TAG_START -->${`<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>`}<!-- HTML_TAG_END --></svg>`;
 });
 const css$y = {
   code: "h2.svelte-9xqe37{font-family:var(--font-display);font-size:1.25rem;font-weight:500;margin-bottom:.5rem;text-transform:uppercase}.dialog-wrapper.svelte-9xqe37{align-content:center;display:grid;justify-content:center;padding-left:var(--player-status-width);padding-right:7.5rem;place-content:center;position:fixed;z-index:var(--layer-top)}.backdrop.svelte-9xqe37,.dialog-wrapper.svelte-9xqe37{bottom:0;left:0;right:0;top:0}.backdrop.svelte-9xqe37{background-color:var(--color-bg);opacity:.5;position:absolute}.dialog.svelte-9xqe37{background-color:#fff;border:none;border-radius:var(--radius-sm);box-shadow:0 0 30px 0 var(--color-shadow-secondary);color:#000;padding:.75rem 1.5rem;position:relative;width:28.125rem}.close-button.svelte-9xqe37{position:absolute;right:.5rem;top:.5rem}.close-button.svelte-9xqe37 svg{display:block;height:1.5rem;width:1.5rem}",
@@ -26852,4 +26826,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-010d4b67.js.map
+//# sourceMappingURL=_page.svelte-497ad0f3.js.map
