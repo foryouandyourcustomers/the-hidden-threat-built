@@ -22243,40 +22243,14 @@ const AssigningSidesColumn = create_ssr_component(($$result, $$props, $$bindings
         return `${side === "defense" ? `Verteidigung` : `Angriff`}`;
       }
     }
-  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
-    $$result,
-    {
-      centered: true,
-      size: "sm",
-      spacing: "none"
-    },
-    {},
-    {
-      default: () => {
-        return `Spieler:innen`;
-      }
-    }
-  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
+  )} <div class="${["users players svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-16j2wjc">Spieler:innen</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => !user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
-  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}">${validate_component(Heading, "Heading").$$render(
-    $$result,
-    {
-      centered: true,
-      size: "sm",
-      spacing: "none"
-    },
-    {},
-    {
-      default: () => {
-        return `Spielleitung`;
-      }
-    }
-  )} <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
+  })}</div></div> <div class="${["users admins svelte-167n10j", ""].join(" ").trim()}"><h3 class="auto" data-svelte-h="svelte-1rr78wx">Spielleitung</h3> <div class="user-list svelte-167n10j">${each($users.filter((user) => user.isAdmin), (user) => {
     return `<div class="user svelte-167n10j"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user.name)} </div>`;
   })}</div></div> </div>`;
 });
 const css$I = {
-  code: ".columns.svelte-r26asw{grid-gap:3rem;display:grid;gap:3rem;grid-template-columns:1.5fr 1fr 1.5fr;height:27.5rem;margin-bottom:1rem;margin-top:1rem}.unassigned.svelte-r26asw{display:flex;flex-direction:column;gap:.5rem}.user.svelte-r26asw{word-wrap:nowrap;background:var(--color-white-80);border-radius:var(--radius-xs);color:var(--color-blue-spielbrett);height:2rem;line-height:2rem;overflow:hidden;padding:0 .5rem;text-align:center;text-overflow:ellipsis}.user[draggable=true].svelte-r26asw{cursor:grab}",
+  code: ".columns.svelte-yvcjxb{grid-gap:3rem;display:grid;gap:3rem;grid-template-columns:1.5fr 1fr 1.5fr;height:27.5rem;margin-bottom:1rem;margin-top:1rem}.unassigned.svelte-yvcjxb{display:flex;flex-direction:column;gap:.5rem}.user.svelte-yvcjxb{background:var(--color-white-80);border-radius:var(--radius-xs);color:var(--color-blue-spielbrett);height:2rem;line-height:2rem;overflow:hidden;padding:0 .5rem;text-align:center;text-overflow:ellipsis;white-space:nowrap}.user[draggable=true].svelte-yvcjxb{cursor:grab}",
   map: null
 };
 const AssigningSides = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -22310,8 +22284,8 @@ const AssigningSides = create_ssr_component(($$result, $$props, $$bindings, slot
       return `Einteilung in Teams`;
     }
   })} <p data-svelte-h="svelte-ugtca6">Gleich geht’s los. Sobald alle Teilnehmende sich eingeloggt haben, kann die Spielleitung alle in
-  Teams einteilen.</p> <div class="columns svelte-r26asw">${validate_component(AssigningSidesColumn, "AssigningSidesColumn").$$render($$result, { side: "defense" }, {}, {})} <div class="unassigned svelte-r26asw">${each($unassignedUsers, (user2) => {
-    return ` <div class="user svelte-r26asw"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user2.name)} </div>`;
+  Teams einteilen.</p> <div class="columns svelte-yvcjxb">${validate_component(AssigningSidesColumn, "AssigningSidesColumn").$$render($$result, { side: "defense" }, {}, {})} <div class="unassigned svelte-yvcjxb">${each($unassignedUsers, (user2) => {
+    return ` <div class="user svelte-yvcjxb"${add_attribute("draggable", $canAssignSides ? "true" : "false", 0)}>${escape(user2.name)} </div>`;
   })}</div> ${validate_component(AssigningSidesColumn, "AssigningSidesColumn").$$render($$result, { side: "attack" }, {}, {})}</div> ${validate_component(Actions$1, "Actions").$$render($$result, { spacing: "none" }, {}, {
     default: () => {
       return `${validate_component(Button, "Button").$$render(
@@ -26852,4 +26826,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-041777ae.js.map
+//# sourceMappingURL=_page.svelte-2cb774c2.js.map
