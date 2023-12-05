@@ -24502,7 +24502,7 @@ const GameDialog = create_ssr_component(($$result, $$props, $$bindings, slots) =
   return `<div class="dialog-wrapper svelte-9xqe37">  <div class="backdrop svelte-9xqe37"></div> <div class="dialog svelte-9xqe37">${title ? `<h2 class="svelte-9xqe37">${escape(title)}</h2>` : ``} <button class="unstyled close-button svelte-9xqe37">${validate_component(X, "CloseIcon").$$render($$result, {}, {}, {})}</button> ${$$slots.default ? `<div class="content">${slots.default ? slots.default({}) : ``}</div>` : ``}</div></div> `;
 });
 const css$x = {
-  code: '.radio-container.svelte-1ckhy6x.svelte-1ckhy6x{background:var(--color-white-80);border-radius:var(--radius-sm);cursor:pointer;display:flex;gap:.5rem;padding:.5rem;position:relative}@supports (color:color-mix(in lch,red,blue)) and (top:var(--f )){.radio-container.svelte-1ckhy6x.svelte-1ckhy6x{background:color-mix(in oklab,var(--color-white-80),transparent 60%)}}.radio-container.disabled.svelte-1ckhy6x.svelte-1ckhy6x{cursor:not-allowed;opacity:.5}.radio-container.svelte-1ckhy6x .content.svelte-1ckhy6x{background-color:var(--color-bg-strong);border-radius:var(--radius-xs);flex:1;padding:.25rem}.radio-container.svelte-1ckhy6x:not(.with-title) input.svelte-1ckhy6x{margin-top:.75rem}.radio-container.svelte-1ckhy6x .title.svelte-1ckhy6x{margin-right:1.5rem}.radio-container.with-title.svelte-1ckhy6x.svelte-1ckhy6x{flex-direction:column}.radio-container.with-title.svelte-1ckhy6x input.svelte-1ckhy6x{position:absolute;right:.5rem;top:.7rem}input.svelte-1ckhy6x.svelte-1ckhy6x{--_border-width:0.0875rem;--_size:1rem;--_checked-size:0.5rem;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#fff;border:var(--_border-width) solid var(--color-blue-spielbrett);border-radius:var(--radius-full);height:1rem;height:var(--_size);margin:0;outline:none;position:relative;width:1rem;width:var(--_size)}input.svelte-1ckhy6x.svelte-1ckhy6x:checked{--_border-width:0.125rem}input.svelte-1ckhy6x.svelte-1ckhy6x:checked:before{background:var(--color-blue-spielbrett);border-radius:var(--radius-full);content:"";display:block;height:var(--_checked-size);left:calc((var(--_size) - var(--_border-width)*2 - var(--_checked-size))/2);position:absolute;top:calc((var(--_size) - var(--_border-width)*2 - var(--_checked-size))/2);width:var(--_checked-size)}',
+  code: '.radio-container.svelte-6if0j5.svelte-6if0j5{background:var(--color-white-80);border-radius:var(--radius-sm);cursor:pointer;display:flex;gap:.5rem;padding:.5rem;position:relative}@supports (color:color-mix(in lch,red,blue)) and (top:var(--f )){.radio-container.svelte-6if0j5.svelte-6if0j5{background:color-mix(in oklab,var(--color-white-80),transparent 60%)}}.radio-container.disabled.svelte-6if0j5.svelte-6if0j5{cursor:not-allowed;opacity:.5}.radio-container.svelte-6if0j5 .content.svelte-6if0j5{background-color:var(--color-bg-strong);border-radius:var(--radius-xs);flex:1;padding:.25rem}.radio-container.svelte-6if0j5 .content.checked.svelte-6if0j5{box-shadow:0 0 .625rem rgba(38,45,46,.25)}.radio-container.svelte-6if0j5:not(.with-title) input.svelte-6if0j5{margin-top:.75rem}.radio-container.svelte-6if0j5 .title.svelte-6if0j5{margin-right:1.5rem}.radio-container.with-title.svelte-6if0j5.svelte-6if0j5{flex-direction:column}.radio-container.with-title.svelte-6if0j5 input.svelte-6if0j5{position:absolute;right:.5rem;top:.7rem}input.svelte-6if0j5.svelte-6if0j5{--_border-width:0.0875rem;--_size:1rem;--_checked-size:0.5rem;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#fff;border:var(--_border-width) solid var(--color-blue-spielbrett);border-radius:var(--radius-full);height:1rem;height:var(--_size);margin:0;outline:none;position:relative;width:1rem;width:var(--_size)}input.svelte-6if0j5.svelte-6if0j5:checked{--_border-width:0.125rem}input.svelte-6if0j5.svelte-6if0j5:checked:before{background:var(--color-blue-spielbrett);border-radius:var(--radius-full);content:"";display:block;height:var(--_checked-size);left:calc((var(--_size) - var(--_border-width)*2 - var(--_checked-size))/2);position:absolute;top:calc((var(--_size) - var(--_border-width)*2 - var(--_checked-size))/2);width:var(--_checked-size)}',
   map: null
 };
 const RadioButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -24521,7 +24521,7 @@ const RadioButton = create_ssr_component(($$result, $$props, $$bindings, slots) 
   $$result.css.add(css$x);
   checked = value == group;
   return `<label class="${[
-    "radio-container svelte-1ckhy6x",
+    "radio-container svelte-6if0j5",
     ($$slots.title ? "with-title" : "") + " " + (disabled ? "disabled" : "")
   ].join(" ").trim()}"><input${spread(
     [
@@ -24531,8 +24531,8 @@ const RadioButton = create_ssr_component(($$result, $$props, $$bindings, slots) 
       { disabled: disabled || null },
       escape_object($$restProps)
     ],
-    { classes: "svelte-1ckhy6x" }
-  )}${value === group ? add_attribute("checked", true, 1) : ""}> ${$$slots.title ? `<div class="title svelte-1ckhy6x">${slots.title ? slots.title({}) : ``}</div>` : ``} <div class="content svelte-1ckhy6x">${slots.default ? slots.default({}) : ``}</div> </label>`;
+    { classes: "svelte-6if0j5" }
+  )}${value === group ? add_attribute("checked", true, 1) : ""}> ${$$slots.title ? `<div class="title svelte-6if0j5">${slots.title ? slots.title({}) : ``}</div>` : ``} <div class="${["content svelte-6if0j5", checked ? "checked" : ""].join(" ").trim()}">${slots.default ? slots.default({}) : ``}</div> </label>`;
 });
 const css$w = {
   code: ".radio-buttons.svelte-1a8teoc{grid-column-gap:.75rem;grid-row-gap:.25rem;-moz-column-gap:.75rem;column-gap:.75rem;display:grid;grid-template-columns:1fr 1fr;max-width:36rem;row-gap:.25rem}.radio-buttons.vertical.svelte-1a8teoc{grid-template-columns:1fr}",
@@ -26826,4 +26826,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-3180686e.js.map
+//# sourceMappingURL=_page.svelte-ded80a1a.js.map
