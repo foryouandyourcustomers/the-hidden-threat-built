@@ -65,9 +65,9 @@ const index = 18;
 let component_cache;
 const component = async () => component_cache ??= (await import('./_page.svelte-49b26d8a.js')).default;
 const server_id = "src/routes/game/new/+page.server.ts";
-const imports = ["_app/immutable/nodes/18.57674d13.js","_app/immutable/chunks/scheduler.036a2d74.js","_app/immutable/chunks/index.e2632973.js","_app/immutable/chunks/UsernameScreen.644c6e99.js","_app/immutable/chunks/Board.bfaa13f2.js","_app/immutable/chunks/index.07541d6e.js","_app/immutable/chunks/game-context.fd63b07d.js","_app/immutable/chunks/FooterNav.5db6a55f.js","_app/immutable/chunks/Polygon.5badf3bf.js","_app/immutable/chunks/Heading.3960fba6.js","_app/immutable/chunks/singletons.71a562b7.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/stores.da2f6b96.js"];
+const imports = ["_app/immutable/nodes/18.7f72bacc.js","_app/immutable/chunks/scheduler.036a2d74.js","_app/immutable/chunks/index.e2632973.js","_app/immutable/chunks/UsernameScreen.b4fcf46b.js","_app/immutable/chunks/Board.bfaa13f2.js","_app/immutable/chunks/index.07541d6e.js","_app/immutable/chunks/game-context.fd63b07d.js","_app/immutable/chunks/FooterNav.5db6a55f.js","_app/immutable/chunks/Polygon.5badf3bf.js","_app/immutable/chunks/Heading.3960fba6.js","_app/immutable/chunks/singletons.7d8dcfed.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/stores.60577467.js"];
 const stylesheets = ["_app/immutable/assets/UsernameScreen.fb30e955.css","_app/immutable/assets/Board.11062d12.css","_app/immutable/assets/FooterNav.ad7ef04e.css","_app/immutable/assets/Polygon.fed6d67b.css","_app/immutable/assets/Heading.02ea3cfd.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=18-ba9ca316.js.map
+//# sourceMappingURL=18-0de17861.js.map
