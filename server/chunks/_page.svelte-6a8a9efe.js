@@ -24261,7 +24261,7 @@ const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}${add_attribute("this", input, 0)}${add_attribute("value", filterText, 0)}></div> <div class="indicators svelte-apvs86">${loading ? `<div class="icon loading svelte-apvs86" aria-hidden="true">${slots["loading-icon"] ? slots["loading-icon"]({}) : ` ${validate_component(LoadingIcon, "LoadingIcon").$$render($$result, {}, {}, {})} `}</div>` : ``} ${showClear ? `<button type="button" class="icon clear-select svelte-apvs86">${slots["clear-icon"] ? slots["clear-icon"]({}) : ` ${validate_component(ClearIcon, "ClearIcon").$$render($$result, {}, {}, {})} `}</button>` : ``} ${showChevron ? `<div class="icon chevron svelte-apvs86" aria-hidden="true">${slots["chevron-icon"] ? slots["chevron-icon"]({ listOpen }) : ` ${validate_component(ChevronIcon, "ChevronIcon").$$render($$result, {}, {}, {})} `}</div>` : ``}</div> ${slots["input-hidden"] ? slots["input-hidden"]({ value }) : ` <input${add_attribute("name", name, 0)} type="hidden"${add_attribute("value", value ? JSON.stringify(value) : null, 0)} class="svelte-apvs86"> `} ${required && (!value || value.length === 0) ? `${slots.required ? slots.required({ value }) : ` <select class="required svelte-apvs86" required tabindex="-1" aria-hidden="true"></select> `}` : ``} </div>`;
 });
 const css$C = {
-  code: `.tabs.svelte-1xgjha9.svelte-1xgjha9{align-items:flex-end;display:flex;gap:.25rem}.tabs.svelte-1xgjha9 .tab.svelte-1xgjha9{background:var(--color-blue-spielbrett);border-radius:var(--radius-md);border-bottom-left-radius:0;border-bottom-right-radius:0;display:flex;font-family:var(--font-display);font-size:var(--scale-2);gap:.5rem;line-height:150%;padding:.38rem 1.5rem;text-transform:uppercase;white-space:nowrap}.tabs.svelte-1xgjha9 .tab.svelte-1xgjha9:after{background:url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" fill="#1B253A"/></svg>');content:"";display:block;height:1.5rem;width:1.5rem}.tabs.svelte-1xgjha9 .tab.active.svelte-1xgjha9{font-size:var(--scale-3);line-height:2.25rem}.content.svelte-1xgjha9.svelte-1xgjha9,.tabs.svelte-1xgjha9 .tab.active.svelte-1xgjha9{background:var(--color-bg-strong-secondary);color:var(--color-text-onstrong-secondary)}.content.svelte-1xgjha9.svelte-1xgjha9{border-radius:var(--radius-md);border-top-left-radius:0;border-top-right-radius:0;display:flex;gap:1rem;min-height:10rem;padding:1rem 1.5rem}`,
+  code: ".tabs.svelte-wa0j6s.svelte-wa0j6s{align-items:flex-end;display:flex;gap:.25rem}.tabs.svelte-wa0j6s .tab.svelte-wa0j6s{align-items:center;background:var(--color-blue-spielbrett);border-radius:var(--radius-md);border-bottom-left-radius:0;border-bottom-right-radius:0;color:#bfc2ca;display:flex;font-family:var(--font-display);font-size:var(--scale-2);gap:.5rem;line-height:150%;padding:.38rem 1.5rem;text-transform:uppercase;white-space:nowrap}.tabs.svelte-wa0j6s .tab .icon.svelte-wa0j6s{aspect-ratio:1;display:block;width:1.125rem}.tabs.svelte-wa0j6s .tab.active.svelte-wa0j6s{background:var(--color-bg-strong-secondary);color:var(--color-text-onstrong-secondary);font-size:var(--scale-3);line-height:2.25rem}.tabs.svelte-wa0j6s .tab.active .icon.svelte-wa0j6s{width:1.5rem}.content.svelte-wa0j6s.svelte-wa0j6s{background:var(--color-bg-strong-secondary);border-radius:var(--radius-md);border-top-left-radius:0;border-top-right-radius:0;color:var(--color-text-onstrong-secondary);display:flex;gap:1rem;min-height:10rem;padding:1rem 1.5rem}",
   map: null
 };
 const PlayerConfiguratorCharacter = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -24276,12 +24276,12 @@ const PlayerConfiguratorCharacter = create_ssr_component(($$result, $$props, $$b
   side = player.id === "attacker" ? "attack" : "defense";
   characters = CHARACTERS.filter((character) => character.side === side);
   activeCharacter = characters.find((character) => character.id === player.character);
-  return `<div class="roles"><div class="tabs svelte-1xgjha9">${each(characters, (character) => {
+  return `<div class="roles"><div class="tabs svelte-wa0j6s">${each(characters, (character) => {
     return `<button class="${[
-      "unstyled tab svelte-1xgjha9",
+      "unstyled tab svelte-wa0j6s",
       player.character === character.id ? "active" : ""
-    ].join(" ").trim()}">${escape(character.name)} </button>`;
-  })}</div> <div class="content svelte-1xgjha9"><div>${validate_component(Heading, "Heading").$$render($$result, { spacing: "none", size: "sm" }, {}, {
+    ].join(" ").trim()}">${escape(character.name)} <svg class="icon svelte-wa0j6s" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="2"></circle>${player.character === character.id ? `<circle cx="12" cy="12" r="6" fill="currentColor"></circle>` : ``}</svg> </button>`;
+  })}</div> <div class="content svelte-wa0j6s"><div>${validate_component(Heading, "Heading").$$render($$result, { spacing: "none", size: "sm" }, {}, {
     default: () => {
       return `Beschreibung`;
     }
@@ -26826,4 +26826,4 @@ ${escape(JSON.stringify($state, null, 2))}
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-d0f998f7.js.map
+//# sourceMappingURL=_page.svelte-6a8a9efe.js.map
