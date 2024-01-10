@@ -1,8 +1,8 @@
 import { D as DEV } from './chunks/prod-ssr-7cc47430.js';
-import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from './chunks/ssr-ea380d77.js';
+import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from './chunks/ssr-0f977c41.js';
 import { e as error, j as json, t as text, R as Redirect, H as HttpError, A as ActionFailure } from './chunks/index-a4865dbd.js';
 import { s as stringify, i as is_primitive, g as get_type, a as stringify_string, D as DevalueError, b as is_plain_object, e as escaped } from './chunks/stringify-f45e10e0.js';
-import { w as writable, r as readable } from './chunks/index2-863c54a1.js';
+import { w as writable, r as readable } from './chunks/index2-286c48fe.js';
 
 let base = "";
 let assets = base;
@@ -158,7 +158,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="' + assets2 + '/favicon.png" />\n    <meta name="viewport" content="width=device-width" />\n    ' + head + '\n  </head>\n  <body data-sveltekit-preload-data="hover">\n    <div style="display: contents">' + body + "</div>\n  </body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="' + assets2 + '/favicon.svg" />\n    <meta name="viewport" content="width=device-width" />\n    ' + head + '\n  </head>\n  <body data-sveltekit-preload-data="hover">\n    <div style="display: contents">' + body + "</div>\n  </body>\n</html>\n",
     error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -220,10 +220,10 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "mt7e1o"
+  version_hash: "8a564z"
 };
 function get_hooks() {
-  return import('./chunks/hooks.server-1e783de0.js');
+  return import('./chunks/hooks.server-4815b5fd.js');
 }
 
 const SVELTE_KIT_ASSETS = "/_svelte_kit_assets";
