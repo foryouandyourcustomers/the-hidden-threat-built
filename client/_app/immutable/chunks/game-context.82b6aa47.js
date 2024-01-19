@@ -1,0 +1,1 @@
+import{r as m}from"./index.91a33cbd.js";import{y as p,z as x}from"./scheduler.e5e3f8cd.js";function b(e,t){return e===t}const g=(e,t,c=b)=>{let o,s=t(e.getSnapshot());return m(s,u=>{const r=l=>{const n=t(l);c(s,n)||(s=n,u(n))};return r(e.getSnapshot()),o=e.subscribe(r),()=>{o.unsubscribe()}})},a={},C=e=>{p(a,e)},S=()=>x(a);export{S as g,C as s,g as u};
